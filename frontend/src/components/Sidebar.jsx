@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Home, Package2, Package, Activity, Settings, PanelLeft, Maximize2, Minimize2, CircleChevronRight, CircleChevronLeft } from 'lucide-react';
+import { Home, Package2, Package, Activity, Settings, PanelLeft, CircleChevronRight, CircleChevronLeft } from 'lucide-react';
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from './ui/button';
 import { motion } from "framer-motion";
@@ -68,7 +68,7 @@ const Sidebar = () => {
               className="flex items-center gap-2 rounded-lg text-muted-foreground transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6"
             >
               <Activity className="h-5 w-5" />
-              <span>Features</span>
+              <span>Projects</span>
             </Link>
 
             <Link
@@ -103,9 +103,9 @@ const Sidebar = () => {
           className={`border-0 bg-transparent hover:bg-transparent transition-transform duration-700 ease-out mt-16 ${isExpanded ? 'absolute translate-x-[173px]' : 'absolute translate-x-[28px]'}`}
         >
           {isExpanded ? (
-            <CircleChevronLeft className="h-5 w-5 bg-white transition-transform duration-700 ease-out" />
+            <CircleChevronLeft className="h-5 w-5 bg-white rounded-full transition-transform duration-700 ease-out" />
           ) : (
-            <CircleChevronRight className="h-5 w-5 bg-white transition-transform duration-700 ease-out" />
+            <CircleChevronRight className="h-5 w-5 bg-white rounded-full transition-transform duration-700 ease-out" />
           )}
         </Button>
       </div>
@@ -145,14 +145,14 @@ const Sidebar = () => {
         </Link>
 
         <Link
-          to="#"
+          to="/projects"
           className={`relative flex items-center gap-2 rounded-lg transition-colors hover:text-foreground ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'}`}
-          onMouseEnter={() => setHovered('Features')}
+          onMouseEnter={() => setHovered('Projects')}
           onMouseLeave={() => setHovered(null)}
         >
           <Activity className="h-5 w-5" />
-          {hovered === 'Features' && !isExpanded && <Tooltip text="Features" />}
-          {isExpanded && <motion.span initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>Features</motion.span>}
+          {hovered === 'Projects' && !isExpanded && <Tooltip text="Projects" />}
+          {isExpanded && <motion.span initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>Projects</motion.span>}
         </Link>
       </nav>
       

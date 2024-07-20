@@ -8,6 +8,7 @@ import { SignUp } from './pages/SignUp';
 import { Dashboard } from './pages/Dashboard';
 import ScrollToTop from './ScrollToTop';
 import Loader from "./components/Loader";
+import Projects from "./pages/Projects";
 
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
             <Route path='/login' exact element={<Login />} />
             <Route path='/signup' exact element={<SignUp />} />
             <Route path='/dashboard' exact element={<Dashboard />} />
-
+            <Route path='/projects' exact element={<Projects />} />
           </Routes>
         )}
 
