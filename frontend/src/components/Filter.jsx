@@ -101,9 +101,9 @@ function Filter() {
                 </div>
             </div>
 
-            <div className={`transition-transform duration-300 ease-in-out ${isSheetOpen ? "max-h-screen" : "max-h-0"} overflow-hidden mt-4`}>
+            <div className={`transition-transform pb-2 duration-300 ease-in-out ${isSheetOpen ? "max-h-screen " : "max-h-0 "} overflow-hidden mt-4`}>
                 {selectedFilters.length > 0 && (
-                    <div className="border-t pt-4 mt-4">
+                    <div className="border-t mt-3 pt-2 ">
                         <h4 className="font-bold mb-2">Selected Filters:</h4>
                         <div className="flex flex-wrap gap-2">
                             {selectedFilters.map(filter => (
