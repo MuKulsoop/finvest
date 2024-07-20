@@ -9,6 +9,7 @@ import { Dashboard } from './pages/Dashboard';
 import ScrollToTop from './ScrollToTop';
 import Loader from "./components/Loader";
 import Projects from "./pages/Projects";
+import PostProject from "./pages/PostProject";
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
   return (
-    <div className="flex items-center flex-col bg-[#05140D]">
+    <div className="flex items-center flex-col bg-[#05140D] overflow-x-hidden">
       <Router>
         <ScrollToTop />
         {loading ? (
@@ -35,6 +36,8 @@ function App() {
             <Route path='/signup' exact element={<SignUp />} />
             <Route path='/dashboard' exact element={<Dashboard />} />
             <Route path='/projects' exact element={<Projects />} />
+            <Route path='/post-project' exact element={<PostProject />} />
+
           </Routes>
         )}
 

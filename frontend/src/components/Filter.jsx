@@ -44,7 +44,7 @@ function Filter() {
     };
 
     return (
-        <div className="p-4 pb-0 bg-white border rounded-lg shadow-lg">
+        <div className="p-4 pb-0 bg-white border rounded-lg shadow-lg overflow-x-hidden">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
                 <div className="flex flex-row items-center w-full  md:w-[70%] gap-2">
                     <button

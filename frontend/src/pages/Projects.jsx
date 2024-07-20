@@ -76,11 +76,11 @@ function Projects() {
     const [hoveredProject, setHoveredProject] = useState(null);
 
     return (
-        <div className="flex min-h-screen w-full">
+        <div className="flex min-h-screen w-full overflow-hidden scrollbar-hidden">
 
 
             {/* Main Content Area */}
-            <div className="flex-1 sm:py-3 sm:pl-14 bg-white overflow-auto">
+            <div className="flex-1 sm:py-3 sm:pl-14 bg-white overflow-auto scrollbar-hidden">
 
                 <header className="sticky top-0 z-30 flex items-center justify-between p-4 bg-white border-b border-gray-200">
                     {/* Sidebar */}
@@ -102,14 +102,14 @@ function Projects() {
                 <motion.span
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 1 }}
                     className="block" >
                     <Filter />
                 </motion.span>
 
 
-                <FadeIn direction="up" delay={0.2} fullWidth>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 p-10">
+                <FadeIn direction="up" delay={0.2} fullWidth className="overflow-hidden scrollbar-hidden">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 p-10 overflow-hidden scrollbar-hidden">
                         {projects.map((project) => (
                             <div
                                 key={project.id}
