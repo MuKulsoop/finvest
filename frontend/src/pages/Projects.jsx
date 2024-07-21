@@ -85,11 +85,11 @@ function Projects() {
                 <header className="sticky top-0 z-30 flex items-center justify-between p-4 bg-white border-b border-gray-200">
                     {/* Sidebar */}
                     <Sidebar />
-                    <FadeIn direction="down" delay={0.2} fullWidth  >
+                    <FadeIn direction="down" delay={0.1} fullWidth  >
                         <h1 className="md:text-4xl text-2xl font-semibold text-left text-[#05140D] w-full px-2 pl-4  md:px-3 z-[5]">Projects</h1>
 
                     </FadeIn>
-                    <FadeIn direction="down" delay={0.2}  >
+                    <FadeIn direction="down" delay={0.1}  >
                         <Link to="/post-project">
                             <Button variant="outline" className="flex items-center gap-2 text-[#1B7A57] border-[#1B7A57]">
                                 <PlusCircle className="h-5 w-5" />
@@ -99,18 +99,22 @@ function Projects() {
                     </FadeIn>
 
                 </header>
-                
-                <motion.span
+
+                {/* <motion.span
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1 }}
-                    className="block" >
+                    className="block" > */}
+                {/* </motion.span> */}
+                <FadeIn direction="up" delay={0.2} fullWidth>
                     <Filter />
-                </motion.span>
+
+                </FadeIn>
 
 
-                <FadeIn direction="up" delay={0.2} fullWidth className="overflow-hidden scrollbar-hidden">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 p-10 overflow-hidden scrollbar-hidden">
+
+                <FadeIn direction="up" delay={0.3} fullWidth className="overflow-hidden scrollbar-hidden">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 p-5 md:p-10 overflow-hidden scrollbar-hidden">
                         {projects.map((project) => (
                             <div
                                 key={project.id}
@@ -135,9 +139,9 @@ function Projects() {
                                         </Avatar>
                                         <p className="ml-4">{project.creator}</p>
                                     </div>
-                                    <p className="mt-4">{project.description}</p>
+                                    <p className="mt-4 md:text-lg text-sm">{project.description}</p>
                                     <div className="mt-6">
-                                        <p className="text-lg font-semibold">
+                                        <p className="md:text-lg text-normal font-semibold">
                                             Total Amount Raised: <span className="text-green-600">{project.amountRaised}</span>
                                         </p>
                                         <p className="mt-2">Contributors: {project.contributors}</p>

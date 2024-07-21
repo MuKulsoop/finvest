@@ -4,13 +4,13 @@ function Why() {
     return (
         <div className="flex flex-col items-center justify-center bg-[#05140D] w-full  md:p-10 p-5 md:py-20 py-10">
             <FadeIn direction="up" delay={0.2} fullWidth>
-                <h2 className="md:text-5xl text-4xl text-white font-semibold text-center py-3 z-5 ">
+                <h2 className="md:text-5xl text-3xl text-white font-semibold text-center py-3 z-5 ">
                     These are why <br />you should use Finvest
                 </h2>
             </FadeIn>
 
             <FadeIn direction="up" delay={0.3} fullWidth>
-                <h3 className="md:text-xl text-md text-white text-center py-4 z-5 md:w-[50%]">
+                <h3 className="md:text-xl text-sm text-white text-center py-4 z-5 md:w-[50%]">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.  Porro quidem at labore ipsum iusto earum optio modi enim
                 </h3>
             </FadeIn>
@@ -25,7 +25,7 @@ function Why() {
                             <img className="md:h-[90px] md:w-[90px] h-[50px] w-[50px]" src="https://res.cloudinary.com/djoebsejh/image/upload/v1721144151/xu3o3w3yllvmq3dpvhzs.png" alt="" />
                             <h3 className="md:text-3xl text-2xl text-white font-semibold text-center py-4">Full Control</h3>
                             <img src="https://res.cloudinary.com/djoebsejh/image/upload/v1721144165/v6o5c2lt8snirw1deumc.png" alt="" />
-                            <h4 className="md:text-4xl text-3xl text-white font-extralight  py-4">You have complete control over the invested money.From where it's used to how much is being used</h4>
+                            <h4 className="md:text-3xl text-xl text-white font-extralight  py-4">You have complete control over the invested money.From where it's used to how much is being used</h4>
                         </div>
                     </FadeIn>
 
@@ -34,7 +34,7 @@ function Why() {
                             <img className="md:h-[90px] md:w-[90px] h-[50px] w-[50px]" src="https://res.cloudinary.com/djoebsejh/image/upload/v1721144151/yyel7glhilcwz4yyfnbd.png" alt="" />
                             <h3 className="md:text-3xl text-2xl text-white font-semibold text-center py-4">High Profit</h3>
                             <img src="https://res.cloudinary.com/djoebsejh/image/upload/v1721144165/v6o5c2lt8snirw1deumc.png" alt="" />
-                            <h4 className="md:text-4xl text-3xl text-white font-extralight  py-4">Our sytem reccomends only the most profiting companies for you to invest in for getting maximum profit</h4>
+                            <h4 className="md:text-3xl text-xl text-white font-extralight  py-4">Our sytem reccomends only the most profiting companies for you to invest in for getting maximum profit</h4>
                         </div>
                     </FadeIn>
 
@@ -45,7 +45,7 @@ function Why() {
                             <img className="md:h-[90px] md:w-[90px] h-[50px] w-[50px]" src="https://res.cloudinary.com/djoebsejh/image/upload/v1721144151/hmumo7sd71pg9n69gi4j.png" alt="" />
                             <h3 className="md:text-3xl text-2xl text-white font-semibold text-center py-4">Minimal Risk</h3>
                             <img src="https://res.cloudinary.com/djoebsejh/image/upload/v1721144165/v6o5c2lt8snirw1deumc.png" alt="" />
-                            <h4 className="md:text-4xl text-3xl text-white font-extralight  py-4">Whenever you find the investment a mistake you can disssolve contract and take back remaining money</h4>
+                            <h4 className="md:text-3xl text-xl text-white font-extralight  py-4">Whenever you find the investment a mistake you can disssolve contract and take back remaining money</h4>
                         </div>
                     </FadeIn>
 
@@ -54,7 +54,7 @@ function Why() {
                             <img className="md:h-[90px] md:w-[90px] h-[50px] w-[50px]" src="https://res.cloudinary.com/djoebsejh/image/upload/v1721144152/f0izfofpl1ltfurfhw45.png" alt="" />
                             <h3 className="md:text-3xl text-2xl text-white font-semibold text-center py-4">Transparency</h3>
                             <img src="https://res.cloudinary.com/djoebsejh/image/upload/v1721144165/v6o5c2lt8snirw1deumc.png" alt="" />
-                            <h4 className="md:text-4xl text-3xl text-white font-extralight  py-4">All transaction are completely transparent and records can be acced anythime </h4>
+                            <h4 className="md:text-3xl text-xl text-white font-extralight  py-4">All transaction are completely transparent and records can be acced anythime </h4>
                         </div>
                     </FadeIn>
 

@@ -14,13 +14,13 @@ function Feature() {
                     <div className=" relative flex flex-col items-start justify-center  lg:max-w-[50%] z-10 pr-4">
                         <img className="m-0" src="https://res.cloudinary.com/djoebsejh/image/upload/v1721199942/taavtz4rowx8ovojuw2z.png" alt="Service Icon" />
                         <FadeIn direction="up" delay={0.3} fullWidth>
-                            <h2 className="md:text-5xl text-4xl text-white font-semibold py-3">
+                            <h2 className="md:text-5xl text-3xl text-white font-semibold py-3 text-left">
                                 Our Best Services <br /> For Your Convenience
                             </h2>
                         </FadeIn>
 
                         <FadeIn direction="up" delay={0.4} fullWidth>
-                            <h3 className="md:text-xl text-lg text-white py-4 md:w-full">
+                            <h3 className="md:text-xl text-sm text-white py-4 md:w-full">
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro quidem at labore ipsum iusto earum optio modi enim.
                             </h3>
                         </FadeIn>
