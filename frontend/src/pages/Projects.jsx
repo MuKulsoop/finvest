@@ -1,87 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PlusCircle, Share2, ArrowBigUpDash } from "lucide-react";
 import Sidebar from '@/components/Sidebar';
 import '../App.css';
 import FadeIn from '@/components/FadeIn';
 import Filter from '@/components/Filter';
 
-const projectsData = [
-    {
-        id: 1,
-        title: "Innovative Solar Panels",
-        description: "A project to develop new efficient solar panels that can be easily integrated into existing infrastructure, providing a sustainable and cost-effective energy solution.",
-        creator: "John Doe",
-        avatar: "https://randomuser.me/api/portraits/men/1.jpg",
-        image: "https://images.unsplash.com/photo-1516117172878-fd2c41f4a759?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-        amountRaised: "$10,000",
-        contributors: 50,
-        upvotes: 13,
-    },
-    {
-        id: 2,
-        title: "Clean Water Initiative",
-        description: "Providing clean water to underdeveloped regions by setting up filtration systems and educating local communities about water conservation and hygiene.",
-        creator: "Jane Smith",
-        avatar: "https://randomuser.me/api/portraits/women/2.jpg",
-        image: "https://images.unsplash.com/photo-1534081333815-ae5019106622?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-        amountRaised: "$20,000",
-        contributors: 75,
-        upvotes: 56,
-    },
-    {
-        id: 3,
-        title: "AI-Powered Healthcare",
-        description: "Using AI to revolutionize healthcare services by improving diagnosis accuracy, predicting disease outbreaks, and personalizing patient treatment plans.",
-        creator: "Alice Johnson",
-        avatar: "https://randomuser.me/api/portraits/women/3.jpg",
-        image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-        amountRaised: "$15,000",
-        contributors: 40,
-        upvotes: 23,
-    },
-    {
-        id: 4,
-        title: "Eco-Friendly Packaging",
-        description: "Developing sustainable packaging solutions that reduce environmental impact, including biodegradable materials and reusable packaging designs.",
-        creator: "Bob Brown",
-        avatar: "https://randomuser.me/api/portraits/men/4.jpg",
-        image: "https://plus.unsplash.com/premium_photo-1661666994446-6352c334bf80?q=80&w=1924&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        amountRaised: "$5,000",
-        contributors: 20,
-        upvotes: 6,
-    },
-    {
-        id: 5,
-        title: "Renewable Energy Sources",
-        description: "Exploring new renewable energy sources, including wind, solar, and hydroelectric power, to create a sustainable and reliable energy future.",
-        creator: "Charlie Davis",
-        avatar: "https://randomuser.me/api/portraits/men/5.jpg",
-        image: "https://plus.unsplash.com/premium_photo-1679917152562-09bb29e555c1?q=80&w=1854&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        amountRaised: "$25,000",
-        contributors: 100,
-        upvotes: 68,
-    },
-    {
-        id: 6,
-        title: "Educational App for Kids",
-        description: "Creating an engaging educational app for children that combines fun and learning with interactive games and activities.",
-        creator: "Emily White",
-        avatar: "https://randomuser.me/api/portraits/women/6.jpg",
-        image: "https://images.unsplash.com/photo-1544717305-996b815c338c?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-        amountRaised: "$8,000",
-        contributors: 35,
-        upvotes: 16,
-    },
-];
+
 
 function Projects() {
-    const [projects, setProjects] = useState(projectsData);
+    const [projects, setProjects] = useState([]);
     const [hoveredProject, setHoveredProject] = useState(null);
     const [userUpvotes, setUserUpvotes] = useState({});
+    const [loading, setLoading] = useState(true);  // State to track loading
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        // Fetch project data from JSON file
+        fetch('/projects.json')
+            .then((response) => response.json())
+            .then((data) => {
+                setProjects(data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error('Error fetching project data:', error);
+                setLoading(false);
+            });
+    }, []);
     const handleUpvote = (projectId) => {
         setProjects((prevProjects) =>
             prevProjects.map((project) =>
@@ -97,9 +45,12 @@ function Projects() {
         }));
     };
 
+    const handleProjectClick = (projectId) => {
+        navigate(`/projects/${projectId}`);
+    };
+
     return (
         <div className="flex min-h-screen w-full overflow-hidden scrollbar-hidden">
-            {/* Main Content Area */}
             <div className="flex-1 sm:py-3 sm:pl-14 bg-white overflow-auto scrollbar-hidden">
                 <header className="sticky top-0 z-30 flex items-center justify-between p-4 bg-white border-b border-gray-200">
                     <Sidebar />
@@ -125,9 +76,10 @@ function Projects() {
                         {projects.map((project) => (
                             <div
                                 key={project.id}
-                                className="relative h-[400px] w-full max-w-sm mx-auto overflow-hidden rounded-xl shadow-lg transition-transform transform hover:scale-105"
+                                className="relative h-[400px] w-full max-w-sm mx-auto overflow-hidden rounded-xl shadow-lg transition-transform transform hover:scale-105 cursor-pointer"
                                 onMouseEnter={() => setHoveredProject(project.id)}
                                 onMouseLeave={() => setHoveredProject(null)}
+                                onClick={() => handleProjectClick(project.id)}
                             >
                                 <img
                                     src={project.image}
@@ -142,7 +94,10 @@ function Projects() {
                                 >
                                     <div
                                         className="absolute top-2 right-4 flex items-center justify-center p-2 bg-white rounded-full shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
-                                        onClick={() => handleUpvote(project.id)}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleUpvote(project.id);
+                                        }}
                                     >
                                         <ArrowBigUpDash
                                             className={`h-6 w-6 ${userUpvotes[project.id] ? "text-green-500" : "text-gray-600"} transition-colors`}
@@ -164,7 +119,7 @@ function Projects() {
                                         <p className="text-green-600 font-semibold text-xl flex flex-col">
                                             {project.amountRaised}
                                             <span className="bg-[#2FB574] text-white text-[12px] px-3 py-0 mt-2 rounded-full line-clamp-1">Total Amount Raised</span>
-                                            </p>
+                                        </p>
                                         <p className="text-gray-600 font-medium text-sm">{project.contributors} contributors</p>
                                     </div>
                                     {hoveredProject === project.id && (
