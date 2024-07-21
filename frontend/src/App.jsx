@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
 // import Navbar from './components/Navbar'
@@ -35,8 +35,9 @@ function App() {
             <Route path='/login' exact element={<Login />} />
             <Route path='/signup' exact element={<SignUp />} />
             <Route path='/dashboard' exact element={<Dashboard />} />
-            <Route path='/projects' exact element={<Projects />} />
-            <Route path='/post-project' exact element={<PostProject />} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="post-project" element={<PostProject />} />
+
 
           </Routes>
         )}

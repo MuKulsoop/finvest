@@ -86,7 +86,7 @@ function Projects() {
                     {/* Sidebar */}
                     <Sidebar />
                     <FadeIn direction="down" delay={0.2} fullWidth  >
-                        <h1 className="md:text-4xl text-2xl font-semibold text-left text-[#05140D] w-full px-2  md:px-3 z-[5]">Projects</h1>
+                        <h1 className="md:text-4xl text-2xl font-semibold text-left text-[#05140D] w-full px-2 pl-4  md:px-3 z-[5]">Projects</h1>
 
                     </FadeIn>
                     <FadeIn direction="down" delay={0.2}  >
@@ -99,6 +99,7 @@ function Projects() {
                     </FadeIn>
 
                 </header>
+                
                 <motion.span
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -142,7 +143,7 @@ function Projects() {
                                         <p className="mt-2">Contributors: {project.contributors}</p>
                                     </div>
                                     {hoveredProject === project.id && (
-                                        <Button className="mt-4 w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-700">
+                                        <Button className="mt-4 w-full bg-[#2FB574] text-white py-2 rounded-md hover:bg-green-700">
                                             Donate / Invest
                                         </Button>
                                     )}

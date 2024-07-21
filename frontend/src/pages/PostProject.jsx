@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ChevronRight } from 'lucide-react';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import Sidebar from '@/components/Sidebar';
 import FadeIn from '@/components/FadeIn';
 import { Link } from 'react-router-dom';
+import { ChevronRight, Send } from 'lucide-react';
+
+
 
 function PostProject() {
     const [formData, setFormData] = useState({
@@ -13,7 +16,7 @@ function PostProject() {
         description: '',
         amountNeeded: '',
         category: '',
-        milestones: ['', ''], // Initialize with two empty strings
+        milestones: ['', ''],
         image: '',
     });
     const [milestoneCount, setMilestoneCount] = useState(2);
@@ -100,7 +103,7 @@ function PostProject() {
                                             {formData.image ? (
                                                 <img src={formData.image} alt="Project" className="object-cover h-full w-full" />
                                             ) : (
-                                                <p className="text-gray-500">Upload Image</p>
+                                                <p className="text-gray-400 text-2xl font-semibold">Upload Image</p>
                                             )}
                                         </div>
                                     </div>
@@ -141,7 +144,7 @@ function PostProject() {
                                             required
                                             className="w-full px-4 py-2 border-0 border-b border-gray-300 rounded-md focus:ring-0"
                                         />
-                                        <select
+                                        {/* <select
                                             name="category"
                                             value={formData.category}
                                             onChange={handleChange}
@@ -152,11 +155,34 @@ function PostProject() {
                                             {categories.map((category) => (
                                                 <option key={category} value={category}>{category}</option>
                                             ))}
-                                        </select>
+                                        </select> */}
+
+                                        <Select
+                                            name="category"
+                                            value={formData.category}
+                                            onChange={handleChange}
+                                            placeholder="Select Category"
+                                            className="w-full focus:ring-0 text-gray-500 px-2 py-2"
+                                            style={{ border: 'none', outline: 'none', boxShadow: 'none' }}
+                                            onFocus={(e) => e.target.style.boxShadow = 'none'}
+                                            onBlur={(e) => e.target.style.boxShadow = 'none'}
+                                        >
+                                            <SelectTrigger className="w-full border-0 border-b border-gray-300 focus:ring-0 text-gray-500 px-2 py-2">
+                                                <SelectValue placeholder="Select Category" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {categories.map((category) => (
+                                                    <SelectItem key={category} value={category}>
+                                                        {category}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+
                                     </div>
                                 </div>
 
-                                <div className="flex-1">
+                                <div className="flex-2 m ">
                                     <div className="bg-gray-100 rounded-[30px] p-6 space-y-4">
                                         <label className="block text-gray-700">Number of Milestones</label>
                                         <Input
@@ -190,12 +216,15 @@ function PostProject() {
                                             </div>
                                         </div>
                                     </div>
+                                    <Button type="submit" className="w-full mt-5 bg-[#2FB574] text-white py-2 rounded-[30px] hover:bg-green-700">
+                                        Post Project
+                                        <Send className="h-5 w-5 mx-3" />
+
+                                    </Button>
                                 </div>
                             </div>
 
-                            <Button type="submit" className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-700">
-                                Post Project
-                            </Button>
+
                         </form>
                     </div>
                 </FadeIn>

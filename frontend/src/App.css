@@ -109,7 +109,7 @@
 ::-webkit-scrollbar-thumb {
   background: #2FB574; /* Color of the scrollbar thumb */
   border-radius: 100vw;
-  border: 3px solid #05140D; /* Padding around thumb */
+
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -118,7 +118,7 @@
 
 /* For Firefox */
 html {
-  scrollbar-width: thin; /* Makes scrollbar thinner */
+
   scrollbar-color: #2FB574 #05140D; /* Thumb color and track color */
 }
 
@@ -135,5 +135,6 @@ body::-webkit-scrollbar {
 html {
   scroll-behavior: smooth;
 }
+
 
 

@@ -49,7 +49,7 @@ function Filter() {
                 <div className="flex flex-row items-center w-full  md:w-[70%] gap-2">
                     <button
                         onClick={() => scroll('left')}
-                        className="flex-shrink-0 p-2 border rounded-full bg-green-500 hover:bg-green-400 text-white sm:text-base text-sm"
+                        className="flex-shrink-0 p-2 border rounded-full bg-[#2FB574] hover:bg-green-400 text-white sm:text-base text-sm"
                     >
                         <ChevronLeft className="h-5 w-5" />
                     </button>
@@ -59,7 +59,7 @@ function Filter() {
                             <button
                                 key={option}
                                 onClick={() => handleFilterToggle(option)}
-                                className={`flex-shrink-0 px-3 min-w-[100px] py-1 border h-10 rounded-md text-sm whitespace-nowrap ${selectedFilters.includes(option) ? "bg-green-500 text-white" : "bg-gray-200"}`}
+                                className={`flex-shrink-0 px-3 min-w-[100px] py-1 border h-10 rounded-md text-sm whitespace-nowrap ${selectedFilters.includes(option) ? "bg-[#2FB574] text-white" : "bg-gray-200"}`}
                             >
                                 {option}
                             </button>
@@ -68,7 +68,7 @@ function Filter() {
 
                     <button
                         onClick={() => scroll('right')}
-                        className="flex-shrink-0 p-2 ml-2 border rounded-full bg-green-500 hover:bg-green-400 text-white sm:text-base text-sm"
+                        className="flex-shrink-0 p-2 ml-2 border rounded-full bg-[#2FB574] hover:bg-green-400 text-white sm:text-base text-sm"
                     >
                         <ChevronRight className="h-5 w-5" />
                     </button>
@@ -93,7 +93,7 @@ function Filter() {
 
                     <button
                         onClick={() => setIsSheetOpen(!isSheetOpen)}
-                        className="px-4 py-2 bg-green-500 text-white rounded-md flex items-center gap-2 text-sm sm:text-base"
+                        className="px-4 py-2 bg-[#2FB574] text-white rounded-md flex items-center gap-2 text-sm sm:text-base"
                     >
                         {isSheetOpen ? <ChevronUp /> : <ChevronDown />}
                         Filters

@@ -5,10 +5,15 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from './ui/button';
 import { motion } from "framer-motion";
 import Tooltip from './Tooltip';
+import { useLocation } from 'react-router-dom';
+
+
 
 const Sidebar = () => {
   const [hovered, setHovered] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const location = useLocation();
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -20,7 +25,7 @@ const Sidebar = () => {
       {/* Mobile Sidebar using Sheet */}
       <Sheet className="sm:hidden">
         <SheetTrigger asChild>
-          <Button size="icon" variant="outline" className="sm:hidden border-0 ">
+          <Button size="icon" variant="outline" className="sm:hidden border-0">
             <PanelLeft className="h-5 w-5" />
             <span className="sr-only">Toggle Menu</span>
           </Button>
@@ -41,7 +46,7 @@ const Sidebar = () => {
 
             <Link
               to="/"
-              className="flex items-center gap-2 rounded-lg text-muted-foreground transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6"
+              className={`flex items-center gap-2 rounded-lg transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6 ${location.pathname === '/' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'}`}
             >
               <Home className="h-5 w-5" />
               <span>Home</span>
@@ -49,7 +54,7 @@ const Sidebar = () => {
 
             <Link
               to="/dashboard"
-              className="flex items-center gap-2 rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6"
+              className={`flex items-center gap-2 rounded-lg transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6 ${location.pathname === '/dashboard' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'}`}
             >
               <Package2 className="h-5 w-5" />
               <span>Dashboard</span>
@@ -57,26 +62,24 @@ const Sidebar = () => {
 
             <Link
               to="/services"
-              className="flex items-center gap-2 rounded-lg text-muted-foreground transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6"
+              className={`flex items-center gap-2 rounded-lg transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6 ${location.pathname === '/services' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'}`}
             >
               <Package className="h-5 w-5" />
               <span>Services</span>
             </Link>
 
             <Link
-              to="#"
-              className="flex items-center gap-2 rounded-lg text-muted-foreground transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6"
+              to="/projects"
+              className={`flex items-center gap-2 rounded-lg transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6 ${location.pathname === '/projects' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'}`}
             >
               <Activity className="h-5 w-5" />
               <span>Projects</span>
             </Link>
-
-            
           </nav>
-          <nav className=' flex absolute bottom-5 text-lg font-medium' >
-          <Link
+          <nav className="flex absolute bottom-5 text-lg font-medium">
+            <Link
               to="#"
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground py-2 px-4 md:py-3 md:px-6"
+              className={`flex items-center gap-2 transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6 ${location.pathname === '/settings' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'}`}
             >
               <Settings className="h-5 w-5" />
               <span>Settings</span>
@@ -116,7 +119,7 @@ const Sidebar = () => {
         <nav className="flex flex-col items-start justify-start gap-4 px-2">
           <Link
             to="/"
-            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:text-foreground ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'}`}
+            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:bg-gray-200 ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'} ${location.pathname === '/' ? 'bg-gray-200' : ''}`}
             onMouseEnter={() => setHovered('Home')}
             onMouseLeave={() => setHovered(null)}
           >
@@ -127,7 +130,7 @@ const Sidebar = () => {
 
           <Link
             to="/dashboard"
-            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:text-foreground ${isExpanded ? 'justify-start bg-accent text-accent-foreground py-2 px-4 w-full' : 'justify-center h-9 w-9'}`}
+            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:bg-gray-200 ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'} ${location.pathname === '/dashboard' ? 'bg-gray-200' : ''}`}
             onMouseEnter={() => setHovered('Dashboard')}
             onMouseLeave={() => setHovered(null)}
           >
@@ -138,7 +141,7 @@ const Sidebar = () => {
 
           <Link
             to="/services"
-            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:text-foreground ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'}`}
+            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:bg-gray-200 ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'} ${location.pathname === '/services' ? 'bg-gray-200' : ''}`}
             onMouseEnter={() => setHovered('Services')}
             onMouseLeave={() => setHovered(null)}
           >
@@ -149,7 +152,7 @@ const Sidebar = () => {
 
           <Link
             to="/projects"
-            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:text-foreground ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'}`}
+            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:bg-gray-200 ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'} ${location.pathname === '/projects' ? 'bg-gray-200' : ''}`}
             onMouseEnter={() => setHovered('Projects')}
             onMouseLeave={() => setHovered(null)}
           >
@@ -162,7 +165,7 @@ const Sidebar = () => {
         <nav className="flex h-full flex-col justify-end items-start gap-4 px-2 py-4">
           <Link
             to="#"
-            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:text-foreground ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'}`}
+            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:bg-gray-200 ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'} ${location.pathname === '#' ? 'bg-gray-200' : ''}`}
             onMouseEnter={() => setHovered('Settings')}
             onMouseLeave={() => setHovered(null)}
           >
@@ -172,6 +175,7 @@ const Sidebar = () => {
           </Link>
         </nav>
       </aside>
+
     </>
   );
 };
