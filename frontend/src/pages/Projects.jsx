@@ -2,23 +2,30 @@ import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Link, useNavigate } from "react-router-dom";
-import { PlusCircle, Share2, ArrowBigUpDash } from "lucide-react";
+import { PlusCircle, Share2, ArrowBigUpDash,User } from "lucide-react";
 import Sidebar from '@/components/Sidebar';
 import '../App.css';
 import FadeIn from '@/components/FadeIn';
 import Filter from '@/components/Filter';
-
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 
 function Projects() {
     const [projects, setProjects] = useState([]);
     const [hoveredProject, setHoveredProject] = useState(null);
     const [userUpvotes, setUserUpvotes] = useState({});
-    const [loading, setLoading] = useState(true);  // State to track loading
+    const [loading, setLoading] = useState(true); 
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch project data from JSON file
+
         fetch('/projects.json')
             .then((response) => response.json())
             .then((data) => {
@@ -59,11 +66,34 @@ function Projects() {
                     </FadeIn>
                     <FadeIn direction="down" delay={0.1}>
                         <Link to="/post-project">
-                            <Button variant="outline" className="flex items-center gap-2 text-[#1B7A57] border-[#1B7A57]">
+                            <Button variant="outline" className="flex items-center gap-2 text-[#1B7A57] border-[#1B7A57] mr-4">
                                 <PlusCircle className="h-5 w-5" />
                                 Post a Project
                             </Button>
                         </Link>
+                    </FadeIn>
+                    <FadeIn direction="left" delay={0.2} >
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    className="overflow-hidden rounded-full"
+                                >
+                                    <User className="h-8 w-8" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>
+                                <Link to="/settings">Settings</Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>Support</DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>Logout</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </FadeIn>
                 </header>
 
