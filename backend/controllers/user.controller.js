@@ -74,6 +74,7 @@ export const loginInvestor = async ( request, response ) => {
         response.status(500).json({ msg : "Error while logining in user "})
     }
 }
+
 export const loginFunding = async ( request, response ) => {
     const user = await funding.findOne({ username : request.body.username })
     if ( !user ) {

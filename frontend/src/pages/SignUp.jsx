@@ -6,6 +6,9 @@ import { Label } from "@/components/ui/label";
 import FadeIn from "@/components/FadeIn";
 import '../App.css';
 
+
+
+
 export function SignUp() {
     const [formData, setFormData] = useState({
         firstName: '',
@@ -36,14 +39,17 @@ export function SignUp() {
         setError(null);
 
         try {
-            const response = await fetch('http://localhost:5000/backend/signup', {
+            const endpoint = selection === "Investor"
+                ? 'http://localhost:8000/signup/create-investor'
+                : 'http://localhost:8000/signup/create-funding';
+
+            const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             });
-
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }

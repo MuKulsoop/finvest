@@ -5,7 +5,7 @@ const fundingSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    LastName: {
+    lastName: {
         type: String,
     },
     email: {

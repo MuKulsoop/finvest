@@ -10,7 +10,7 @@ const route = express.Router();
 
 route.post('/signup/create-investor', addInvestor )
 route.post('/signup/create-funding', addFunding )
-route.post('/create-post', createNewPost )
+// route.post('/create-post', createNewPost )
 route.post('/login/investor', loginInvestor)
 route.post('login/funding', loginFunding)
 
