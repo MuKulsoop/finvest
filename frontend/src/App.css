@@ -95,21 +95,20 @@
     opacity: 1;
   }
   
-  /* Custom Scrollbar Styles */
+
+/* Custom scrollbar for WebKit browsers (Chrome, Safari, Opera) */
 ::-webkit-scrollbar {
-  width: 12px;
-  border-radius: 100vw;
+  width: 5px;
+  border-radius: 50%;
 }
 
 ::-webkit-scrollbar-track {
   background: #05140D; /* Background of the scrollbar track */
-  border-radius: 100vw;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #2FB574; /* Color of the scrollbar thumb */
   border-radius: 100vw;
-  border: 3px solid #05140D; /* Padding around thumb */
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -118,20 +117,17 @@
 
 /* For Firefox */
 html {
-  scrollbar-width: thin; /* Makes scrollbar thinner */
+  scrollbar-width: thin;
   scrollbar-color: #2FB574 #05140D; /* Thumb color and track color */
-}
-
-/* Styling the scrollbar in Edge and IE */
-body {
-  -ms-overflow-style: none; /* Hides the scrollbar in IE */
-}
-
-body::-webkit-scrollbar {
-  display: none; /* Hides the scrollbar in Chrome, Safari and Opera */
+  border-radius: 50%;
 }
 
 /* Adding a smooth scrolling effect */
 html {
   scroll-behavior: smooth;
+}
+
+/* Hide the scrollbar for IE */
+body {
+  -ms-overflow-style: none; /* Hides the scrollbar in IE */
 }

@@ -11,7 +11,7 @@ function Faq() {
     return (
         <div className="flex flex-col items-center justify-center w-full z-[5] py-10 lg:py-20">
             <FadeIn direction="up" delay={0.3} fullWidth>
-                <h2 className="md:text-5xl text-4xl text-white font-semibold text-center py-3 z-5">
+                <h2 className="md:text-5xl text-3xl text-white font-semibold text-center py-3 z-5">
                     Frequently Asked Questions
                 </h2>
             </FadeIn>
