@@ -134,10 +134,10 @@ body {
 
 
 .gradient-text {
-  background: linear-gradient(to bottom, #ffffff, #e8fff9, #93ffb7);
+  background: linear-gradient(to bottom, #ffffff, #e2ffec, #95ffb9);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
-  text-shadow: 2px 2px 2px rgba(3, 147, 66, 0.178);
+  /* text-shadow: 2px 2px 2px rgba(3, 147, 66, 0.178); */
 }
