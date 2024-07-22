@@ -10,6 +10,7 @@ import Loader from "./components/Loader";
 import Projects from "./pages/Projects";
 import PostProject from "./pages/PostProject";
 import ProjectDetailedView from "./components/ProjectDetailedView";
+import { Setting } from "./pages/Setting";
 
 function App() {
   const [projectsData, setProjectsData] = useState([]);
@@ -43,6 +44,8 @@ function App() {
             <Route path="projects" element={<Projects />} />
             <Route path="/projects/:projectId" element={<ProjectDetailedView projects={projectsData} />} />
             <Route path="post-project" element={<PostProject />} />
+            <Route path="settings" element={<Setting />} />
+
           </Routes>
         )}
       </Router>

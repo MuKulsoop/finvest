@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ArrowBigUpDash, Share2, ChevronRight } from "lucide-react";
+import { ArrowBigUpDash, Share2, ChevronRight,User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Sidebar from './Sidebar';
 import FadeIn from './FadeIn';
-
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import {
     Table,
     TableBody,
@@ -64,11 +71,34 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                     </FadeIn>
                     <FadeIn direction="down" delay={0}>
                         <Link to="/projects">
-                            <Button variant="outline" className="flex items-center gap-2 text-[#1B7A57] border-[#1B7A57]">
+                            <Button variant="outline" className="flex items-center gap-2 text-[#1B7A57] border-[#1B7A57] mr-4">
                                 View Projects
                                 <ChevronRight className="h-5 w-5" />
                             </Button>
                         </Link>
+                    </FadeIn>
+                    <FadeIn direction="left" delay={0.2} >
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    className="overflow-hidden rounded-full"
+                                >
+                                    <User className="h-8 w-8" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>
+                                <Link to="/settings">Settings</Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>Support</DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>Logout</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </FadeIn>
                 </header>
                 <FadeIn direction="up" delay={0} fullWidth>

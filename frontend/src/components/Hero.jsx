@@ -11,12 +11,12 @@ function Hero() {
                 alt="Background"
             />
             <FadeIn direction="down" delay={0.3} fullWidth>
-                <h1 className="md:text-7xl md:w-[60%] text-5xl text-white font-semibold text-center py-3 z-[5] ">
+                <h1 className="md:text-7xl lg:w-[60%] text-5xl text-white font-semibold text-center py-3 z-[5] ">
                     We make it easy for  everyone to invest
                 </h1>
             </FadeIn>
             <FadeIn direction="up" delay={0.3} fullWidth>
-                <h3 className="text-xl text-white text-center py-3 z-[5] md:w-[50%]">
+                <h3 className="text-xl text-white text-center py-3 z-[5] lg:w-[50%]">
                     Investment is a term with several meanings related to finance and economics. The term relates to the accumulation of assets in the forms of an expectation of future profits.
                 </h3>
             </FadeIn>
@@ -34,15 +34,15 @@ function Hero() {
                 </FadeIn>
 
             </div>
-            <div className="flex xl:flex-row flex-col items-center justify-center w-full overflow-hidden mx-auto">
-                <FadeIn direction="right" delay={0.4} fullWidth justify="end">
+            <div className="flex xl:flex-row flex-col items-center justify-center w-full overflow-hidden mx-auto max-w-[1400px] ">
+                <FadeIn direction="right" delay={0.4} fullWidth >
                     <img
                         className="p-4 md:py-10 md:pl-10 py-5 z-[5]"
                         src="https://res.cloudinary.com/djoebsejh/image/upload/v1721138970/tytilyc36ct3ckq7xruz.svg"
                         alt="Illustration"
                     />
                 </FadeIn>
-                <FadeIn direction="left" delay={0.4} fullWidth justify="start">
+                <FadeIn direction="left" delay={0.4} fullWidth >
                     <img
                         className="p-4 md:py-10 md:pr-10 py-5 z-[5]"
                         src="https://res.cloudinary.com/djoebsejh/image/upload/v1721138973/kfwbumqxvchpwiwxa2hf.svg"
