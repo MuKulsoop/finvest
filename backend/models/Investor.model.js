@@ -1,24 +1,12 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose';
 
 const investorSchema = mongoose.Schema({
-    firstName: {
-        type: String,
-        required: true
-    },
-    LastName: {
-        type: String,
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    }
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true }
+});
 
-})
+const Investor = mongoose.model('Investor', investorSchema);
 
-const investor = mongoose.model("investor", investorSchema)
-
-export default investor
+export default Investor;

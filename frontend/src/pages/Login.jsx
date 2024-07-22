@@ -1,22 +1,75 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import FadeIn from "@/components/FadeIn";
 
 export function Login() {
-    return (
-        <div className="relative w-full lg:grid min-h-screen lg:grid-cols-2   overflow-hidden">
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.id]: e.target.value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
+    
+        try {
+            const response = await fetch('http://localhost:8000/login/investor', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.msg || 'Network response was not ok');
+            }
+    
+            const data = await response.json();
+            console.log('Login successful', data);
+    
+            // Clear form data
+            setFormData({
+                email: '',
+                password: ''
+            });
+    
+            // Redirect to another page, e.g., dashboard
+            navigate('/dashboard');
+        } catch (error) {
+            console.error('Error during login:', error);
+            setError(error.message || 'Login failed. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+    
+
+    return (
+        <div className="relative w-full lg:grid min-h-screen lg:grid-cols-2 overflow-hidden">
             <img className="absolute left-0 z-[1] h-full w-auto" src="https://res.cloudinary.com/djoebsejh/image/upload/v1721133537/lye4qxmyubg7wuj8exvt.svg" alt="" />
 
-            <Link to="/" className=" absolute top-0 left-0 flex flex-row items-center justify-center cursor-pointer p-5 z-[999]">
+            <Link to="/" className="absolute top-0 left-0 flex flex-row items-center justify-center cursor-pointer p-5 z-[999]">
                 <FadeIn direction="right" delay={0.3} >
                     <img className="md:h-[50px] h-[30px] md:pr-2" src="https://res.cloudinary.com/djoebsejh/image/upload/v1721187808/srktgdcijec0zqmlgvbh.png" alt="Logo" />
                     <h1 className="md:text-4xl text-3xl font-semibold text-white cursor-pointer">Finvest</h1>
                 </FadeIn>
             </Link>
-
 
             <div className="flex flex-col items-center justify-center bg-[#05140D] p-4 pt-[10vh] lg:p-0 lg:hidden">
                 <FadeIn direction="down" delay={0.3} fullWidth>
@@ -24,7 +77,7 @@ export function Login() {
                 </FadeIn>
             </div>
 
-            <FadeIn direction="up" delay={0.3} fullWidth className="flex  items-center justify-center bg-[#05140D] p-2 md:p-4 py-8 lg:p-0">
+            <FadeIn direction="up" delay={0.3} fullWidth className="flex items-center justify-center bg-[#05140D] p-2 md:p-4 py-8 lg:p-0">
                 <div className="relative mx-auto grid w-[320px] sm:w-[500px] gap-6 z-10 bg-[#2FB574] bg-opacity-10 backdrop-filter backdrop-blur-xl rounded-lg md:p-10 p-6 py-14 mb-10 shadow-lg">
                     <div className="grid gap-2 text-center">
                         <h1 className="text-4xl font-bold py-2 text-white">Login</h1>
@@ -32,7 +85,7 @@ export function Login() {
                             Enter your email below to login to your account
                         </p>
                     </div>
-                    <div className="grid gap-4">
+                    <form onSubmit={handleSubmit} className="grid gap-4">
                         <div className="grid gap-2">
                             <Label htmlFor="email" className="text-white">Email</Label>
                             <Input
@@ -40,6 +93,8 @@ export function Login() {
                                 type="email"
                                 placeholder="m@example.com"
                                 className="border border-gray-300 rounded-md p-2"
+                                value={formData.email}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
@@ -57,16 +112,21 @@ export function Login() {
                                 id="password"
                                 type="password"
                                 className="border border-gray-300 rounded-md p-2"
+                                value={formData.password}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
-                        <Button type="submit" className="w-full bg-[#1B7A57] hover:bg-[#0e3a26] text-white py-2 rounded-md">
-                            Login
+                        {error && (
+                            <div className="text-red-500 text-center">{error}</div>
+                        )}
+                        <Button type="submit" className="w-full bg-[#1B7A57] hover:bg-[#0e3a26] text-white py-2 rounded-md" disabled={loading}>
+                            {loading ? 'Logging in...' : 'Login'}
                         </Button>
                         <Button variant="outline" className="w-full border-[#1B7A57] text-[#1B7A57] py-2 rounded-md">
                             Login with Google
                         </Button>
-                    </div>
+                    </form>
                     <div className="mt-4 text-center text-md text-[#E8F6F3]">
                         Don&apos;t have an account?{" "}
                         <Link to="/signup" className="underline text-[#1B7A57]">
@@ -83,7 +143,7 @@ export function Login() {
                         <h1 className="md:text-6xl text-4xl font-bold text-[#1B7A57]">Welcome Back!</h1>
                     </FadeIn>
                     <FadeIn direction="down" delay={0.4} fullWidth>
-                        <p className=" mt-4 text-xl text-[#05140D]">We are happy to see you again. Please login to continue.</p>
+                        <p className="mt-4 text-xl text-[#05140D]">We are happy to see you again. Please login to continue.</p>
                     </FadeIn>
                 </div>
             </div>
