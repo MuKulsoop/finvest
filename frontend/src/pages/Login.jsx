@@ -25,7 +25,7 @@ export function Login() {
         e.preventDefault();
         setLoading(true);
         setError(null);
-    
+
         try {
             const response = await fetch('http://localhost:8000/login/investor', {
                 method: 'POST',
@@ -34,21 +34,21 @@ export function Login() {
                 },
                 body: JSON.stringify(formData)
             });
-    
+
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.msg || 'Network response was not ok');
             }
-    
+
             const data = await response.json();
             console.log('Login successful', data);
-    
+
             // Clear form data
             setFormData({
                 email: '',
                 password: ''
             });
-    
+
             // Redirect to another page, e.g., dashboard
             navigate('/dashboard');
         } catch (error) {
@@ -58,12 +58,11 @@ export function Login() {
             setLoading(false);
         }
     };
-    
+
 
     return (
         <div className="relative w-full lg:grid min-h-screen lg:grid-cols-2 overflow-hidden">
-            <img className="absolute left-0 z-[1] h-full w-auto" src="https://res.cloudinary.com/djoebsejh/image/upload/v1721133537/lye4qxmyubg7wuj8exvt.svg" alt="" />
-
+            
             <Link to="/" className="absolute top-0 left-0 flex flex-row items-center justify-center cursor-pointer p-5 z-[999]">
                 <FadeIn direction="right" delay={0.3} >
                     <img className="md:h-[50px] h-[30px] md:pr-2" src="https://res.cloudinary.com/djoebsejh/image/upload/v1721187808/srktgdcijec0zqmlgvbh.png" alt="Logo" />
@@ -78,6 +77,9 @@ export function Login() {
             </div>
 
             <FadeIn direction="up" delay={0.3} fullWidth className="flex items-center justify-center bg-[#05140D] p-2 md:p-4 py-8 lg:p-0">
+                <img className="absolute left-0 top-0 z-[1] h-full w-auto" src="https://res.cloudinary.com/djoebsejh/image/upload/v1721133537/lye4qxmyubg7wuj8exvt.svg" alt="" />
+
+            {/* </motion.span> */}
                 <div className="relative mx-auto grid w-[320px] sm:w-[500px] gap-6 z-10 bg-[#2FB574] bg-opacity-10 backdrop-filter backdrop-blur-xl rounded-lg md:p-10 p-6 py-14 mb-10 shadow-lg">
                     <div className="grid gap-2 text-center">
                         <h1 className="text-4xl font-bold py-2 text-white">Login</h1>

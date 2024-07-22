@@ -203,7 +203,7 @@ function PostProject() {
                                     </div>
                                 </div>
 
-                                <div className="flex-2 m ">
+                                <div className="flex-2 min-w-[35%] ">
                                     <div className="bg-gray-100 rounded-[30px] p-6 space-y-4">
                                         <label className="block text-gray-700">Number of Milestones</label>
                                         <Input

@@ -119,7 +119,7 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                         </div>
 
                         {/* Flex-2 Container */}
-                        <div className="flex-2 bg-white rounded-xl shadow-lg p-8 relative">
+                        <div className="flex-2 bg-white rounded-xl shadow-lg p-8 relative min-w-[30%]">
                             <div className="flex flex-col gap-4">
                                 <div className="flex flex-col items-start">
                                     <p className="text-green-600 font-semibold md:text-4xl text-3xl">{project.amountRaised}</p>

@@ -8,7 +8,7 @@ import Why from "@/components/Why"
 
 function Home() {
     return (
-        <div className="bg-[#05140D] overflow-hidden">
+        <div className="bg-[#05140D]  overflow-hidden">
                 <Navbar />
             <Hero />
             <Services />

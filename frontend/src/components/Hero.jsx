@@ -1,6 +1,7 @@
 import { Play } from "lucide-react";
 import { Button } from "./ui/button";
 import FadeIn from "./FadeIn";
+import '../App.css';
 
 function Hero() {
     return (
@@ -11,12 +12,13 @@ function Hero() {
                 alt="Background"
             />
             <FadeIn direction="down" delay={0.3} fullWidth>
-                <h1 className="md:text-7xl lg:w-[60%] text-5xl text-white font-semibold text-center py-3 z-[5] ">
-                    We make it easy for  everyone to invest
+                <h1 className="text-5xl lg:w-[60%] md:text-7xl font-semibold text-center py-3 z-[5] gradient-text">
+                    We make it easy for everyone to invest
                 </h1>
+
             </FadeIn>
             <FadeIn direction="up" delay={0.3} fullWidth>
-                <h3 className="text-xl text-white text-center py-3 z-[5] lg:w-[50%]">
+                <h3 className="text-xl  text-center py-3 z-[5] lg:w-[55%] font-semibold bg-gradient-to-b from-white via-green-100 to-green-200 bg-clip-text text-transparent">
                     Investment is a term with several meanings related to finance and economics. The term relates to the accumulation of assets in the forms of an expectation of future profits.
                 </h3>
             </FadeIn>
