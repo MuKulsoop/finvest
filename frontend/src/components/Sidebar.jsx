@@ -30,7 +30,7 @@ const Sidebar = () => {
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="sm:max-w-xs w-[300px]">
+        <SheetContent side="left" className="sm:max-w-xs w-[250px]">
           <nav className="grid gap-6 text-lg font-medium">
             <Link
               to="/"

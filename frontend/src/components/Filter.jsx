@@ -44,9 +44,9 @@ function Filter() {
     };
 
     return (
-        <div className="p-4 pb-0 bg-white border rounded-lg shadow-lg overflow-x-hidden">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
-                <div className="flex flex-row items-center w-full  md:w-[70%] gap-2">
+        <div className="p-4 pb-0 bg-white border rounded-lg shadow-lg  w-full">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex-1 flex flex-row items-center w-full md:w-[calc(100%-280px)]  gap-2">
                     <button
                         onClick={() => scroll('left')}
                         className="flex-shrink-0 p-2 border rounded-full bg-[#2FB574] hover:bg-[#26925e] text-white sm:text-base text-sm"
@@ -74,14 +74,14 @@ function Filter() {
                     </button>
                 </div>
 
-                <div className="flex flex-row w-full md:w-[350px] items-center justify-evenly lg:justify-end gap-2">
-                    <div className="relative flex  md:w-auto">
+                <div className="flex-2 flex flex-row w-full  md:max-w-[300px] items-center justify-evenly lg:justify-end gap-2">
+                    <div className="relative flex ">
                         <input
                             type="text"
                             placeholder="Search filters..."
                             value={searchTerm}
                             onChange={handleSearchChange}
-                            className="p-2 border rounded-md  text-sm"
+                            className="p-2 border rounded-md  text-sm md:w-[150px] w-[200px]"
                         />
                         <button
                             onClick={() => setSearchTerm('')} // Clear search input on click

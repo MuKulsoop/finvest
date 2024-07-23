@@ -18,8 +18,8 @@ const FadeIn = ({ children, delay = 0, direction = "none", fullWidth = false, pa
         variants={{
           hidden: {
             opacity: 0,
-            x: direction === "right" ? -100 : direction === "left" ? 100 : 0,
-            y: direction === "up" ? 100 : direction === "down" ? -100 : 0
+            x: direction === "right" ? -80 : direction === "left" ? 80 : 0,
+            y: direction === "up" ? 40 : direction === "down" ? -20 : 0
           },
           visible: {
             opacity: 1,
