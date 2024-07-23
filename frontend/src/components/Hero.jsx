@@ -18,7 +18,7 @@ function Hero() {
 
             </FadeIn>
             <FadeIn direction="down" delay={0.3} fullWidth>
-                <h3 className="md:text-xl  text-center py-3 z-[5] lg:w-[55%] font-semibold bg-gradient-to-b from-white via-green-100 to-green-200 bg-clip-text text-transparent">
+                <h3 className="md:text-xl  text-center py-3 z-[5] md:w-[75%] font-semibold bg-gradient-to-b from-white via-green-100 to-green-200 bg-clip-text text-transparent">
                     Investment is a term with several meanings related to finance and economics. The term relates to the accumulation of assets in the forms of an expectation of future profits.
                 </h3>
             </FadeIn>

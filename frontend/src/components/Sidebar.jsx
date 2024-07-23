@@ -25,8 +25,8 @@ const Sidebar = () => {
       {/* Mobile Sidebar using Sheet */}
       <Sheet className="sm:hidden">
         <SheetTrigger asChild>
-          <Button size="icon" variant="outline" className="sm:hidden border-0">
-            <PanelLeft className="h-5 w-5" />
+          <Button size="icon" variant="outline" className="sm:hidden border-0 hover:bg-transparent">
+            <PanelLeft className="h-5 w-5 " />
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SheetTrigger>
@@ -79,7 +79,7 @@ const Sidebar = () => {
           <nav className="flex absolute bottom-5 text-lg font-medium">
             <Link
               to="/settings"
-              className={`flex items-center gap-2 transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6 ${location.pathname === '/settings' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'}`}
+              className={`flex items-center gap-2 rounded-lg transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6 ${location.pathname === '/settings' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'}`}
             >
               <Settings className="h-5 w-5" />
               <span>Settings</span>

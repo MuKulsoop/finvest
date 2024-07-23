@@ -3,12 +3,20 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from "@/components/ui/textarea";
+import { Switch } from '@/components/ui/switch';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
-import Modal from '@/components/Modal';
+// import Modal from '@/components/Modal';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { PlusCircle, User } from "lucide-react";
+import { PlusCircle, User ,ChevronRight} from "lucide-react";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+
+} from "@/components/ui/accordion";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -35,7 +43,20 @@ export const Setting = () => {
     });
 
     const [activeSection, setActiveSection] = useState('profile');
-
+    const faqs = [
+        {
+            question: "How can I reset my password?",
+            answer: "To reset your password, go to the login page and click on 'Forgot Password'. Follow the instructions sent to your registered email address.",
+        },
+        {
+            question: "How can I contact support?",
+            answer: "You can contact support by filling out the form below or by sending an email to support@example.com.",
+        },
+        {
+            question: "What are the support hours?",
+            answer: "Our support team is available from Monday to Friday, 9 AM to 6 PM (GMT).",
+        },
+    ];
     const investorCategory = [
         "Individual", "Community", "Company"
     ];
@@ -45,6 +66,29 @@ export const Setting = () => {
     const categories1 = [
         "India", "United States", "United Kingdom", "Japan", "Denmark", "Finland", "Yemen", "Oman", "Qatar", "Zimbabwe", "Iran", "Russia", "Algeria", "Sweden", "Netherlands", "Australia", "France", "Poland", "New Zealand", "Germany", "Switzerland"
     ];
+    const themes = [
+        "Dark", "Light", "System"
+    ]
+
+    const fonts = [
+        'Roboto',
+        'Open Sans',
+        'Lato',
+        'Montserrat',
+        'Oswald',
+        'Source Sans Pro',
+        'Raleway',
+        'Poppins',
+        'Merriweather',
+        'Ubuntu',
+        'Nunito',
+        'PT Sans',
+        'Lora',
+        'Playfair Display',
+        'Mukta',
+    ];
+
+
 
     const sectionRefs = {
         profile: useRef(null),
@@ -81,7 +125,7 @@ export const Setting = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
-        navigate('/account');
+        navigate('/dashboard');
     };
 
     const scrollToSection = (section) => {
@@ -89,6 +133,13 @@ export const Setting = () => {
         if (isSectionFilled) {
             sectionRefs[section].current.scrollIntoView({ behavior: 'smooth' });
         }
+    };
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
     };
 
     const validateSection = (section) => {
@@ -171,9 +222,9 @@ export const Setting = () => {
 
                 <div className="flex flex-col w-full mt-16 gap-10 items-center">
                     <form className="w-full space-y-6" onSubmit={handleSubmit}>
-                        <div className="flex flex-col w-full md:flex-row justify-evenly gap-10">
-                            <div className="flex-2 hidden lg:flex lg:min-w-[20%] flex-col bg-background md:pl-10 py-10 rounded-[30px]">
-                                <nav className="fixed w-[200px] hidden lg:flex flex-col items-start justify-start gap-4">
+                        <div className="flex flex-col w-full lg:flex-row  lg:justify-evenly lg:gap-10">
+                            <div className="flex-2 flex lg:min-w-[20%] flex-col bg-background lg:pl-10 py-10 rounded-[30px]">
+                                <nav className="fixed w-[200px] hidden lg:flex flex-col items-start justify-start gap-4 z-[1]">
                                     <a
                                         href="#profile-section"
                                         className={`relative flex w-full items-center p-2 pl-4 rounded-lg transition-colors text-lg text-left ${activeSection === 'profile-section' ? 'bg-gray-200 hover:bg-gray-300' : 'bg-white hover:bg-gray-100'}`}
@@ -227,7 +278,7 @@ export const Setting = () => {
                                     </a>
                                 </nav>
                                 {/* Navigation for smaller screens */}
-                                <nav className="fixed top-16 left-14 md:w-[calc(100%-56px)] lg:hidden flex items-center justify-between bg-background p-2  pt-4 shadow-md w-full">
+                                <nav className="fixed top-16  md:w-[calc(100%-56px)] lg:hidden flex items-center justify-between bg-background p-2  pt-4 shadow-md w-full z-[1]">
                                     <div className="flex justify-evenly w-full overflow-scroll scrollbar-hidden">
                                         <a
                                             href="#profile-section"
@@ -278,7 +329,7 @@ export const Setting = () => {
                                 </nav>
                             </div>
                             <div className="flex-1 py-10 md:pr-10 px-10 rounded-[30px]">
-                                <section ref={sectionRefs.profile} id="profile-section" className="scroll-mt-40 min-h-screen">
+                                <section ref={sectionRefs.profile} id="profile-section" className="scroll-mt-40  h-[80vh] md:min-h-screen">
                                     <div className="text-2xl md:text-4xl font-bold pb-4 md:pb-8">Let's set your profile</div>
                                     <div className="relative mb-6 flex flex-row items-center">
                                         <input
@@ -393,14 +444,22 @@ export const Setting = () => {
                                                 ))}
                                             </SelectContent>
                                         </Select>
+                                        <a
+                                        href="#account-section"
+                                        className={`relative flex w-[80px] text-center items-center p-2 pl-4 rounded-full transition-colors text-md text-white bg-[#2FB574] hover:bg-[#26925e]`}
+                                        onClick={() => {
 
+                                            scrollToSection('account');
+                                        }}
+                                    >
+                                        Next
+                                        <ChevronRight className="h-5 w-5" />
+                                    </a>
 
                                     </div>
                                 </section>
 
-
-                                <section
-                                    ref={sectionRefs.account}
+                                <section ref={sectionRefs.account}
                                     id="account-section"
                                     className="scroll-mt-40 min-h-screen"
                                 >
@@ -424,7 +483,7 @@ export const Setting = () => {
                                                     </Button>
                                                     <Button
                                                         // onClick={() => handleConnectWallet('walletconnect')}
-                                                        className="flex items-center justify-center bg-gray-100 hover:bg-gray-300 rounded-md p-4 transition ease-in-out  text-center"
+                                                        className="flex items-center justify-center bg-gray-100 hover:bg-gray-300 rounded-md p-4 transition ease-in-out w-32 md:w-36 text-center"
                                                     >
                                                         <img
                                                             src="https://seeklogo.com/images/W/walletconnect-logo-EE83B50C97-seeklogo.com.png"
@@ -460,7 +519,7 @@ export const Setting = () => {
 
                                             {/* Change Password */}
                                             <div className="space-y-4">
-                                                <div className="text-xl md:text-2xl font-semibold">Change Password</div>
+                                                <div className="text-xl md:text-2xl font-semibold">Change Passwords <span className='text-sm text-gray-500'>(Not Compulsory)</span></div>
                                                 <Input
                                                     type="password"
                                                     name="currentPassword"
@@ -561,36 +620,43 @@ export const Setting = () => {
                                                 </div>
                                             </div> */}
                                         </div>
+                                        
                                     </div>
+                                    <a
+                                        href="#appearance-section"
+                                        className={`relative flex w-[80px] text-center items-center p-2 pl-4 rounded-full transition-colors text-md text-white bg-[#2FB574] hover:bg-[#26925e]`}
+                                        onClick={() => {
+
+                                            scrollToSection('appearance');
+                                        }}
+                                    >
+                                        Next
+                                        <ChevronRight className="h-5 w-5" />
+                                    </a>
                                 </section>
 
-
-
-
-                                <section
-                                    ref={sectionRefs.appearance}
+                                <section ref={sectionRefs.appearance}
                                     id="appearance-section"
                                     className="scroll-mt-40 min-h-screen"
                                 >
-                                    <div className="bg-background shadow-md p-6 sm:p-10 rounded-[30px] mb-10">
-                                        <h2 className="md:text-4xl text-2xl text-center mb-6 md:mb-10 text-[#05140D]">Appearance</h2>
+                                    <div className="bg-background   rounded-[30px] mb-10">
+                                        <h2 className="md:text-4xl text-2xl text-left font-semibold mb-6 md:mb-10 text-[#05140D]">Appearance</h2>
                                         <div className="space-y-6">
                                             <div className="space-y-2">
                                                 <Label htmlFor="theme">Theme</Label>
                                                 <Select
                                                     value={formData.theme}
-                                                    // onValueChange={handleThemeChange}
-                                                    required
+
                                                 >
                                                     <SelectTrigger>
                                                         <SelectValue placeholder="Select a theme" />
                                                     </SelectTrigger>
                                                     <SelectContent>
-                                                        {/* {themes.map((theme, index) => (
+                                                        {themes.map((theme, index) => (
                                                             <SelectItem key={index} value={theme}>
                                                                 {theme}
                                                             </SelectItem>
-                                                        ))} */}
+                                                        ))}
                                                     </SelectContent>
                                                 </Select>
                                             </div>
@@ -598,18 +664,18 @@ export const Setting = () => {
                                                 <Label htmlFor="font">Font</Label>
                                                 <Select
                                                     value={formData.font}
-                                                    // onValueChange={handleFontChange}
-                                                    required
+                                                // onValueChange={handleFontChange}
+                                                // required
                                                 >
                                                     <SelectTrigger>
                                                         <SelectValue placeholder="Select a font" />
                                                     </SelectTrigger>
                                                     <SelectContent>
-                                                        {/* {fonts.map((font, index) => (
+                                                        {fonts.map((font, index) => (
                                                             <SelectItem key={index} value={font}>
                                                                 {font}
                                                             </SelectItem>
-                                                        ))} */}
+                                                        ))}
                                                     </SelectContent>
                                                 </Select>
                                             </div>
@@ -621,92 +687,140 @@ export const Setting = () => {
                                                     type="color"
                                                     value={formData.color}
                                                     onChange={handleChange}
-                                                    required
+                                                // required
                                                 />
                                             </div>
                                         </div>
                                     </div>
+                                    <a
+                                        href="#notification-section"
+                                        className={`relative flex w-[80px] text-center items-center p-2 pl-4 rounded-full transition-colors text-md text-white bg-[#2FB574] hover:bg-[#26925e]`}
+                                        onClick={() => {
+
+                                            scrollToSection('notification');
+                                        }}
+                                    >
+                                        Next
+                                        <ChevronRight className="h-5 w-5" />
+                                    </a>
                                 </section>
 
-                                <section
-                                    ref={sectionRefs.notification}
-                                    id="notification-section"
+                                <section ref={sectionRefs.notification} id="notification-section"
                                     className="scroll-mt-40 min-h-screen"
                                 >
-                                    <div className="bg-background shadow-md p-6 sm:p-10 rounded-[30px] mb-10">
-                                        <h2 className="md:text-4xl text-2xl text-center mb-6 md:mb-10 text-[#05140D]">Notification</h2>
+                                    <div className="bg-background rounded-[30px] mb-10">
+                                        <h2 className="md:text-4xl text-2xl text-left font-semibold mb-6 md:mb-10 text-[#05140D]">Notification</h2>
                                         <div className="space-y-6">
                                             <div className="space-y-2">
                                                 <Label htmlFor="emailNotifications">Email Notifications</Label>
-                                                <Select
-                                                    value={formData.emailNotifications}
-                                                    // onValueChange={handleEmailNotificationsChange}
-                                                    required
-                                                >
-                                                    <SelectTrigger>
-                                                        <SelectValue placeholder="Enable/Disable" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="enable">Enable</SelectItem>
-                                                        <SelectItem value="disable">Disable</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
+                                                <div className="flex items-center space-x-2">
+                                                    <Switch
+                                                        id="emailNotifications"
+                                                        checked={formData.emailNotifications === "enable"}
+                                                    // onCheckedChange={(checked) => handleToggle('emailNotifications', checked ? 'enable' : 'disable')}
+                                                    />
+                                                    <Label htmlFor="emailNotifications">{formData.emailNotifications === "enable" ? "Enable" : "Disable"}</Label>
+                                                </div>
                                             </div>
                                             <div className="space-y-2">
                                                 <Label htmlFor="smsNotifications">SMS Notifications</Label>
-                                                <Select
-                                                    value={formData.smsNotifications}
-                                                    // onValueChange={handleSmsNotificationsChange}
-                                                    required
-                                                >
-                                                    <SelectTrigger>
-                                                        <SelectValue placeholder="Enable/Disable" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="enable">Enable</SelectItem>
-                                                        <SelectItem value="disable">Disable</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
+                                                <div className="flex items-center space-x-2">
+                                                    <Switch
+                                                        id="smsNotifications"
+                                                        checked={formData.smsNotifications === "enable"}
+                                                    // onCheckedChange={(checked) => handleToggle('smsNotifications', checked ? 'enable' : 'disable')}
+                                                    />
+                                                    <Label htmlFor="smsNotifications">{formData.smsNotifications === "enable" ? "Enable" : "Disable"}</Label>
+                                                </div>
                                             </div>
                                             <div className="space-y-2">
                                                 <Label htmlFor="pushNotifications">Push Notifications</Label>
-                                                <Select
-                                                    value={formData.pushNotifications}
-                                                    // onValueChange={handlePushNotificationsChange}
-                                                    required
-                                                >
-                                                    <SelectTrigger>
-                                                        <SelectValue placeholder="Enable/Disable" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="enable">Enable</SelectItem>
-                                                        <SelectItem value="disable">Disable</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
+                                                <div className="flex items-center space-x-2">
+                                                    <Switch
+                                                        id="pushNotifications"
+                                                        checked={formData.pushNotifications === "enable"}
+                                                    // onCheckedChange={(checked) => handleToggle('pushNotifications', checked ? 'enable' : 'disable')}
+                                                    />
+                                                    <Label htmlFor="pushNotifications">{formData.pushNotifications === "enable" ? "Enable" : "Disable"}</Label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <a
+                                        href="#support-section"
+                                        className={`relative flex w-[80px] text-center items-center p-2 pl-4 rounded-full transition-colors text-md text-white bg-[#2FB574] hover:bg-[#26925e]`}
+                                        onClick={() => {
+
+                                            scrollToSection('support');
+                                        }}
+                                    >
+                                        Next
+                                        <ChevronRight className="h-5 w-5" />
+                                    </a>
                                 </section>
-                                <section
-                                    ref={sectionRefs.support}
+
+                                <section ref={sectionRefs.support}
                                     id="support-section"
                                     className="scroll-mt-40 min-h-screen"
                                 >
-                                    <div className="bg-background shadow-md p-6 sm:p-10 rounded-[30px] mb-10">
-                                        <h2 className="md:text-4xl text-2xl text-center mb-6 md:mb-10 text-[#05140D]">Support</h2>
+                                    <div className="bg-background rounded-[30px] mb-10">
+                                        <h2 className="md:text-4xl text-2xl font-semibold text-left mb-6 md:mb-10 text-[#05140D]">Support</h2>
                                         <div className="space-y-6">
-                                            {/* Add your support settings fields here */}
+
+                                            <div className="space-y-4">
+                                                <Label htmlFor="supportMessage">Message Us</Label>
+                                                <Textarea
+                                                    id="supportMessage"
+                                                    name="supportMessage"
+                                                    value={formData.supportMessage}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Describe your issue or question"
+                                                    required
+                                                />
+                                            </div>
+                                            <Button onClick={handleSubmit} className=" bg-[#2FB574] text-white py-2 rounded-md hover:bg-green-700">
+                                                Submit
+                                            </Button>
+                                            <div className="mt-10">
+                                                <h3 className="text-xl md:text-2xl font-semibold text-left mb-6 md:mb-8 text-[#05140D]">
+                                                    Frequently Asked Questions
+                                                </h3>
+                                                <Accordion type="single" collapsible className="w-full">
+                                                    {faqs.map((faq, index) => (
+                                                        <AccordionItem
+                                                            key={index}
+                                                            value={`item-${index}`}
+                                                            className="border-b border-gray-300"
+                                                        >
+                                                            <AccordionTrigger
+                                                                className="text-sm md:text-md py-4 px-6 font-semibold text-[#05140D] bg-[#F7F9F6] rounded-md hover:bg-[#E5E8E4] transition-colors duration-300"
+                                                            >
+                                                                {faq.question}
+                                                            </AccordionTrigger>
+                                                            <AccordionContent
+                                                                className="text-base p-6 text-[#333] bg-[#F5F6F5] rounded-md"
+                                                            >
+                                                                {faq.answer}
+                                                            </AccordionContent>
+                                                        </AccordionItem>
+                                                    ))}
+                                                </Accordion>
+                                            </div>
+                                            <div className="flex justify-center mt-10">
+                                                <Link to="/dashboard">
+                                                <Button variant="default" size="lg" type="submit">
+                                                    Save Settings
+                                                </Button></Link>
+                                                
+                                            </div>
                                         </div>
                                     </div>
+
                                 </section>
                             </div>
                         </div>
 
-                        <div className="flex justify-center mt-10">
-                            <Button variant="default" size="lg" type="submit">
-                                Save Settings
-                            </Button>
-                        </div>
+
                     </form>
                 </div>
             </div>
