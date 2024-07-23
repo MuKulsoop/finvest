@@ -26,6 +26,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
+    "ethers": "^6.13.1",
     "framer-motion": "^11.3.6",
     "lucide-react": "^0.408.0",
     "react": "^18.3.1",
@@ -33,7 +34,8 @@
     "react-router-dom": "^6.25.0",
     "recharts": "^2.12.7",
     "tailwind-merge": "^2.4.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "web3modal": "^1.9.12"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",
