@@ -31,6 +31,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination";
+import UserProfileIcon from './ui/UserProfileIcon';
 
 const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => {
     const { projectId } = useParams();
@@ -62,43 +63,23 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
         <div className="flex min-h-screen w-full bg-gray-100">
             <div className="flex-1 sm:py-3 sm:pl-14 bg-white overflow-hidden">
                 {/* Header */}
-                <header className="sticky top-0 z-30 flex items-center justify-between p-4 bg-white border-b border-gray-200">
+                <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200">
                     <Sidebar />
                     <FadeIn direction="down" delay={0} fullWidth>
-                        <h1 className="md:text-4xl text-2xl font-semibold text-left text-[#05140D] w-full px-4 md:px-3 z-[5]">
+                        <h1 className="md:text-4xl text-2xl font-semibold text-left text-[#05140D] w-full px-4 md:px-3 z-[5] line-clamp-1">
                             {project.title}
                         </h1>
                     </FadeIn>
                     <FadeIn direction="down" delay={0}>
                         <Link to="/projects">
-                            <Button variant="outline" className="flex items-center gap-2 text-[#1B7A57] border-[#1B7A57] mr-4">
+                            <Button variant="outline" className="hidden sm:flex items-center gap-2 text-[#1B7A57] border-[#1B7A57] mr-4">
                                 View Projects
                                 <ChevronRight className="h-5 w-5" />
                             </Button>
                         </Link>
                     </FadeIn>
                     <FadeIn direction="left" delay={0.2} >
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button
-                                    variant="outline"
-                                    size="icon"
-                                    className="overflow-hidden rounded-full"
-                                >
-                                    <User className="h-8 w-8" />
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>
-                                <Link to="/settings">Settings</Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>Support</DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>Logout</DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                        <UserProfileIcon/>
                     </FadeIn>
                 </header>
                 <FadeIn direction="up" delay={0} fullWidth>

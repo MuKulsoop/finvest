@@ -41,9 +41,9 @@ function App() {
             <Route path='/login' exact element={<Login />} />
             <Route path='/signup' exact element={<SignUp />} />
             <Route path='/dashboard' exact element={<Dashboard />} />
-            <Route path="projects" element={<Projects />} />
+            <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:projectId" element={<ProjectDetailedView projects={projectsData} />} />
-            <Route path="post-project" element={<PostProject />} />
+            <Route path="/projects/post-project" element={<PostProject />} />
             <Route path="settings" element={<Setting />} />
 
           </Routes>
