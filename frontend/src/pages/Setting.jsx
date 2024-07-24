@@ -221,7 +221,7 @@ export const Setting = () => {
     return (
         <div className="flex min-h-screen w-full overflow-hidden scrollbar-hidden">
             <div className="flex-1 sm:gap-4 sm:py-4 sm:pl-14 overflow-hidden scrollbar-hidden bg-white">
-                <header className="fixed top-0 md:pt-4 w-full sm:w-[calc(100%-56px)] z-30 flex items-center justify-between h-14 md:h-20  px-4 bg-white border-b border-gray-200">
+                <header className="fixed top-0 lg:pt-4 w-full sm:w-[calc(100%-56px)] z-30 flex items-center justify-between h-14 lg:h-20  px-4 bg-white border-b border-gray-200">
                     <Sidebar />
                     <FadeIn direction="down" delay={0.1} fullWidth className="justify-start">
                         <h1 className="md:text-4xl text-2xl font-semibold text-left text-[#05140D] w-full px-2 pl-4 md:px-3 z-[5]">Settings</h1>
@@ -385,8 +385,8 @@ export const Setting = () => {
                                         </div>
                                     </nav>
                                 </div>
-                                <div className="flex-1 py-10 md:pr-10 px-10 rounded-[30px]">
-                                    <section ref={sectionRefs.profile} id="profile-section" className="scroll-mt-28 min-h-[90vh] flex flex-col justify-center">
+                                <div className="flex-1 py-8 md:pr-10 px-10 rounded-[30px]">
+                                    <section ref={sectionRefs.profile} id="profile-section" className="scroll-mt-40 lg:scroll-mt-24  min-h-screen  ">
                                         <div className="text-3xl md:text-4xl font-bold pb-4 md:pb-8">Let's set your profile</div>
                                         <div className="relative mb-6 flex flex-row items-center">
                                             <input
@@ -395,7 +395,7 @@ export const Setting = () => {
                                                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                                 onChange={handleImageChange}
                                             />
-                                            <div className="h-24 w-24 md:h-48 md:w-48 bg-gray-200 border-4 border-gray-300 rounded-full flex items-center justify-center overflow-hidden">
+                                            <div className="h-24 w-24 md:h-32 md:w-32 bg-gray-200 border-4 border-gray-300 rounded-full flex items-center justify-center overflow-hidden">
                                                 {formData.image ? (
                                                     <img src={formData.image} alt="Profile" className="object-cover h-full w-full" />
                                                 ) : (
@@ -518,7 +518,7 @@ export const Setting = () => {
 
                                     <section ref={sectionRefs.account}
                                         id="account-section"
-                                        className="scroll-mt-28 min-h-screen"
+                                        className="scroll-mt-40 lg:scroll-mt-28 min-h-screen"
                                     >
                                         <div className="bg-background   rounded-[30px] mb-10">
                                             <h2 className="text-3xl md:text-4xl font-semibold text-left  mb-6 md:mb-10 text-[#05140D]">Account</h2>
