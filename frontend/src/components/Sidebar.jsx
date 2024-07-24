@@ -165,7 +165,7 @@ const Sidebar = () => {
         <nav className="flex h-full flex-col justify-end items-start gap-4 px-2 py-4">
           <Link
             to="/settings"
-            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:bg-gray-200 ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'} ${location.pathname === '#' ? 'bg-gray-200' : ''}`}
+            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:bg-gray-200 ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'} ${location.pathname === '/settings' ? 'bg-gray-200' : ''}`}
             onMouseEnter={() => setHovered('Settings')}
             onMouseLeave={() => setHovered(null)}
           >

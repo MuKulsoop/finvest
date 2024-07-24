@@ -5,10 +5,11 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
-import Modal from '@/components/Modal';
+// import Modal from '@/components/Modal';
 import { Link, useNavigate } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
-import { PlusCircle, User } from "lucide-react";
+import { PlusCircle, User, Settings, LifeBuoy, LogOut } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -142,31 +143,48 @@ export const Setting = () => {
                 <header className="fixed top-0  w-full sm:w-[calc(100%-56px)] z-30 flex items-center justify-between p-4 bg-white border-b border-gray-200">
                     <Sidebar />
                     <h1 className="md:text-4xl text-2xl font-semibold text-left text-[#05140D] w-full px-2 pl-4 md:px-3 z-[5]">Settings</h1>
-                    <div className='flex flex-row'>
-                        <Link to="/post-project">
+                    {/* <div className='flex flex-row'> */}
+                    {/* <Link to="/post-project">
                             <Button variant="outline" className="flex items-center gap-2 text-[#1B7A57] border-[#1B7A57] mr-4">
                                 <PlusCircle className="h-5 w-5" />
                                 Post a Project
                             </Button>
-                        </Link>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="outline" size="icon" className="overflow-hidden rounded-full h-10 w-10">
-                                    <User className="h-7 w-8" />
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>
-                                    <Link to="/settings">Settings</Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>Support</DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>Logout</DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </div>
+                        </Link> */}
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline" size="icon" className="overflow-hidden rounded-full h-10 w-10">
+                                <User className="h-7 w-8" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Username</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>
+                                <Link to="/settings" className="flex items-center gap-2">
+                                    <Settings className="h-4 w-4" />
+                                    Settings
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                {/* <HashLink smooth to="/#support-section" className="flex items-center gap-2"> */}
+                                <a href="#support-section" className='relative flex w-full gap-2' onClick={() => {
+
+                                    scrollToSection('notification');
+                                }}>
+                                    <LifeBuoy className="h-4 w-4" />
+                                    Support
+                                </a>
+
+                                {/* </HashLink> */}
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem className="flex items-center gap-2">
+                                <LogOut className="h-4 w-4" />
+                                Logout
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                    {/* </div> */}
                 </header>
 
                 <div className="flex flex-col w-full mt-16 gap-10 items-center">
