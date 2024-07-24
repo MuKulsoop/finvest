@@ -1,5 +1,5 @@
 import express from "express";
-import { addInvestor, addFunding, loginInvestor, loginFunding } from "../controllers/user.controller.js";
+import { signup, login } from "../controllers/user.controller.js";
 import {
     registerNGO,
     donateToNGO,
@@ -38,10 +38,8 @@ router.post('/startup/approve-milestone/:startupId/:milestoneId', authenticateTo
 router.post('/startup/finalize-milestone/:startupId/:milestoneId', authenticateToken, finalizeMilestone);
 router.get('/startup/:startupId', authenticateToken, getStartupDetails);
 
-// Investor & Funding Routes
-router.post('/signup/create-investor', addInvestor);
-router.post('/signup/create-funding', addFunding);
-router.post('/login/investor', loginInvestor);
-router.post('/login/funding', loginFunding);
+// Signup and Login Routes
+router.post('/signup', signup);
+router.post('/login', login);
 
 export default router;
