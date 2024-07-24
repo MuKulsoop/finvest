@@ -25,8 +25,8 @@ const Sidebar = () => {
       {/* Mobile Sidebar using Sheet */}
       <Sheet className="sm:hidden">
         <SheetTrigger asChild>
-          <Button size="icon" variant="outline" className="sm:hidden border-0">
-            <PanelLeft className="h-5 w-5" />
+          <Button size="icon" variant="outline" className="sm:hidden border-0 hover:bg-transparent">
+            <PanelLeft className="h-5 w-5 " />
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SheetTrigger>
@@ -79,7 +79,7 @@ const Sidebar = () => {
           <nav className="flex absolute bottom-5 text-lg font-medium">
             <Link
               to="/settings"
-              className={`flex items-center gap-2 transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6 ${location.pathname === '/settings' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'}`}
+              className={`flex items-center gap-2 rounded-lg transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6 ${location.pathname === '/settings' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'}`}
             >
               <Settings className="h-5 w-5" />
               <span>Settings</span>
@@ -165,7 +165,7 @@ const Sidebar = () => {
         <nav className="flex h-full flex-col justify-end items-start gap-4 px-2 py-4">
           <Link
             to="/settings"
-            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:bg-gray-200 ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'} ${location.pathname === '#' ? 'bg-gray-200' : ''}`}
+            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:bg-gray-200 ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'} ${location.pathname === '/settings' ? 'bg-gray-200' : ''}`}
             onMouseEnter={() => setHovered('Settings')}
             onMouseLeave={() => setHovered(null)}
           >

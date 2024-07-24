@@ -19,7 +19,7 @@ function Why() {
 
             </FadeIn>
             <div className="flex xl:flex-row flex-col w-full items-center justify-center">
-                <div className="flex flex-col items-center justify-center xl:border-r border-slate-300">
+                <div className="flex flex-col items-center justify-center xl:border-r-2 border-slate-300">
                     <FadeIn direction="right" delay={0.3} fullWidth>
                         <div className="flex items-start justify-center flex-col xl:w-[500px] lg:w-[500px] md:w-[500px] w-[300px] md:p-10 p-0 py-10 pt-0  border-b-2 border-slate-300">
                             <img className="md:h-[90px] md:w-[90px] h-[50px] w-[50px]" src="https://res.cloudinary.com/djoebsejh/image/upload/v1721144151/xu3o3w3yllvmq3dpvhzs.png" alt="" />

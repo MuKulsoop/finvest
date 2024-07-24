@@ -106,6 +106,7 @@ import {
 // } from "@/components/ui/tooltip"
 import FadeIn from "@/components/FadeIn"
 import Sidebar from "@/components/Sidebar"
+import UserProfileIcon from "@/components/ui/UserProfileIcon"
 
 export function Dashboard() {
 
@@ -119,27 +120,6 @@ export function Dashboard() {
 
                         <Sidebar />
 
-
-
-                    {/* <Breadcrumb className="hidden md:flex">
-                        <BreadcrumbList>
-                            <BreadcrumbItem>
-                                <BreadcrumbLink asChild>
-                                    <Link href="#">Dashboard</Link>
-                                </BreadcrumbLink>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator />
-                            <BreadcrumbItem>
-                                <BreadcrumbLink asChild>
-                                    <Link href="#">Products</Link>
-                                </BreadcrumbLink>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator />
-                            <BreadcrumbItem>
-                                <BreadcrumbPage>Edit Product</BreadcrumbPage>
-                            </BreadcrumbItem>
-                        </BreadcrumbList>
-                    </Breadcrumb> */}
                     <FadeIn direction="down" delay={0.2} fullWidth >
                         <h3 className="md:text-4xl text-2xl font-semibold text-left text-[#05140D] w-full py-3 md:px-3 z-[5] ">
                             Dashboard
@@ -156,27 +136,7 @@ export function Dashboard() {
                         </div>
                     </FadeIn>
                     <FadeIn direction="left" delay={0.2} >
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button
-                                    variant="outline"
-                                    size="icon"
-                                    className="overflow-hidden rounded-full"
-                                >
-                                    <User className="h-8 w-8" />
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>
-                                <Link to="/settings">Settings</Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>Support</DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>Logout</DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                        <UserProfileIcon/>
                     </FadeIn>
                 </header>
                 <FadeIn direction="up" delay={0.2} fullWidth>
