@@ -6,14 +6,6 @@ import { Button } from "@/components/ui/button";
 import Sidebar from './Sidebar';
 import FadeIn from './FadeIn';
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
     Table,
     TableBody,
     TableCaption,
@@ -25,7 +17,6 @@ import {
 import {
     Pagination,
     PaginationContent,
-    PaginationEllipsis,
     PaginationItem,
     PaginationLink,
     PaginationNext,
@@ -41,11 +32,15 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
     const itemsPerPage = 10;
 
     useEffect(() => {
-        fetch('/projects.json')
-            .then(response => response.json())
+        fetch(`http://localhost:8000/project/${projectId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
-                const project = data.find(p => p.id === parseInt(projectId));
-                setProject(project);
+                setProject(data);
             })
             .catch(error => console.error('Error fetching project data:', error));
     }, [projectId]);

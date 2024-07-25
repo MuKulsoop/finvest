@@ -18,7 +18,7 @@ import {
     getStartupDetails
 } from '../controllers/Startup.controller.js';
 
-import { createProject,  getProjectById } from "../controllers/Project.controller.js";
+import { createProject,  getProjectById, getAllProjects } from "../controllers/Project.controller.js";
 import { upload } from "../middleware/multer.js"
 import { authenticateToken } from "../middleware/authenticate.js";
 
@@ -49,7 +49,7 @@ router.post('/login', login);
 // Project Routes
 
 router.post('/project/create', upload.single('image'), createProject);
+router.get('/project/getAllProjects',  getAllProjects);
 router.get('/project/:projectId',  getProjectById); 
-// router.get('/project/getAllProjects',  getProjects)
 
 export default router;

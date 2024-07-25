@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,6 +11,7 @@ import { ChevronRight, Send } from 'lucide-react';
 import UserProfileIcon from '@/components/ui/UserProfileIcon';
 
 function PostProject() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         title: '',
         description: '',
