@@ -6,15 +6,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import Sidebar from '@/components/Sidebar';
 import FadeIn from '@/components/FadeIn';
 import { Link } from 'react-router-dom';
-import { ChevronRight, Send,User } from 'lucide-react';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { ChevronRight, Send } from 'lucide-react';
 import UserProfileIcon from '@/components/ui/UserProfileIcon';
 
 function PostProject() {
@@ -24,11 +16,10 @@ function PostProject() {
         amountNeeded: '',
         minDonation: '',
         category: '',
-        milestones: ['', ''],
-        image: '',
+        milestones: [{ title: '', description: '', completionDate: '', amountRequired: '' }],
+        image: null,
     });
-    const [milestoneCount, setMilestoneCount] = useState(2);
-    const [milestoneProgress, setMilestoneProgress] = useState([false, false]);
+    const [milestoneCount, setMilestoneCount] = useState(1);
 
     const categories = [
         "Art & Culture", "Community", "Economics & Infrastructure", "Education",
@@ -42,30 +33,28 @@ function PostProject() {
     };
 
     const handleMilestoneChange = (e, index) => {
+        const { name, value } = e.target;
         const updatedMilestones = [...formData.milestones];
-        updatedMilestones[index] = e.target.value;
+        updatedMilestones[index][name] = value;
         setFormData({ ...formData, milestones: updatedMilestones });
-
-        // Update progress indicator
-        const progress = updatedMilestones.map((milestone) => milestone.length > 0);
-        setMilestoneProgress(progress);
     };
 
     const handleMilestoneCountChange = (e) => {
         const count = parseInt(e.target.value, 10);
         setMilestoneCount(count);
-        setFormData({ ...formData, milestones: Array(count).fill('') });
-        setMilestoneProgress(Array(count).fill(false));
+        const updatedMilestones = Array(count).fill(null).map(() => ({
+            title: '',
+            description: '',
+            completionDate: '',
+            amountRequired: ''
+        }));
+        setFormData({ ...formData, milestones: updatedMilestones });
     };
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setFormData({ ...formData, image: reader.result });
-            };
-            reader.readAsDataURL(file);
+            setFormData({ ...formData, image: file });
         }
     };
 
@@ -73,17 +62,41 @@ function PostProject() {
         setFormData({ ...formData, category: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission
-        console.log(formData);
+
+        const data = new FormData();
+        data.append('title', formData.title);
+        data.append('description', formData.description);
+        data.append('creator', 'John Doe'); // Static value, replace with dynamic data
+        data.append('avatar', 'https://randomuser.me/api/portraits/men/1.jpg'); // Static value, replace with dynamic data
+        data.append('image', formData.image);
+        data.append('amountRaised', '$0'); // Static value, replace with dynamic data if needed
+        data.append('contributors', 0); // Static value, replace with dynamic data if needed
+        data.append('upvotes', 0); // Static value, replace with dynamic data if needed
+        data.append('minimumDonation', formData.minDonation);
+        data.append('milestones', JSON.stringify(formData.milestones));
+
+        try {
+            const response = await fetch('http://localhost:8000/project/create', {
+                method: 'POST',
+                body: data,
+                headers: {
+                    // No additional headers required for FormData
+                }
+            });
+
+            const result = await response.json();
+            console.log('Project created successfully:', result);
+        } catch (error) {
+            console.error('Error creating project:', error);
+        }
     };
 
     return (
         <div className="flex min-h-screen w-full">
             <div className="flex-1 sm:py-3 sm:pl-14 bg-white overflow-hidden">
                 <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200">
-                    
                     <Sidebar />
                     <FadeIn direction="down" delay={0.2} fullWidth>
                         <h1 className="md:text-4xl text-2xl font-semibold text-left text-[#05140D] w-full px-4 md:px-3 z-[5] line-clamp-1">
@@ -98,8 +111,8 @@ function PostProject() {
                             </Button>
                         </Link>
                     </FadeIn>
-                    <FadeIn direction="left" delay={0.2} >
-                        <UserProfileIcon/>
+                    <FadeIn direction="left" delay={0.2}>
+                        <UserProfileIcon />
                     </FadeIn>
                 </header>
                 <FadeIn direction="up" delay={0.2} fullWidth>
@@ -116,7 +129,7 @@ function PostProject() {
                                         />
                                         <div className="h-80 w-full bg-gray-200 rounded-[30px] flex items-center justify-center overflow-hidden">
                                             {formData.image ? (
-                                                <img src={formData.image} alt="Project" className="object-cover h-full w-full" />
+                                                <img src={URL.createObjectURL(formData.image)} alt="Project" className="object-cover h-full w-full" />
                                             ) : (
                                                 <p className="text-gray-400 text-2xl font-semibold">Upload Image</p>
                                             )}
@@ -164,7 +177,7 @@ function PostProject() {
                                             value={formData.category}
                                             onValueChange={handleCategoryChange}
                                             placeholder="Select Category"
-                                            className="w-full  focus:ring-0 text-gray-500 px-2 py-2"
+                                            className="w-full focus:ring-0 text-gray-500 px-2 py-2"
                                             style={{ border: 'none', outline: 'none', boxShadow: 'none' }}
                                             onFocus={(e) => e.target.style.boxShadow = 'none'}
                                             onBlur={(e) => e.target.style.boxShadow = 'none'}
@@ -193,28 +206,49 @@ function PostProject() {
                                             value={milestoneCount}
                                             onChange={handleMilestoneCountChange}
                                             className="w-full border-0 border-b border-gray-300 focus:ring-0"
-                                            min="0"
+                                            min="1"
                                         />
 
-                                        <div className="relative mt-6">
-                                            <div className="absolute left-2 top-0 bottom-0 w-2 bg-gray-200 rounded-full transition-all duration-500 ease-in-out"></div>
-                                            <div className="absolute left-2 top-0 bottom-0 w-2 bg-[#2FB574] rounded-full transition-all duration-1000 ease-in-out" style={{ height: `${milestoneProgress.filter(Boolean).length / milestoneCount * 100}%` }}></div>
-
-                                            <div className="space-y-4 pl-[2px]">
-                                                {formData.milestones.map((milestone, index) => (
-                                                    <div key={index} className="flex items-center gap-3">
-                                                        <div className={`h-5 w-6 z-[5] rounded-full ${milestoneProgress[index] ? 'bg-[#26925e]' : 'bg-gray-300'}`} />
-                                                        <Textarea
-                                                            name={`milestone-${index}`}
-                                                            value={milestone}
-                                                            onChange={(e) => handleMilestoneChange(e, index)}
-                                                            placeholder={`Milestone ${index + 1}`}
-                                                            required
-                                                            className="w-full border-0 border-b border-gray-300 focus:ring-0"
-                                                        />
-                                                    </div>
-                                                ))}
-                                            </div>
+                                        <div className="space-y-4 mt-6">
+                                            {formData.milestones.map((milestone, index) => (
+                                                <div key={index} className="space-y-4">
+                                                    <Input
+                                                        type="text"
+                                                        name="title"
+                                                        value={milestone.title}
+                                                        onChange={(e) => handleMilestoneChange(e, index)}
+                                                        placeholder={`Milestone ${index + 1} Title`}
+                                                        className="w-full border-0 border-b border-gray-300 focus:ring-0"
+                                                        required
+                                                    />
+                                                    <Textarea
+                                                        name="description"
+                                                        value={milestone.description}
+                                                        onChange={(e) => handleMilestoneChange(e, index)}
+                                                        placeholder={`Milestone ${index + 1} Description`}
+                                                        className="w-full border-0 border-b border-gray-300 focus:ring-0"
+                                                        required
+                                                    />
+                                                    <Input
+                                                        type="date"
+                                                        name="completionDate"
+                                                        value={milestone.completionDate}
+                                                        onChange={(e) => handleMilestoneChange(e, index)}
+                                                        placeholder={`Milestone ${index + 1} Completion Date`}
+                                                        className="w-full border-0 border-b border-gray-300 focus:ring-0"
+                                                        required
+                                                    />
+                                                    <Input
+                                                        type="number"
+                                                        name="amountRequired"
+                                                        value={milestone.amountRequired}
+                                                        onChange={(e) => handleMilestoneChange(e, index)}
+                                                        placeholder={`Milestone ${index + 1} Amount Required`}
+                                                        className="w-full border-0 border-b border-gray-300 focus:ring-0"
+                                                        required
+                                                    />
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                     <Button type="submit" className="w-full mt-5 bg-[#2FB574] text-white py-2 rounded-[30px] hover:bg-[#26925e]">
