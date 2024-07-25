@@ -11,10 +11,40 @@
         "upvotes": 13,
         "minimumDonation": "$10",
         "milestones": [
-            "Research and development",
-            "Prototype creation",
-            "Pilot testing",
-            "Mass production"
+            {
+                "title": "Research and development",
+                "description": "Conducting initial research and development to create efficient solar panel designs.",
+                "completionDate": "2024-06-15",
+                "amountRequired": "$2,000"
+            },
+            {
+                "title": "Prototype creation",
+                "description": "Building and testing prototypes to ensure functionality and efficiency.",
+                "completionDate": "2024-07-01",
+                "amountRequired": "$3,000"
+            },
+            {
+                "title": "Pilot testing",
+                "description": "Implementing pilot tests in selected areas to gather real-world data.",
+                "completionDate": "2024-08-01",
+                "amountRequired": "$2,500"
+            },
+            {
+                "title": "Mass production",
+                "description": "Scaling up production to meet market demand and reduce costs.",
+                "completionDate": "2024-09-15",
+                "amountRequired": "$5,000"
+            }
+        ],
+        "communityFeedback": [
+            {
+                "user": "Alice Johnson",
+                "feedback": "This project has great potential! The prototype results look promising."
+            },
+            {
+                "user": "Bob Smith",
+                "feedback": "Looking forward to seeing these solar panels in action. Keep up the good work!"
+            }
         ],
         "contributions": [
             {
@@ -171,7 +201,8 @@
                 "amount": 300,
                 "usdValue": 320
             }
-        ]
+        ],
+        "category": "Environment & Energy"
     },
     {
         "id": 2,
@@ -185,10 +216,40 @@
         "upvotes": 56,
         "minimumDonation": "$5",
         "milestones": [
-            "Site assessment",
-            "Installation of filtration systems",
-            "Community education programs",
-            "Maintenance and monitoring"
+            {
+                "title": "Site assessment",
+                "description": "Evaluating potential sites for clean water systems and identifying the best locations.",
+                "completionDate": "2024-06-10",
+                "amountRequired": "$1,000"
+            },
+            {
+                "title": "Installation of filtration systems",
+                "description": "Setting up water filtration systems in selected sites.",
+                "completionDate": "2024-07-15",
+                "amountRequired": "$10,000"
+            },
+            {
+                "title": "Community education programs",
+                "description": "Educating the community about water conservation and hygiene practices.",
+                "completionDate": "2024-08-10",
+                "amountRequired": "$5,000"
+            },
+            {
+                "title": "Maintenance and monitoring",
+                "description": "Regular maintenance and monitoring of the filtration systems to ensure long-term sustainability.",
+                "completionDate": "2024-09-05",
+                "amountRequired": "$4,000"
+            }
+        ],
+        "communityFeedback": [
+            {
+                "user": "David Lee",
+                "feedback": "This initiative is essential for improving health in underdeveloped areas."
+            },
+            {
+                "user": "Sophia Turner",
+                "feedback": "Great job on the filtration systems! Looking forward to seeing the impact."
+            }
         ],
         "contributions": [
             {
@@ -205,7 +266,8 @@
                 "amount": 150,
                 "usdValue": 180
             }
-        ]
+        ],
+        "category": "Nature"
     },
     {
         "id": 3,
@@ -219,10 +281,40 @@
         "upvotes": 23,
         "minimumDonation": "$20",
         "milestones": [
-            "AI model development",
-            "Clinical trials",
-            "Regulatory approval",
-            "Deployment in hospitals"
+            {
+                "title": "AI model development",
+                "description": "Developing and training AI models to improve healthcare services.",
+                "completionDate": "2024-05-10",
+                "amountRequired": "$3,000"
+            },
+            {
+                "title": "Clinical trials",
+                "description": "Conducting clinical trials to test the effectiveness of the AI models.",
+                "completionDate": "2024-06-20",
+                "amountRequired": "$4,000"
+            },
+            {
+                "title": "Regulatory approval",
+                "description": "Securing regulatory approval to deploy the AI models in healthcare settings.",
+                "completionDate": "2024-07-30",
+                "amountRequired": "$2,000"
+            },
+            {
+                "title": "Deployment in hospitals",
+                "description": "Deploying the AI models in hospitals and training staff to use them.",
+                "completionDate": "2024-09-15",
+                "amountRequired": "$6,000"
+            }
+        ],
+        "communityFeedback": [
+            {
+                "user": "Emma Watson",
+                "feedback": "Excited to see AI transforming healthcare! This project could save many lives."
+            },
+            {
+                "user": "Jack Williams",
+                "feedback": "AI in healthcare is a game-changer. Great initiative and looking forward to its success."
+            }
         ],
         "contributions": [
             {
@@ -239,7 +331,8 @@
                 "amount": 400,
                 "usdValue": 480
             }
-        ]
+        ],
+        "category": "Healthcare"
     },
     {
         "id": 4,
@@ -253,10 +346,40 @@
         "upvotes": 6,
         "minimumDonation": "$15",
         "milestones": [
-            "Material research",
-            "Prototype development",
-            "Market testing",
-            "Commercial launch"
+            {
+                "title": "Material research",
+                "description": "Researching and identifying sustainable materials for packaging solutions.",
+                "completionDate": "2024-06-15",
+                "amountRequired": "$2,000"
+            },
+            {
+                "title": "Prototype development",
+                "description": "Developing prototypes of eco-friendly packaging designs.",
+                "completionDate": "2024-07-25",
+                "amountRequired": "$1,500"
+            },
+            {
+                "title": "Market testing",
+                "description": "Conducting market testing to gather feedback on packaging designs.",
+                "completionDate": "2024-08-30",
+                "amountRequired": "$1,000"
+            },
+            {
+                "title": "Commercial launch",
+                "description": "Launching the eco-friendly packaging solutions commercially.",
+                "completionDate": "2024-10-10",
+                "amountRequired": "$500"
+            }
+        ],
+        "communityFeedback": [
+            {
+                "user": "Sarah Lee",
+                "feedback": "Eco-friendly packaging is a crucial step toward sustainability. Great project!"
+            },
+            {
+                "user": "John Smith",
+                "feedback": "Looking forward to seeing these sustainable packaging solutions in the market."
+            }
         ],
         "contributions": [
             {
@@ -273,7 +396,8 @@
                 "amount": 100,
                 "usdValue": 120
             }
-        ]
+        ],
+        "category": "Environment & Energy"
     },
     {
         "id": 5,
@@ -287,60 +411,57 @@
         "upvotes": 68,
         "minimumDonation": "$30",
         "milestones": [
-            "Feasibility study",
-            "Technology development",
-            "Pilot projects",
-            "Commercial deployment"
+            {
+                "title": "Resource assessment",
+                "description": "Assessing potential sites and resources for renewable energy projects.",
+                "completionDate": "2024-05-20",
+                "amountRequired": "$5,000"
+            },
+            {
+                "title": "Pilot projects",
+                "description": "Implementing pilot projects to test the viability of new renewable energy sources.",
+                "completionDate": "2024-07-05",
+                "amountRequired": "$10,000"
+            },
+            {
+                "title": "Community outreach",
+                "description": "Engaging local communities and stakeholders in renewable energy projects.",
+                "completionDate": "2024-08-15",
+                "amountRequired": "$5,000"
+            },
+            {
+                "title": "Full-scale deployment",
+                "description": "Deploying renewable energy projects on a larger scale to meet energy demands.",
+                "completionDate": "2024-10-01",
+                "amountRequired": "$5,000"
+            }
+        ],
+        "communityFeedback": [
+            {
+                "user": "Liam Turner",
+                "feedback": "Renewable energy is the future. This project is a step in the right direction!"
+            },
+            {
+                "user": "Olivia Brown",
+                "feedback": "Excited to see new renewable energy sources being explored."
+            }
         ],
         "contributions": [
             {
-                "donatedAt": "2024-07-16T05:30:00.000Z",
+                "donatedAt": "2024-07-15T05:30:00.000Z",
                 "donor": "Donor 9",
                 "network": "Ethereum",
                 "amount": 500,
                 "usdValue": 600
             },
             {
-                "donatedAt": "2024-07-17T06:40:00.000Z",
+                "donatedAt": "2024-07-16T04:20:00.000Z",
                 "donor": "Donor 10",
                 "network": "Bitcoin",
                 "amount": 700,
                 "usdValue": 840
             }
-        ]
-    },
-    {
-        "id": 6,
-        "title": "Educational App for Kids",
-        "description": "Creating an engaging educational app for children that combines fun and learning with interactive games and activities.",
-        "creator": "Emily White",
-        "avatar": "https://randomuser.me/api/portraits/women/6.jpg",
-        "image": "https://images.unsplash.com/photo-1544717305-996b815c338c?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-        "amountRaised": "$8,000",
-        "contributors": 35,
-        "upvotes": 16,
-        "minimumDonation": "$5",
-        "milestones": [
-            "Content development",
-            "App design",
-            "Beta testing",
-            "App launch"
         ],
-        "contributions": [
-            {
-                "donatedAt": "2024-07-15T04:20:00.000Z",
-                "donor": "Donor 11",
-                "network": "Ethereum",
-                "amount": 150,
-                "usdValue": 180
-            },
-            {
-                "donatedAt": "2024-07-16T05:50:00.000Z",
-                "donor": "Donor 12",
-                "network": "Bitcoin",
-                "amount": 200,
-                "usdValue": 240
-            }
-        ]
+        "category": "Environment & Energy"
     }
 ]
