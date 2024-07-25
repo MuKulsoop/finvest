@@ -11,6 +11,7 @@ import Projects from "./pages/Projects";
 import PostProject from "./pages/PostProject";
 import ProjectDetailedView from "./components/ProjectDetailedView";
 import { Setting } from "./pages/Setting";
+import MilestoneDetailedView from "./components/MileStonesDetailedView";
 
 function App() {
   const [projectsData, setProjectsData] = useState([]);
@@ -43,6 +44,7 @@ function App() {
             <Route path='/dashboard' exact element={<Dashboard />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:projectId" element={<ProjectDetailedView projects={projectsData} />} />
+            <Route path="/projects/:projectId/milestones" element={<MilestoneDetailedView />} />
             <Route path="/projects/post-project" element={<PostProject />} />
             <Route path="settings" element={<Setting />} />
 

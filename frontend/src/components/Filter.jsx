@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp, Search, ChevronLeft, ChevronRight, X } from 'lu
 
 const filterOptions = [
     "Art & Culture", "Community", "Economics & Infrastructure", "Education", "Environment & Energy",
-    "Equality", "Finance", "Healthcare", "Nature", "NGO", "Charity", "Technology"
+    "Equality", "Finance", "Healthcare", "Nature", "NGO", "Charity", "Technology","Agriculture"
 ];
 
 function Filter() {

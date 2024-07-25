@@ -15,25 +15,33 @@
                 "title": "Research and development",
                 "description": "Conducting initial research and development to create efficient solar panel designs.",
                 "completionDate": "2024-06-15",
-                "amountRequired": "$2,000"
+                "amountRequired": "$2,000",
+                "upvotes": 13,
+                "downvotes": 10
             },
             {
                 "title": "Prototype creation",
                 "description": "Building and testing prototypes to ensure functionality and efficiency.",
                 "completionDate": "2024-07-01",
-                "amountRequired": "$3,000"
+                "amountRequired": "$3,000",
+                "upvotes": 23,
+                "downvotes": 2
             },
             {
                 "title": "Pilot testing",
                 "description": "Implementing pilot tests in selected areas to gather real-world data.",
                 "completionDate": "2024-08-01",
-                "amountRequired": "$2,500"
+                "amountRequired": "$2,500",
+                "upvotes": 16,
+                "downvotes": 6
             },
             {
                 "title": "Mass production",
                 "description": "Scaling up production to meet market demand and reduce costs.",
                 "completionDate": "2024-09-15",
-                "amountRequired": "$5,000"
+                "amountRequired": "$5,000",
+                "upvotes": 17,
+                "downvotes":2
             }
         ],
         "communityFeedback": [
@@ -220,25 +228,33 @@
                 "title": "Site assessment",
                 "description": "Evaluating potential sites for clean water systems and identifying the best locations.",
                 "completionDate": "2024-06-10",
-                "amountRequired": "$1,000"
+                "amountRequired": "$1,000",
+                "upvotes": 10,
+                "downvotes": 2
             },
             {
                 "title": "Installation of filtration systems",
                 "description": "Setting up water filtration systems in selected sites.",
                 "completionDate": "2024-07-15",
-                "amountRequired": "$10,000"
+                "amountRequired": "$10,000",
+                "upvotes": 15,
+                "downvotes": 5
             },
             {
                 "title": "Community education programs",
                 "description": "Educating the community about water conservation and hygiene practices.",
                 "completionDate": "2024-08-10",
-                "amountRequired": "$5,000"
+                "amountRequired": "$5,000",
+                "upvotes": 12,
+                "downvotes": 3
             },
             {
                 "title": "Maintenance and monitoring",
                 "description": "Regular maintenance and monitoring of the filtration systems to ensure long-term sustainability.",
                 "completionDate": "2024-09-05",
-                "amountRequired": "$4,000"
+                "amountRequired": "$4,000",
+                "upvotes": 9,
+                "downvotes": 4
             }
         ],
         "communityFeedback": [
@@ -285,25 +301,33 @@
                 "title": "AI model development",
                 "description": "Developing and training AI models to improve healthcare services.",
                 "completionDate": "2024-05-10",
-                "amountRequired": "$3,000"
+                "amountRequired": "$3,000",
+                "upvotes": 8,
+                "downvotes": 2
             },
             {
                 "title": "Clinical trials",
                 "description": "Conducting clinical trials to test the effectiveness of the AI models.",
                 "completionDate": "2024-06-20",
-                "amountRequired": "$4,000"
+                "amountRequired": "$4,000",
+                "upvotes": 10,
+                "downvotes": 1
             },
             {
                 "title": "Regulatory approval",
                 "description": "Securing regulatory approval to deploy the AI models in healthcare settings.",
                 "completionDate": "2024-07-30",
-                "amountRequired": "$2,000"
+                "amountRequired": "$2,000",
+                "upvotes": 5,
+                "downvotes": 3
             },
             {
                 "title": "Deployment in hospitals",
                 "description": "Deploying the AI models in hospitals and training staff to use them.",
                 "completionDate": "2024-09-15",
-                "amountRequired": "$6,000"
+                "amountRequired": "$6,000",
+                "upvotes": 12,
+                "downvotes": 4
             }
         ],
         "communityFeedback": [
@@ -350,25 +374,33 @@
                 "title": "Material research",
                 "description": "Researching and identifying sustainable materials for packaging solutions.",
                 "completionDate": "2024-06-15",
-                "amountRequired": "$2,000"
+                "amountRequired": "$2,000",
+                "upvotes": 4,
+                "downvotes": 1
             },
             {
                 "title": "Prototype development",
                 "description": "Developing prototypes of eco-friendly packaging designs.",
                 "completionDate": "2024-07-25",
-                "amountRequired": "$1,500"
+                "amountRequired": "$1,500",
+                "upvotes": 5,
+                "downvotes": 2
             },
             {
                 "title": "Market testing",
                 "description": "Conducting market testing to gather feedback on packaging designs.",
                 "completionDate": "2024-08-30",
-                "amountRequired": "$1,000"
+                "amountRequired": "$1,000",
+                "upvotes": 3,
+                "downvotes": 3
             },
             {
                 "title": "Commercial launch",
                 "description": "Launching the eco-friendly packaging solutions commercially.",
                 "completionDate": "2024-10-10",
-                "amountRequired": "$500"
+                "amountRequired": "$500",
+                "upvotes": 2,
+                "downvotes": 1
             }
         ],
         "communityFeedback": [
@@ -403,65 +435,528 @@
         "id": 5,
         "title": "Renewable Energy Sources",
         "description": "Exploring new renewable energy sources, including wind, solar, and hydroelectric power, to create a sustainable and reliable energy future.",
-        "creator": "Charlie Davis",
-        "avatar": "https://randomuser.me/api/portraits/men/5.jpg",
+        "creator": "Emily Davis",
+        "avatar": "https://randomuser.me/api/portraits/women/5.jpg",
         "image": "https://plus.unsplash.com/premium_photo-1679917152562-09bb29e555c1?q=80&w=1854&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "amountRaised": "$25,000",
-        "contributors": 100,
-        "upvotes": 68,
+        "amountRaised": "$8,000",
+        "contributors": 60,
+        "upvotes": 33,
         "minimumDonation": "$30",
         "milestones": [
             {
-                "title": "Resource assessment",
-                "description": "Assessing potential sites and resources for renewable energy projects.",
-                "completionDate": "2024-05-20",
-                "amountRequired": "$5,000"
+                "title": "Feasibility study",
+                "description": "Conducting a feasibility study to assess potential renewable energy sources.",
+                "completionDate": "2024-06-05",
+                "amountRequired": "$2,000",
+                "upvotes": 7,
+                "downvotes": 1
+            },
+            {
+                "title": "Technology development",
+                "description": "Developing technologies for harnessing renewable energy sources.",
+                "completionDate": "2024-07-15",
+                "amountRequired": "$3,000",
+                "upvotes": 10,
+                "downvotes": 3
             },
             {
                 "title": "Pilot projects",
-                "description": "Implementing pilot projects to test the viability of new renewable energy sources.",
-                "completionDate": "2024-07-05",
-                "amountRequired": "$10,000"
+                "description": "Implementing pilot projects to test renewable energy technologies in real-world conditions.",
+                "completionDate": "2024-08-20",
+                "amountRequired": "$2,500",
+                "upvotes": 9,
+                "downvotes": 2
             },
             {
-                "title": "Community outreach",
-                "description": "Engaging local communities and stakeholders in renewable energy projects.",
-                "completionDate": "2024-08-15",
-                "amountRequired": "$5,000"
-            },
-            {
-                "title": "Full-scale deployment",
-                "description": "Deploying renewable energy projects on a larger scale to meet energy demands.",
-                "completionDate": "2024-10-01",
-                "amountRequired": "$5,000"
+                "title": "Scaling up",
+                "description": "Scaling up successful pilot projects to wider areas and applications.",
+                "completionDate": "2024-09-30",
+                "amountRequired": "$500",
+                "upvotes": 7,
+                "downvotes": 2
             }
         ],
         "communityFeedback": [
             {
-                "user": "Liam Turner",
-                "feedback": "Renewable energy is the future. This project is a step in the right direction!"
+                "user": "Michael Brown",
+                "feedback": "Renewable energy is vital for our future. Excited to see progress in this project!"
             },
             {
-                "user": "Olivia Brown",
-                "feedback": "Excited to see new renewable energy sources being explored."
+                "user": "Laura Green",
+                "feedback": "This project has the potential to make a significant impact on energy sustainability."
             }
         ],
         "contributions": [
             {
-                "donatedAt": "2024-07-15T05:30:00.000Z",
+                "donatedAt": "2024-07-17T11:30:00.000Z",
                 "donor": "Donor 9",
                 "network": "Ethereum",
-                "amount": 500,
-                "usdValue": 600
+                "amount": 250,
+                "usdValue": 300
             },
             {
-                "donatedAt": "2024-07-16T04:20:00.000Z",
+                "donatedAt": "2024-07-18T12:00:00.000Z",
                 "donor": "Donor 10",
                 "network": "Bitcoin",
-                "amount": 700,
-                "usdValue": 840
+                "amount": 200,
+                "usdValue": 240
             }
         ],
         "category": "Environment & Energy"
+    },
+    {
+        "id": 6,
+        "title": "Sustainable Agriculture Practices",
+        "description": "Implementing sustainable agriculture practices to improve soil health and increase crop yields.",
+        "creator": "Emily Johnson",
+        "avatar": "https://randomuser.me/api/portraits/women/6.jpg",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_JOyf3SpV1Nk2-X1iACHmD7_B_IJBFZ4Mvg&s",
+        "amountRaised": "$15,000",
+        "contributors": 50,
+        "upvotes": 45,
+        "minimumDonation": "$20",
+        "milestones": [
+            {
+                "title": "Soil Testing",
+                "description": "Conducting soil tests to determine nutrient levels and composition.",
+                "completionDate": "2024-04-10",
+                "amountRequired": "$3,000",
+                "upvotes": 5,
+                "downvotes": 1
+            },
+            {
+                "title": "Crop Rotation Implementation",
+                "description": "Introducing crop rotation to maintain soil fertility.",
+                "completionDate": "2024-06-22",
+                "amountRequired": "$7,000",
+                "upvotes": 10,
+                "downvotes": 2
+            },
+            {
+                "title": "Farmer Training Programs",
+                "description": "Training farmers on sustainable practices and techniques.",
+                "completionDate": "2024-09-01",
+                "amountRequired": "$5,000",
+                "upvotes": 12,
+                "downvotes": 3
+            }
+        ],
+        "communityFeedback": [
+            {
+                "user": "Sophia Taylor",
+                "feedback": "This project is crucial for sustainable food production!"
+            },
+            {
+                "user": "Mason Martinez",
+                "feedback": "Excited to see the positive impact on our environment."
+            }
+        ],
+        "contributions": [
+            {
+                "donatedAt": "2024-07-12T08:45:00.000Z",
+                "donor": "Donor 11",
+                "network": "Ethereum",
+                "amount": 300,
+                "usdValue": 360
+            },
+            {
+                "donatedAt": "2024-07-14T07:30:00.000Z",
+                "donor": "Donor 12",
+                "network": "Bitcoin",
+                "amount": 400,
+                "usdValue": 480
+            }
+        ],
+        "category": "Agriculture"
+    },
+    {
+        "id": 7,
+        "title": "Community Health Initiatives",
+        "description": "Launching health programs to improve community well-being and access to healthcare.",
+        "creator": "Michael Scott",
+        "avatar": "https://randomuser.me/api/portraits/men/7.jpg",
+        "image": "https://plus.unsplash.com/premium_photo-1680042813126-d2ad016b28e0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "amountRaised": "$10,000",
+        "contributors": 30,
+        "upvotes": 32,
+        "minimumDonation": "$10",
+        "milestones": [
+            {
+                "title": "Health Education Workshops",
+                "description": "Organizing workshops to educate the community on health and wellness.",
+                "completionDate": "2024-03-15",
+                "amountRequired": "$2,000",
+                "upvotes": 8,
+                "downvotes": 1
+            },
+            {
+                "title": "Mobile Health Clinics",
+                "description": "Establishing mobile clinics to provide healthcare in remote areas.",
+                "completionDate": "2024-06-01",
+                "amountRequired": "$5,000",
+                "upvotes": 12,
+                "downvotes": 2
+            },
+            {
+                "title": "Vaccination Drives",
+                "description": "Conducting vaccination drives to prevent diseases.",
+                "completionDate": "2024-08-25",
+                "amountRequired": "$3,000",
+                "upvotes": 10,
+                "downvotes": 3
+            }
+        ],
+        "communityFeedback": [
+            {
+                "user": "Ethan Anderson",
+                "feedback": "Great initiative to improve community health!"
+            },
+            {
+                "user": "Emma Wilson",
+                "feedback": "Health education is essential for everyone."
+            }
+        ],
+        "contributions": [
+            {
+                "donatedAt": "2024-07-10T10:30:00.000Z",
+                "donor": "Donor 13",
+                "network": "Ethereum",
+                "amount": 200,
+                "usdValue": 240
+            },
+            {
+                "donatedAt": "2024-07-13T09:20:00.000Z",
+                "donor": "Donor 14",
+                "network": "Bitcoin",
+                "amount": 300,
+                "usdValue": 360
+            }
+        ],
+        "category": "Healthcare"
+    },
+    {
+        "id": 8,
+        "title": "Educational Technology Solutions",
+        "description": "Developing innovative technology solutions to enhance the learning experience in schools.",
+        "creator": "Sarah Lee",
+        "avatar": "https://randomuser.me/api/portraits/women/8.jpg",
+        "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "amountRaised": "$20,000",
+        "contributors": 70,
+        "upvotes": 60,
+        "minimumDonation": "$25",
+        "milestones": [
+            {
+                "title": "Needs Assessment",
+                "description": "Assessing the technological needs of local schools.",
+                "completionDate": "2024-03-25",
+                "amountRequired": "$4,000",
+                "upvotes": 15,
+                "downvotes": 2
+            },
+            {
+                "title": "Software Development",
+                "description": "Developing educational software tailored to the curriculum.",
+                "completionDate": "2024-05-30",
+                "amountRequired": "$10,000",
+                "upvotes": 20,
+                "downvotes": 3
+            },
+            {
+                "title": "Teacher Training",
+                "description": "Training teachers to effectively use the new technology.",
+                "completionDate": "2024-07-15",
+                "amountRequired": "$6,000",
+                "upvotes": 25,
+                "downvotes": 4
+            }
+        ],
+        "communityFeedback": [
+            {
+                "user": "James Brown",
+                "feedback": "This is a fantastic project to modernize education!"
+            },
+            {
+                "user": "Sophia Taylor",
+                "feedback": "Looking forward to seeing the positive impact on students."
+            }
+        ],
+        "contributions": [
+            {
+                "donatedAt": "2024-07-05T11:00:00.000Z",
+                "donor": "Donor 15",
+                "network": "Ethereum",
+                "amount": 400,
+                "usdValue": 480
+            },
+            {
+                "donatedAt": "2024-07-08T09:00:00.000Z",
+                "donor": "Donor 16",
+                "network": "Bitcoin",
+                "amount": 500,
+                "usdValue": 600
+            }
+        ],
+        "category": "Education"
+    },
+    {
+        "id": 9,
+        "title": "Wildlife Conservation Efforts",
+        "description": "Initiatives to protect endangered species and preserve their natural habitats.",
+        "creator": "John Doe",
+        "avatar": "https://randomuser.me/api/portraits/men/9.jpg",
+        "image": "https://blog.ipleaders.in/wp-content/uploads/2020/04/Wildlife_Conservation.png",
+        "amountRaised": "$18,000",
+        "contributors": 60,
+        "upvotes": 50,
+        "minimumDonation": "$15",
+        "milestones": [
+            {
+                "title": "Habitat Restoration",
+                "description": "Restoring natural habitats for endangered species.",
+                "completionDate": "2024-04-15",
+                "amountRequired": "$6,000",
+                "upvotes": 12,
+                "downvotes": 2
+            },
+            {
+                "title": "Anti-Poaching Initiatives",
+                "description": "Implementing measures to prevent poaching.",
+                "completionDate": "2024-06-20",
+                "amountRequired": "$7,000",
+                "upvotes": 18,
+                "downvotes": 3
+            },
+            {
+                "title": "Community Engagement",
+                "description": "Involving local communities in conservation efforts.",
+                "completionDate": "2024-08-10",
+                "amountRequired": "$5,000",
+                "upvotes": 20,
+                "downvotes": 4
+            }
+        ],
+        "communityFeedback": [
+            {
+                "user": "Olivia Green",
+                "feedback": "Vital work for the protection of endangered wildlife."
+            },
+            {
+                "user": "Liam Smith",
+                "feedback": "Glad to support such an important cause."
+            }
+        ],
+        "contributions": [
+            {
+                "donatedAt": "2024-07-12T12:00:00.000Z",
+                "donor": "Donor 17",
+                "network": "Ethereum",
+                "amount": 350,
+                "usdValue": 420
+            },
+            {
+                "donatedAt": "2024-07-15T08:00:00.000Z",
+                "donor": "Donor 18",
+                "network": "Bitcoin",
+                "amount": 450,
+                "usdValue": 540
+            }
+        ],
+        "category": "Environment"
+    },
+    {
+        "id": 10,
+        "title": "Community Infrastructure Development",
+        "description": "Building essential infrastructure to improve the quality of life in underdeveloped areas.",
+        "creator": "Jane Smith",
+        "avatar": "https://randomuser.me/api/portraits/women/10.jpg",
+        "image": "https://plus.unsplash.com/premium_photo-1664695710295-b524b34386db?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "amountRaised": "$12,000",
+        "contributors": 40,
+        "upvotes": 35,
+        "minimumDonation": "$20",
+        "milestones": [
+            {
+                "title": "Road Construction",
+                "description": "Constructing roads to improve connectivity.",
+                "completionDate": "2024-05-05",
+                "amountRequired": "$4,000",
+                "upvotes": 20,
+                "downvotes": 2
+            },
+            {
+                "title": "Water Supply Systems",
+                "description": "Installing water supply systems for clean drinking water.",
+                "completionDate": "2024-07-10",
+                "amountRequired": "$5,000",
+                "upvotes": 15,
+                "downvotes": 1
+            },
+            {
+                "title": "Community Centers",
+                "description": "Building community centers for social and educational activities.",
+                "completionDate": "2024-09-20",
+                "amountRequired": "$3,000",
+                "upvotes": 10,
+                "downvotes": 2
+            }
+        ],
+        "communityFeedback": [
+            {
+                "user": "Liam Johnson",
+                "feedback": "Improving infrastructure is crucial for development!"
+            },
+            {
+                "user": "Olivia Brown",
+                "feedback": "Excited to see these positive changes in our community."
+            }
+        ],
+        "contributions": [
+            {
+                "donatedAt": "2024-07-02T14:00:00.000Z",
+                "donor": "Donor 19",
+                "network": "Ethereum",
+                "amount": 150,
+                "usdValue": 180
+            },
+            {
+                "donatedAt": "2024-07-06T11:00:00.000Z",
+                "donor": "Donor 20",
+                "network": "Bitcoin",
+                "amount": 250,
+                "usdValue": 300
+            }
+        ],
+        "category": "Community"
+    },
+    {
+        "id": 11,
+        "title": "Technology Innovation Hub",
+        "description": "Creating a hub for technology innovation and startups to thrive and grow.",
+        "creator": "David Martinez",
+        "avatar": "https://randomuser.me/api/portraits/men/11.jpg",
+        "image": "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "amountRaised": "$22,000",
+        "contributors": 80,
+        "upvotes": 70,
+        "minimumDonation": "$30",
+        "milestones": [
+            {
+                "title": "Co-working Space Setup",
+                "description": "Setting up co-working spaces for startups.",
+                "completionDate": "2024-04-20",
+                "amountRequired": "$6,000",
+                "upvotes": 30,
+                "downvotes": 1
+            },
+            {
+                "title": "Technology Workshops",
+                "description": "Organizing workshops on the latest technology trends.",
+                "completionDate": "2024-06-25",
+                "amountRequired": "$10,000",
+                "upvotes": 25,
+                "downvotes": 2
+            },
+            {
+                "title": "Mentorship Programs",
+                "description": "Launching mentorship programs for budding entrepreneurs.",
+                "completionDate": "2024-09-10",
+                "amountRequired": "$6,000",
+                "upvotes": 15,
+                "downvotes": 0
+            }
+        ],
+        "communityFeedback": [
+            {
+                "user": "Mason Brown",
+                "feedback": "A great initiative to foster innovation and entrepreneurship!"
+            },
+            {
+                "user": "Emma Wilson",
+                "feedback": "Looking forward to seeing new startups emerge from this hub."
+            }
+        ],
+        "contributions": [
+            {
+                "donatedAt": "2024-07-01T13:00:00.000Z",
+                "donor": "Donor 21",
+                "network": "Ethereum",
+                "amount": 350,
+                "usdValue": 420
+            },
+            {
+                "donatedAt": "2024-07-04T12:00:00.000Z",
+                "donor": "Donor 22",
+                "network": "Bitcoin",
+                "amount": 450,
+                "usdValue": 540
+            }
+        ],
+        "category": "Technology"
+    },
+    {
+        "id": 12,
+        "title": "Environmental Awareness Campaign",
+        "description": "Raising awareness about environmental issues and promoting eco-friendly practices.",
+        "creator": "Laura Hernandez",
+        "avatar": "https://randomuser.me/api/portraits/women/12.jpg",
+        "image": "https://plus.unsplash.com/premium_photo-1682437305216-f54f581fe158?q=80&w=2038&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "amountRaised": "$8,000",
+        "contributors": 25,
+        "upvotes": 28,
+        "minimumDonation": "$10",
+        "milestones": [
+            {
+                "title": "Educational Materials",
+                "description": "Creating educational materials on environmental issues.",
+                "completionDate": "2024-02-28",
+                "amountRequired": "$2,000",
+                "upvotes": 12,
+                "downvotes": 3
+            },
+            {
+                "title": "Community Events",
+                "description": "Organizing community events to promote eco-friendly practices.",
+                "completionDate": "2024-05-15",
+                "amountRequired": "$4,000",
+                "upvotes": 10,
+                "downvotes": 2
+            },
+            {
+                "title": "Media Campaign",
+                "description": "Launching a media campaign to raise awareness.",
+                "completionDate": "2024-07-30",
+                "amountRequired": "$2,000",
+                "upvotes": 6,
+                "downvotes": 2
+            }
+        ],
+        "communityFeedback": [
+            {
+                "user": "Lucas Taylor",
+                "feedback": "Spreading awareness is the first step towards change!"
+            },
+            {
+                "user": "Ava Johnson",
+                "feedback": "Excited to see more people adopting eco-friendly practices."
+            }
+        ],
+        "contributions": [
+            {
+                "donatedAt": "2024-06-30T10:00:00.000Z",
+                "donor": "Donor 23",
+                "network": "Ethereum",
+                "amount": 100,
+                "usdValue": 120
+            },
+            {
+                "donatedAt": "2024-07-03T09:00:00.000Z",
+                "donor": "Donor 24",
+                "network": "Bitcoin",
+                "amount": 150,
+                "usdValue": 180
+            }
+        ],
+        "category": "Environment"
     }
 ]

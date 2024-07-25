@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ArrowBigUpDash, Share2, ChevronRight,User } from "lucide-react";
+import { ArrowBigUpDash, Share2, ChevronRight, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Sidebar from './Sidebar';
 import FadeIn from './FadeIn';
@@ -12,7 +12,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
     Table,
     TableBody,
@@ -79,7 +79,7 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                         </Link>
                     </FadeIn>
                     <FadeIn direction="left" delay={0.2} >
-                        <UserProfileIcon/>
+                        <UserProfileIcon />
                     </FadeIn>
                 </header>
                 <FadeIn direction="up" delay={0} fullWidth>
@@ -126,22 +126,31 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                                 className="absolute left-[8px] top-0 bottom-0 w-2 bg-[#2FB574] rounded-full transition-all duration-1000 ease-in-out"
                                 style={{ height: `${Math.min(project.milestones.length / 10, 1) * 100}%` }}
                             ></div> */}
+                                <Link
 
-                                <div className="space-y-4 pl-[2px]">
-                                    {project.milestones.length ? (
-                                        project.milestones.map((milestone, index) => (
-                                            <div key={index} className="flex items-center gap-3">
-                                                <div className={`h-5 w-5 z-[5] rounded-full ${index < project.milestones.length ? 'bg-gray-300' : 'bg-gray-300'}`} />
-                                                <p className="text-gray-700">{milestone.title}</p>
+                                    to={`/projects/${project.id}/milestones`}
+                                    className="flex items-center gap-3 cursor-pointer"
+                                >
+                                    <div className="space-y-4 pl-[2px]">
+                                        {project.milestones.length ? (
+                                            project.milestones.map((milestone, index) => (
+                                                <Link
+                                                    key={index}
+                                                    to={`/projects/${project.id}/milestones`}
+                                                    className="flex items-center gap-3 cursor-pointer"
+                                                >
+                                                    <div className={`h-5 w-5 z-[5] rounded-full ${index < project.milestones.length ? 'bg-gray-300' : 'bg-gray-300'}`} />
+                                                    <p className="text-gray-700">{milestone.title}</p>
+                                                </Link>
+                                            ))
+                                        ) : (
+                                            <div className="flex items-center gap-3">
+                                                <div className="h-5 w-5 rounded-full bg-gray-300" />
+                                                <p className="text-gray-600">No milestones available</p>
                                             </div>
-                                        ))
-                                    ) : (
-                                        <div className="flex items-center gap-3">
-                                            <div className="h-5 w-5 rounded-full bg-gray-300" />
-                                            <p className="text-gray-600">No milestones available</p>
-                                        </div>
-                                    )}
-                                </div>
+                                        )}
+                                    </div>
+                                </Link>
                             </div>
 
                             <div className="flex flex-col gap-4 py-4">
@@ -152,13 +161,11 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                                         <span className="ml-2">Share</span>
                                     </Button>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
                 </FadeIn>
-                <div className="flex-1 mt-8  p-5  rounded-xl shadow-lg ">
+                <div className="flex-1 mt-8 p-5 rounded-xl shadow-lg ">
                     <h2 className="text-2xl font-semibold text-gray-800">Latest Contributions</h2>
                     <Table className="mt-4">
                         <TableCaption>A list of the latest contributions.</TableCaption>
@@ -198,7 +205,7 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                             {[...Array(totalPages)].map((_, index) => (
                                 <PaginationItem key={index + 1}>
                                     <PaginationLink
-                                        
+
                                         onClick={() => setCurrentPage(index + 1)}
                                         className={currentPage === index + 1 ? 'text-green-600 font-bold' : ''}
                                     >
@@ -212,7 +219,6 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                         </PaginationContent>
                     </Pagination>
                 </div>
-
             </div>
         </div>
     );
