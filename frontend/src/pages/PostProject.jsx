@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,7 +27,6 @@ function PostProject() {
         "Environment & Energy", "Equality", "Finance", "Healthcare",
         "Nature", "NGO", "Charity", "Technology"
     ];
-    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
