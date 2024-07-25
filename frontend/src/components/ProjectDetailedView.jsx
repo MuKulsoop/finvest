@@ -175,7 +175,7 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                             {currentContributions.length ? (
                                 currentContributions.map((contribution, index) => (
                                     <TableRow key={index}>
-                                        <TableCell>{new Date(contribution.date).toLocaleDateString()}</TableCell>
+                                        <TableCell>{new Date(contribution.donatedAt).toLocaleDateString()}</TableCell>
                                         <TableCell>{contribution.donor}</TableCell>
                                         <TableCell>{contribution.network}</TableCell>
                                         <TableCell>{contribution.amount}</TableCell>
