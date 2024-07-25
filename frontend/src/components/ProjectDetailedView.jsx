@@ -132,7 +132,7 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                                         project.milestones.map((milestone, index) => (
                                             <div key={index} className="flex items-center gap-3">
                                                 <div className={`h-5 w-5 z-[5] rounded-full ${index < project.milestones.length ? 'bg-gray-300' : 'bg-gray-300'}`} />
-                                                <p className="text-gray-700">{milestone}</p>
+                                                <p className="text-gray-700">{milestone.title}</p>
                                             </div>
                                         ))
                                     ) : (
@@ -175,7 +175,7 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                             {currentContributions.length ? (
                                 currentContributions.map((contribution, index) => (
                                     <TableRow key={index}>
-                                        <TableCell>{new Date(contribution.date).toLocaleDateString()}</TableCell>
+                                        <TableCell>{new Date(contribution.donatedAt).toLocaleDateString()}</TableCell>
                                         <TableCell>{contribution.donor}</TableCell>
                                         <TableCell>{contribution.network}</TableCell>
                                         <TableCell>{contribution.amount}</TableCell>

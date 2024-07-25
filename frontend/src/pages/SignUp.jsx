@@ -6,15 +6,13 @@ import { Label } from "@/components/ui/label";
 import FadeIn from "@/components/FadeIn";
 import '../App.css';
 
-
-
-
 export function SignUp() {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
         email: '',
-        password: ''
+        password: '',
+        accountType: '' 
     });
 
     const [selection, setSelection] = useState(null);
@@ -23,6 +21,7 @@ export function SignUp() {
     const navigate = useNavigate();
 
     const handleSelection = (option) => {
+        setFormData({ ...formData, accountType: option });
         setSelection(option);
     };
 
@@ -39,10 +38,7 @@ export function SignUp() {
         setError(null);
 
         try {
-            const endpoint = selection === "Investor"
-                ? 'http://localhost:8000/signup/create-investor'
-                : 'http://localhost:8000/signup/create-funding';
-
+            const endpoint = 'http://localhost:8000/signup';
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
@@ -50,6 +46,7 @@ export function SignUp() {
                 },
                 body: JSON.stringify(formData)
             });
+
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -57,8 +54,7 @@ export function SignUp() {
             const data = await response.json();
             console.log('Signup successful', data);
 
-            // Redirect to login page or other page
-            navigate('/login');
+            navigate('/settings');
         } catch (error) {
             console.error('Error during signup:', error);
             setError('Signup failed. Please try again.');
@@ -162,7 +158,6 @@ export function SignUp() {
                                         id="firstName"
                                         type="text"
                                         placeholder="John"
-                                        className="border border-gray-300 rounded-md p-2"
                                         value={formData.firstName}
                                         onChange={handleChange}
                                         required
@@ -174,7 +169,6 @@ export function SignUp() {
                                         id="lastName"
                                         type="text"
                                         placeholder="Doe"
-                                        className="border border-gray-300 rounded-md p-2"
                                         value={formData.lastName}
                                         onChange={handleChange}
                                         required
@@ -185,8 +179,7 @@ export function SignUp() {
                                     <Input
                                         id="email"
                                         type="email"
-                                        placeholder="john@example.com"
-                                        className="border border-gray-300 rounded-md p-2"
+                                        placeholder="john.doe@example.com"
                                         value={formData.email}
                                         onChange={handleChange}
                                         required
@@ -197,23 +190,18 @@ export function SignUp() {
                                     <Input
                                         id="password"
                                         type="password"
-                                        className="border border-gray-300 rounded-md p-2"
+                                        placeholder="••••••••"
                                         value={formData.password}
                                         onChange={handleChange}
                                         required
                                     />
                                 </div>
-                                {error && (
-                                    <div className="text-red-500 text-center">{error}</div>
-                                )}
-                                <Button type="submit" className="w-full bg-[#1B7A57] hover:bg-[#0e3a26] text-white py-2 rounded-md" disabled={loading}>
-                                    {loading ? 'Creating Account...' : 'Create Account'}
+                                <Button type="submit" className="mt-4 bg-[#1B7A57] hover:bg-[#154d3d]">
+                                    {loading ? 'Signing up...' : 'Sign Up'}
                                 </Button>
-                                <Button variant="outline" className="w-full border-[#1B7A57] text-[#1B7A57] py-2 rounded-md">
-                                    Sign Up with Google
-                                </Button>
+                                {error && <p className="text-red-500 mt-2">{error}</p>}
                             </form>
-                            <div className="mt-4 text-center text-md text-[#E8F6F3]">
+                            <div className="text-center text-md text-[#E8F6F3] mt-4">
                                 Already have an account?{" "}
                                 <Link to="/login" className="underline text-[#1B7A57]">
                                     Login
