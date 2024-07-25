@@ -4,7 +4,6 @@ import { uploadOnCloudinary } from '../utils/cloudinary.js';
 // Create a new project
 export const createProject = async (req, res) => {
     try {
-        console.log(req.body)
         const {
             title,
             description,
@@ -14,7 +13,10 @@ export const createProject = async (req, res) => {
             contributors,
             upvotes,
             minimumDonation,
-            milestones
+            milestones,
+            communityFeedback,
+            contributions,
+            category
         } = req.body;
 
         // Ensure an image file was uploaded
@@ -28,18 +30,36 @@ export const createProject = async (req, res) => {
         const cloudinaryResponse = await uploadOnCloudinary(imageFilePath);
         const imageUrl = cloudinaryResponse ? cloudinaryResponse.secure_url : '';
 
+        // Helper function to safely parse JSON
+        const safeJsonParse = (data) => {
+            try {
+                return data ? JSON.parse(data) : [];
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+                return [];
+            }
+        };
+
+        // Get the highest existing ID and increment it
+        const lastProject = await Project.findOne().sort({ id: -1 });
+        const newId = lastProject ? lastProject.id + 1 : 1;
+
         // Create and save the new project
         const newProject = new Project({
+            id: newId,
             title,
             description,
             creator,
-            avatar, // Directly from frontend
-            image: imageUrl, // URL from Cloudinary
+            avatar,
+            image: imageUrl,
             amountRaised,
             contributors,
             upvotes,
             minimumDonation,
-            milestones: JSON.parse(milestones) // Parse JSON string to array
+            milestones: safeJsonParse(milestones),
+            communityFeedback: safeJsonParse(communityFeedback),
+            contributions: safeJsonParse(contributions),
+            category
         });
 
         await newProject.save();
@@ -51,12 +71,12 @@ export const createProject = async (req, res) => {
 };
 
 // Get all projects
-export const getProjects = async (req, res) => {
+export const getAllProjects = async (req, res) => {
     try {
         const projects = await Project.find();
         return res.status(200).json(projects);
     } catch (error) {
-        console.error('Error retrieving projects:', error);
+        console.error('Error fetching projects:', error);
         return res.status(500).json({ msg: 'Server error' });
     }
 };
@@ -64,11 +84,22 @@ export const getProjects = async (req, res) => {
 // Get a project by ID
 export const getProjectById = async (req, res) => {
     try {
-        const { id } = req.params;
-        const project = await Project.findById(id);
+        const { projectId } = req.params;
+
+        // Validate if projectId is a number
+        if (isNaN(projectId)) {
+            return res.status(400).json({ msg: 'Invalid project ID' });
+        }
+
+        // Convert projectId to a number
+        const id = Number(projectId);
+
+        const project = await Project.findOne({ id: id });
+
         if (!project) {
             return res.status(404).json({ msg: 'Project not found' });
         }
+
         return res.status(200).json(project);
     } catch (error) {
         console.error('Error retrieving project:', error);

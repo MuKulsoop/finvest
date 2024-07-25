@@ -2,32 +2,24 @@ import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Link, useNavigate } from "react-router-dom";
-import { PlusCircle, Share2, ArrowBigUpDash,User } from "lucide-react";
+import { PlusCircle, Share2, ArrowBigUpDash, User } from "lucide-react";
 import Sidebar from '@/components/Sidebar';
 import '../App.css';
 import FadeIn from '@/components/FadeIn';
 import Filter from '@/components/Filter';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import UserProfileIcon from '@/components/ui/UserProfileIcon';
-
 
 function Projects() {
     const [projects, setProjects] = useState([]);
     const [hoveredProject, setHoveredProject] = useState(null);
     const [userUpvotes, setUserUpvotes] = useState({});
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
-
-        fetch('/projects.json')
+        // Fetch projects from the API
+        fetch('http://localhost:8000/project/getAllProjects')
             .then((response) => response.json())
             .then((data) => {
                 setProjects(data);
@@ -38,6 +30,7 @@ function Projects() {
                 setLoading(false);
             });
     }, []);
+
     const handleUpvote = (projectId) => {
         setProjects((prevProjects) =>
             prevProjects.map((project) =>
@@ -60,7 +53,7 @@ function Projects() {
     return (
         <div className="flex min-h-screen w-full overflow-hidden scrollbar-hidden bg-white">
             <div className="flex-1 sm:gap-4 sm:py-4 sm:pl-14 overflow-hidden scrollbar-hidden ">
-                <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-white border-b  border-gray-200">
+                <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200">
                     <Sidebar />
                     <FadeIn direction="down" delay={0.1} fullWidth>
                         <h1 className="md:text-4xl text-2xl font-semibold text-left text-[#05140D] w-full px-2 pl-4 md:px-3 z-[5]">Projects</h1>
@@ -73,8 +66,8 @@ function Projects() {
                             </Button>
                         </Link>
                     </FadeIn>
-                    <FadeIn direction="left" delay={0.2} >
-                        <UserProfileIcon/>
+                    <FadeIn direction="left" delay={0.2}>
+                        <UserProfileIcon />
                     </FadeIn>
                 </header>
 
