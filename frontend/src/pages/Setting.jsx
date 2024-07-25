@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
+// import { ethers } from 'ethers';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,8 +9,8 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 
 // import Modal from '@/components/Modal';
 import { Link, useNavigate } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
-
+// import { HashLink } from 'react-router-hash-link';
+import { WalletContext } from '@/context/WalletContext';
 import { PlusCircle, User, Settings, LifeBuoy, LogOut, ChevronRight } from "lucide-react";
 import {
     Accordion,
@@ -27,13 +28,14 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Sidebar from '@/components/Sidebar';
-import WalletConnectButton from '@/components/WalletConnectButton';
+// import WalletConnectButton from '@/components/WalletConnectButton';
 import UserProfileIcon from '@/components/ui/UserProfileIcon';
 import FadeIn from '@/components/FadeIn';
+// import { walletconnect } from 'web3modal/dist/providers/connectors';
 
 export const Setting = () => {
     const navigate = useNavigate();
-
+    const { wallet, connectWallet } = useContext(WalletContext);
     const [userType, setUserType] = useState('investor'); // 'investor' or 'lookingForFunding'
     const [formData, setFormData] = useState({
         username: '',
@@ -218,6 +220,8 @@ export const Setting = () => {
         };
     }, []);
 
+    
+
     return (
         <div className="flex min-h-screen w-full overflow-hidden scrollbar-hidden">
             <div className="flex-1 sm:gap-4 sm:py-4 sm:pl-14 overflow-hidden scrollbar-hidden bg-white">
@@ -231,47 +235,7 @@ export const Setting = () => {
                         <UserProfileIcon />
                     </FadeIn>
 
-                    {/* <div className='flex flex-row'> */}
-                    {/* <Link to="/post-project">
-                            <Button variant="outline" className="flex items-center gap-2 text-[#1B7A57] border-[#1B7A57] mr-4">
-                                <PlusCircle className="h-5 w-5" />
-                                Post a Project
-                            </Button>
-                        </Link> */}
-                    {/* <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="outline" size="icon" className="overflow-hidden rounded-full h-10 w-12 md:w-10">
-                                <User className="h-7 w-7" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Username</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                <Link to="/settings" className="flex items-center gap-2">
-                                    <Settings className="h-4 w-4" />
-                                    Settings
-                                </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <a href="#support-section" className='relative flex w-full gap-2' onClick={() => {
-
-                                    scrollToSection('notification');
-                                }}>
-                                    <LifeBuoy className="h-4 w-4" />
-                                    Support
-                                </a>
-
-                             
-                            </DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem className="flex items-center gap-2">
-                                <LogOut className="h-4 w-4" />
-                                Logout
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                  */}
+                  
                 </header>
 
                 <div className="flex flex-col w-full mt-16 gap-10 items-center">
@@ -528,7 +492,7 @@ export const Setting = () => {
                                                     <div className="text-xl md:text-2xl font-semibold">Connect Wallet</div>
                                                     <div className="flex flex-wrap justify-center gap-4">
                                                         <Button
-                                                            // onClick={() => handleConnectWallet('metamask')}
+                                                            onClick={ () => connectWallet()}
                                                             className="flex items-center justify-center bg-black hover:bg-stone-700 rounded-md p-4 transition ease-in-out w-32 text-center"
                                                         >
                                                             <img
@@ -613,69 +577,6 @@ export const Setting = () => {
                                                 </div>
 
 
-
-                                                {/* Account Settings */}
-                                                {/* <div className="space-y-4">
-                        <div className="text-xl md:text-2xl font-semibold">Account Settings</div>
-                        <Input
-                            type="text"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                            className="w-full border-0 border-b border-gray-300 focus:ring-0"
-                            placeholder="Email Address"
-                        />
-                        <Input
-                            type="text"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            className="w-full border-0 border-b border-gray-300 focus:ring-0"
-                            placeholder="Phone Number"
-                        />
-                        <Input
-                            type="text"
-                            name="address"
-                            value={formData.address}
-                            onChange={handleChange}
-                            className="w-full border-0 border-b border-gray-300 focus:ring-0"
-                            placeholder="Address"
-                        />
-                        <Button
-                            // onClick={handleUpdateAccount}
-                            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
-                        >
-                            Update Account
-                        </Button>
-                    </div> */}
-
-                                                {/* Notification Settings */}
-                                                {/* <div className="space-y-4">
-                        <div className="text-xl md:text-2xl font-semibold">Notification Settings</div>
-                        <div className="flex flex-col space-y-2">
-                            <div className="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    name="emailNotifications"
-                                    checked={formData.emailNotifications}
-                                    onChange={handleChange}
-                                    className="mr-2"
-                                />
-                                <label>Email Notifications</label>
-                            </div>
-                            <div className="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    name="smsNotifications"
-                                    checked={formData.smsNotifications}
-                                    onChange={handleChange}
-                                    className="mr-2"
-                                />
-                                <label>SMS Notifications</label>
-                            </div>
-                        </div>
-                    </div> */}
                                             </div>
 
                                         </div>
