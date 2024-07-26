@@ -61,11 +61,11 @@ const Sidebar = () => {
             </Link>
 
             <Link
-              to="/services"
+              to="/posts"
               className={`flex items-center gap-2 rounded-lg transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6 ${location.pathname === '/services' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'}`}
             >
               <Package className="h-5 w-5" />
-              <span>Services</span>
+              <span>Posts</span>
             </Link>
 
             <Link
@@ -140,14 +140,14 @@ const Sidebar = () => {
           </Link>
 
           <Link
-            to="/services"
-            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:bg-gray-200 ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'} ${location.pathname === '/services' ? 'bg-gray-200' : ''}`}
-            onMouseEnter={() => setHovered('Services')}
+            to="/posts"
+            className={`relative flex items-center gap-2 rounded-lg transition-colors hover:bg-gray-200 ${isExpanded ? 'justify-start py-2 px-4 w-full' : 'justify-center h-9 w-9'} ${location.pathname === '/posts' ? 'bg-gray-200' : ''}`}
+            onMouseEnter={() => setHovered('Posts')}
             onMouseLeave={() => setHovered(null)}
           >
             <Package className="h-5 w-5" />
-            {hovered === 'Services' && !isExpanded && <Tooltip text="Services" />}
-            {isExpanded && <motion.span initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>Services</motion.span>}
+            {hovered === 'Posts' && !isExpanded && <Tooltip text="Posts" />}
+            {isExpanded && <motion.span initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>Posts</motion.span>}
           </Link>
 
           <Link

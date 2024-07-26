@@ -12,7 +12,7 @@ import PostProject from "./pages/PostProject";
 import ProjectDetailedView from "./components/ProjectDetailedView";
 import { Setting } from "./pages/Setting";
 import MilestoneDetailedView from "./components/MileStonesDetailedView";
-import Service from "./pages/Service";
+import Service from "./pages/Posts";
 
 function App() {
   const [projectsData, setProjectsData] = useState([]);
@@ -47,7 +47,7 @@ function App() {
             <Route path="/projects/:projectId" element={<ProjectDetailedView projects={projectsData} />} />
             <Route path="/projects/:projectId/milestones" element={<MilestoneDetailedView />} />
             <Route path="/projects/post-project" element={<PostProject />} />
-            <Route path="/services" element={<Service />} />
+            <Route path="/posts" element={<Service />} />
 
             <Route path="settings" element={<Setting />} />
 

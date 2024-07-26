@@ -53,7 +53,11 @@ function Navbar() {
           <li className="text-lg text-white p-4 cursor-pointer" onClick={closeMenu}>Dashboard</li>
 
           </Link>
-          <li className="text-lg text-white p-4 cursor-pointer" onClick={closeMenu}>Service</li>
+
+          <li className="text-lg text-white p-4 cursor-pointer" onClick={closeMenu}>
+          <Link to="/posts">
+          Posts
+          </Link></li>
           <li className="text-lg text-white p-4 cursor-pointer" onClick={closeMenu}>
           <Link to="/projects">
           Projects
