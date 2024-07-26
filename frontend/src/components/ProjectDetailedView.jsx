@@ -23,6 +23,37 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination";
 import UserProfileIcon from './ui/UserProfileIcon';
+import ProjectDetailedViewSkeleton from './ui/ProjectDetailedViewSkeleton';
+
+
+const networkLogos = {
+    Ethereum: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkj3dStbrL3JvOAo7Sn5VEoxIRFsLx-ft4WXZUOpl9d9HmvpTaNxpOXgLe9fECnYLp83Q&usqp=CAU',
+    Bitcoin: 'https://bitcoin.org/img/icons/opengraph.png?1646858405',
+    Polygon: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Polygon_logo.svg',
+    bsc: 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Binance_Logo.png',
+    Solana: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2ZBYV7re0bpottvNraonxfjv9qGpMh_23hw&s',
+    Cardano: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/9a411426-3711-47d4-9c1a-dcf72973ddfc/dfiw6f1-d8d49d24-ae93-4a4e-b69b-5d652635faeb.png/v1/fill/w_1280,h_1280/cardano_ada_logo_by_saphyl_dfiw6f1-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MCIsInBhdGgiOiJcL2ZcLzlhNDExNDI2LTM3MTEtNDdkNC05YzFhLWRjZjcyOTczZGRmY1wvZGZpdzZmMS1kOGQ0OWQyNC1hZTkzLTRhNGUtYjY5Yi01ZDY1MjYzNWZhZWIucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.bfvaZGUJUg19yFvUsRQlX_ppldirqvTMA4FPLFXOobU',
+    Avalanche: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3r4bnOojhpFMtgvwU7lbNf_5HovNtHbdCOr7PkC9v9lJYW6uKKvyKcFhRD1C6UUNkqW4&usqp=CAU',
+    Polkadot: 'https://polkadot.network/favicon.ico',
+    Tezos: 'https://tezostaquito.io/images/tez_logo.png',
+    Chainlink: 'https://chainlinklabs.com/images/chainlink_logo.png'
+};
+
+const fetchProjectData = async (urls) => {
+    for (const url of urls) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error(`Error fetching project data from ${url}:`, error);
+        }
+    }
+    throw new Error('All fetch attempts failed');
+};
 
 const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => {
     const { projectId } = useParams();
@@ -32,25 +63,29 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
     const itemsPerPage = 10;
 
     useEffect(() => {
-        fetch(`http://localhost:8000/project/${projectId}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
+        const urls = [
+            `https://finvest-backend.onrender.com/project/${projectId}`,
+            `http://localhost:8000/project/${projectId}`,
+            '/projects.json'
+        ];
+
+        const fetchData = async () => {
+            try {
+                const data = await fetchProjectData(urls);
                 setProject(data);
-            })
-            .catch(error => console.error('Error fetching project data:', error));
+            } catch (error) {
+                console.error('Failed to fetch project data from all sources:', error);
+            }
+        };
+
+        fetchData();
     }, [projectId]);
 
     if (!project) {
-        return <div>Loading...</div>;
+        return <ProjectDetailedViewSkeleton />
     }
 
-    // Pagination Logic
-    const contributions = project.contributions || [];
+    const contributions = project?.contributions || [];
     const totalPages = Math.ceil(contributions.length / itemsPerPage);
     const currentContributions = contributions.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
@@ -62,7 +97,7 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                     <Sidebar />
                     <FadeIn direction="down" delay={0} fullWidth>
                         <h1 className="md:text-4xl text-2xl font-semibold text-left text-[#05140D] w-full px-4 md:px-3 z-[5] line-clamp-1">
-                            {project.title}
+                            {project?.title}
                         </h1>
                     </FadeIn>
                     <FadeIn direction="down" delay={0}>
@@ -81,33 +116,33 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                     <div className="w-full mx-auto p-5 gap-6 flex flex-col md:flex-row">
                         {/* Flex-1 Container */}
                         <div className="flex-1 bg-white rounded-xl shadow-lg p-8">
-                            <img src={project.image || 'default-image-url.jpg'} alt={project.title || 'No Title'} className="max-h-80 w-full object-cover rounded-lg" />
+                            <img src={project?.image || 'default-image-url.jpg'} alt={project?.title || 'No Title'} className="max-h-80 w-full object-cover rounded-lg" />
 
-                            <h1 className="text-3xl font-bold text-gray-800 mt-5">{project.title}</h1>
+                            <h1 className="text-3xl font-bold text-gray-800 mt-5">{project?.title}</h1>
                             <div className="flex items-center mt-4">
                                 <Avatar className="h-10 w-10">
-                                    <AvatarImage src={project.avatar || 'default-avatar-url.jpg'} alt={project.creator} />
-                                    <AvatarFallback>{project.creator.charAt(0)}</AvatarFallback>
+                                    <AvatarImage src={project?.avatar || 'default-avatar-url.jpg'} alt={project?.creator} />
+                                    <AvatarFallback>{project?.creator.charAt(0)}</AvatarFallback>
                                 </Avatar>
-                                <p className="ml-2 text-sm font-medium text-gray-600">{project.creator}</p>
+                                <p className="ml-2 text-sm font-medium text-gray-600">{project?.creator}</p>
                             </div>
-                            <p className="mt-4 text-gray-600">{project.description}</p>
+                            <p className="mt-4 text-gray-600">{project?.description}</p>
                         </div>
 
                         {/* Flex-2 Container */}
                         <div className="flex-2 bg-white rounded-xl shadow-lg p-8 relative min-w-[30%]">
                             <div className="flex flex-col gap-4">
                                 <div className="flex flex-col items-start">
-                                    <p className="text-green-600 font-semibold md:text-4xl text-3xl">{project.amountRaised}</p>
+                                    <p className="text-green-600 font-semibold md:text-4xl text-3xl">{project?.amountRaised}</p>
                                     <span className="bg-[#2FB574] text-white md:text-xs text-[10px] px-3 py-1 rounded-full mt-2">Total Amount Raised</span>
                                 </div>
-                                <p className="text-gray-600 font-medium text-xl">{project.contributors} contributors</p>
+                                <p className="text-gray-600 font-medium text-xl">{project?.contributors} contributors</p>
                                 <p className="text-green-600 font-semibold md:text-3xl text-2xl">Milestones</p>
 
-                                <div className="absolute top-5 right-5 flex items-center gap-4 p-2 pr-3 rounded-full shadow-lg hover:shadow-xl transition-shadow cursor-pointer" onClick={() => handleUpvote(project.id)}>
-                                    <ArrowBigUpDash className={`h-6 w-6 ${userUpvotes[project.id] ? "text-green-500" : "text-gray-600"} transition-colors`} />
-                                    {project.upvotes > 0 && (
-                                        <span className="text-xs font-semibold text-gray-700">{project.upvotes}</span>
+                                <div className="absolute top-5 right-5 flex items-center gap-4 p-2 pr-3 rounded-full shadow-lg hover:shadow-xl transition-shadow cursor-pointer" onClick={() => handleUpvote(project?.id)}>
+                                    <ArrowBigUpDash className={`h-6 w-6 ${userUpvotes[project?.id] ? "text-green-500" : "text-gray-600"} transition-colors`} />
+                                    {project?.upvotes > 0 && (
+                                        <span className="text-xs font-semibold text-gray-700">{project?.upvotes}</span>
                                     )}
                                 </div>
                             </div>
@@ -116,24 +151,11 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                                 {/* Background bar */}
                                 <div className="absolute left-[8px] top-0 bottom-0 w-2 bg-gray-200 rounded-full"></div>
 
-                                {/* Progress bar */}
-                                {/* <div
-                                className="absolute left-[8px] top-0 bottom-0 w-2 bg-[#2FB574] rounded-full transition-all duration-1000 ease-in-out"
-                                style={{ height: `${Math.min(project.milestones.length / 10, 1) * 100}%` }}
-                            ></div> */}
-                                <Link
-
-                                    to={`/projects/${project.id}/milestones`}
-                                    className="flex items-center gap-3 cursor-pointer"
-                                >
+                                <Link to={`/projects/${project?.id}/milestones`} className="flex items-center gap-3 cursor-pointer">
                                     <div className="space-y-4 pl-[2px]">
-                                        {project.milestones.length ? (
+                                        {project?.milestones?.length ? (
                                             project.milestones.map((milestone, index) => (
-                                                <Link
-                                                    key={index}
-                                                    to={`/projects/${project.id}/milestones`}
-                                                    className="flex items-center gap-3 cursor-pointer"
-                                                >
+                                                <Link key={index} to={`/projects/${project.id}/milestones`} className="flex items-center gap-3 cursor-pointer">
                                                     <div className={`h-5 w-5 z-[5] rounded-full ${index < project.milestones.length ? 'bg-gray-300' : 'bg-gray-300'}`} />
                                                     <p className="text-gray-700">{milestone.title}</p>
                                                 </Link>
@@ -163,56 +185,74 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                 <div className="flex-1 mt-8 p-5 rounded-xl shadow-lg ">
                     <h2 className="text-2xl font-semibold text-gray-800">Latest Contributions</h2>
                     <Table className="mt-4">
-                        <TableCaption>A list of the latest contributions.</TableCaption>
+                        {/* <TableCaption>A list of the latest contributions.</TableCaption> */}
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Donated at</TableHead>
                                 <TableHead>Donor</TableHead>
+                                <TableHead>Donated at</TableHead>
+
                                 <TableHead>Network</TableHead>
                                 <TableHead>Amount</TableHead>
-                                <TableHead>USD Value</TableHead>
+                                <TableHead className="text-right">USD Value</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {currentContributions.length ? (
-                                currentContributions.map((contribution, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell>{new Date(contribution.donatedAt).toLocaleDateString()}</TableCell>
-                                        <TableCell>{contribution.donor}</TableCell>
-                                        <TableCell>{contribution.network}</TableCell>
-                                        <TableCell>{contribution.amount}</TableCell>
-                                        <TableCell>${contribution.usdValue}</TableCell>
-                                    </TableRow>
-                                ))
-                            ) : (
-                                <TableRow>
-                                    <TableCell colSpan={5} className="text-center">No contributions available</TableCell>
+                            {currentContributions.map((contribution) => (
+                                <TableRow key={contribution.id}>
+                                    <TableCell className="flex items-center gap-3">
+                                        <Avatar className="h-10 w-10">
+                                            <AvatarImage src={contribution.avatar} alt={contribution.donor} />
+                                            <AvatarFallback>{contribution.donor.charAt(0)}</AvatarFallback>
+                                        </Avatar>
+                                        <span>{contribution.donor}</span>
+                                    </TableCell>
+                                    <TableCell>{new Date(contribution.donatedAt).toLocaleDateString()}</TableCell>
+
+                                    <TableCell className="flex items-center gap-2">
+                                        <Avatar className="h-10 w-10">
+                                            <AvatarImage src={networkLogos[contribution.network] || 'default-network-logo-url.jpg'} alt={contribution.network} />
+                                            <AvatarFallback>{contribution.network.charAt(0)}</AvatarFallback>
+                                        </Avatar>
+                                        <span>{contribution.network}</span>
+                                    </TableCell>
+                                    <TableCell>{contribution.amount}</TableCell>
+                                    <TableCell className="text-right">${contribution.usdValue}</TableCell>
                                 </TableRow>
-                            )}
+                            ))}
                         </TableBody>
                     </Table>
 
-                    <Pagination className="mt-4">
-                        <PaginationContent>
-                            <PaginationItem>
-                                <PaginationPrevious onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} />
-                            </PaginationItem>
-                            {[...Array(totalPages)].map((_, index) => (
-                                <PaginationItem key={index + 1}>
-                                    <PaginationLink
 
-                                        onClick={() => setCurrentPage(index + 1)}
-                                        className={currentPage === index + 1 ? 'text-green-600 font-bold' : ''}
-                                    >
-                                        {index + 1}
-                                    </PaginationLink>
-                                </PaginationItem>
-                            ))}
-                            <PaginationItem>
-                                <PaginationNext onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} />
-                            </PaginationItem>
-                        </PaginationContent>
-                    </Pagination>
+                    <div className="flex justify-center mt-4">
+                        <Pagination>
+                            <PaginationContent>
+                                <PaginationPrevious
+                                    className="mr-2"
+                                    onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))}
+                                    disabled={currentPage === 1}
+                                >
+                                    Previous
+                                </PaginationPrevious>
+                                {Array.from({ length: totalPages }, (_, index) => (
+                                    <PaginationItem key={index}>
+                                        <PaginationLink
+                                            className={currentPage === index + 1 ? 'bg-[#2FB574] text-white' : ''}
+                                            onClick={() => setCurrentPage(index + 1)}
+                                        >
+                                            {index + 1}
+                                        </PaginationLink>
+                                    </PaginationItem>
+                                ))}
+                                <PaginationNext
+                                    className="ml-2"
+                                    onClick={() => setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages))}
+                                    disabled={currentPage === totalPages}
+                                >
+                                    Next
+                                </PaginationNext>
+                            </PaginationContent>
+                        </Pagination>
+                    </div>
                 </div>
             </div>
         </div>
