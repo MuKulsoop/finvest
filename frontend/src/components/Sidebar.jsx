@@ -62,7 +62,7 @@ const Sidebar = () => {
 
             <Link
               to="/posts"
-              className={`flex items-center gap-2 rounded-lg transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6 ${location.pathname === '/services' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'}`}
+              className={`flex items-center gap-2 rounded-lg transition-colors hover:text-foreground py-2 px-4 md:py-3 md:px-6 ${location.pathname === '/posts' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'}`}
             >
               <Package className="h-5 w-5" />
               <span>Posts</span>

@@ -1,8 +1,8 @@
 # FINVEST #
 
-This project is made as part of a blockchain based finance project for Code Cubicle 2.0
+This project is made as part of a blockchain-based finance project for Code Cubicle 2.0
 
-Deployed Link: [finvest1.vercel.app](https://finvest1.vercel.app)
+Deployed Link: [finvest-2.vercel.app](https://finvest-2.vercel.app)
 
 Preview : 
 
