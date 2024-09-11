@@ -20,14 +20,14 @@ const Sidebar = () => {
   return (
     <>
       {/* Mobile Sidebar using Sheet */}
-      <Sheet className="sm:hidden">
+      <Sheet className="sm:hidden border-0">
         <SheetTrigger asChild>
           <Button size="icon" variant="outline" className="sm:hidden border-0 hover:bg-transparent bg-[#05140D]">
             <PanelLeft className="h-5 w-5 text-white" />
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="sm:max-w-xs w-[250px] bg-[#05140D] text-white">
+        <SheetContent side="left" className="sm:max-w-xs w-[250px] bg-[#05140D] text-white border-0">
           <nav className="grid gap-6 text-lg font-medium">
             <Link
               to="/"
