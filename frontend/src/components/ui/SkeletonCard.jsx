@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function SkeletonCard() {
     return (
-        <div className="relative h-[400px] w-full max-w-sm mx-auto overflow-hidden rounded-xl shadow-sm bg-white">
+        <div className="relative h-[400px] w-full max-w-sm mx-auto overflow-hidden rounded-xl shadow-sm bg-[#05140D]">
             {/* Image Container */}
             <div className="h-[150px] w-full overflow-hidden">
                 <Skeleton className="h-full w-full object-cover" />

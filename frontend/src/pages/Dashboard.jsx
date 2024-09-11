@@ -112,103 +112,107 @@ export function Dashboard() {
 
 
     return (
-        <div className="flex min-h-screen w-full flex-col bg-white">
-           
+        <div className="flex min-h-screen w-full flex-col bg-[#05140D]">
+
 
             <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 overflow-hidden scrollbar-hidden">
-                <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-gray-200 bg-background px-4 sm:static sm:h-auto  sm:bg-transparent sm:px-6">
+                <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-gray-700 bg-[#05140D] px-4 sm:static sm:h-auto sm:bg-transparent sm:px-6">
+                    <Sidebar />
 
-                        <Sidebar />
-
-                    <FadeIn direction="down" delay={0.2} fullWidth >
-                        <h3 className="md:text-4xl text-2xl font-semibold text-left text-[#05140D] w-full py-3 md:px-3 z-[5] ">
+                    <FadeIn direction="down" delay={0.2} fullWidth>
+                        <h3 className="md:text-4xl text-2xl font-semibold text-left text-white w-full py-3 md:px-3 z-[5]">
                             Dashboard
                         </h3>
                     </FadeIn>
-                    <FadeIn direction="down" delay={0.2} >
+
+                    <FadeIn direction="down" delay={0.2}>
                         <div className="relative ml-auto flex-1 md:grow-0">
-                            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-300" />
                             <Input
                                 type="search"
                                 placeholder="Search..."
-                                className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+                                className="w-full rounded-lg bg-[#05140D] text-white placeholder-gray-300 pl-8 md:w-[200px] lg:w-[336px] border border-gray-600"
                             />
                         </div>
                     </FadeIn>
-                    <FadeIn direction="left" delay={0.2} >
-                        <UserProfileIcon/>
+
+                    <FadeIn direction="left" delay={0.2}>
+                        <UserProfileIcon className="text-white" />
                     </FadeIn>
                 </header>
+
                 <FadeIn direction="up" delay={0.2} fullWidth>
                     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
 
                         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-                            <Card x-chunk="dashboard-01-chunk-0">
+                            <Card x-chunk="dashboard-01-chunk-0" className="bg-[#1A3A2C] text-white border-none shadow-none">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium">
+                                    <CardTitle className="text-sm font-medium text-gray-300">
                                         Total Revenue
                                     </CardTitle>
-                                    <DollarSign className="h-4 w-4 text-muted-foreground" />
+                                    <DollarSign className="h-4 w-4 text-[#2FB574]" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">$45,231.89</div>
-                                    <p className="text-xs text-muted-foreground">
+                                    <p className="text-xs text-gray-400">
                                         +20.1% from last month
                                     </p>
                                 </CardContent>
                             </Card>
-                            <Card x-chunk="dashboard-01-chunk-1">
+                            <Card x-chunk="dashboard-01-chunk-1" className="bg-[#1A3A2C] text-white border-none shadow-none">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium">
+                                    <CardTitle className="text-sm font-medium text-gray-300">
                                         Subscriptions
                                     </CardTitle>
-                                    <Users className="h-4 w-4 text-muted-foreground" />
+                                    <Users className="h-4 w-4 text-[#2FB574]" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">+2350</div>
-                                    <p className="text-xs text-muted-foreground">
+                                    <p className="text-xs text-gray-400">
                                         +180.1% from last month
                                     </p>
                                 </CardContent>
                             </Card>
-                            <Card x-chunk="dashboard-01-chunk-2">
+                            <Card x-chunk="dashboard-01-chunk-2" className="bg-[#1A3A2C] text-white border-none shadow-none">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium">Sales</CardTitle>
-                                    <CreditCard className="h-4 w-4 text-muted-foreground" />
+                                    <CardTitle className="text-sm font-medium text-gray-300">Sales</CardTitle>
+                                    <CreditCard className="h-4 w-4 text-[#2FB574]" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">+12,234</div>
-                                    <p className="text-xs text-muted-foreground">
+                                    <p className="text-xs text-gray-400">
                                         +19% from last month
                                     </p>
                                 </CardContent>
                             </Card>
-                            <Card x-chunk="dashboard-01-chunk-3">
+                            <Card x-chunk="dashboard-01-chunk-3" className="bg-[#1A3A2C] text-white border-none shadow-none">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium">Active Now</CardTitle>
-                                    <Activity className="h-4 w-4 text-muted-foreground" />
+                                    <CardTitle className="text-sm font-medium text-gray-300">Active Now</CardTitle>
+                                    <Activity className="h-4 w-4 text-[#2FB574]" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">+573</div>
-                                    <p className="text-xs text-muted-foreground">
+                                    <p className="text-xs text-gray-400">
                                         +201 since last hour
                                     </p>
                                 </CardContent>
                             </Card>
                         </div>
 
+
                         <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
                             <Card
-                                className="xl:col-span-2" x-chunk="dashboard-01-chunk-4"
+                                className="xl:col-span-2 bg-[#1A3A2C] border-none shadow-none"
+                                x-chunk="dashboard-01-chunk-4"
                             >
                                 <CardHeader className="flex flex-row items-center">
                                     <div className="grid gap-2">
-                                        <CardTitle>Transactions</CardTitle>
-                                        <CardDescription>
+                                        <CardTitle className="text-gray-300">Transactions</CardTitle>
+                                        <CardDescription className="text-gray-400">
                                             Recent transactions from your store.
                                         </CardDescription>
                                     </div>
-                                    <Button asChild size="sm" className="ml-auto gap-1">
+                                    <Button asChild size="sm" className="ml-auto gap-1 text-[#2FB574]">
                                         <Link href="#">
                                             View All
                                             <ArrowUpRight className="h-4 w-4" />
@@ -216,130 +220,85 @@ export function Dashboard() {
                                     </Button>
                                 </CardHeader>
                                 <CardContent>
-                                    <Table>
+                                    <Table className="bg-[#1A3A2C] text-white">
                                         <TableHeader>
                                             <TableRow>
-                                                <TableHead>Customer</TableHead>
-                                                <TableHead className="hidden xl:table-column">
-                                                    Type
-                                                </TableHead>
-                                                <TableHead className="hidden xl:table-column">
-                                                    Status
-                                                </TableHead>
-                                                <TableHead className="hidden xl:table-column">
-                                                    Date
-                                                </TableHead>
-                                                <TableHead className="text-right">Amount</TableHead>
+                                                <TableHead className="text-gray-400">Customer</TableHead>
+                                                <TableHead className="hidden xl:table-column text-gray-400">Type</TableHead>
+                                                <TableHead className="hidden xl:table-column text-gray-400">Status</TableHead>
+                                                <TableHead className="hidden xl:table-column text-gray-400">Date</TableHead>
+                                                <TableHead className="text-right text-gray-400">Amount</TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
                                             <TableRow>
                                                 <TableCell>
-                                                    <div className="font-medium">Liam Johnson</div>
-                                                    <div className="hidden text-sm text-muted-foreground md:inline">
-                                                        liam@example.com
-                                                    </div>
+                                                    <div className="font-medium text-white">Liam Johnson</div>
+                                                    <div className="hidden text-sm text-gray-500 md:inline">liam@example.com</div>
                                                 </TableCell>
+                                                <TableCell className="hidden xl:table-column text-white">Sale</TableCell>
                                                 <TableCell className="hidden xl:table-column">
-                                                    Sale
+                                                    <Badge className="text-xs text-white" variant="outline">Approved</Badge>
                                                 </TableCell>
-                                                <TableCell className="hidden xl:table-column">
-                                                    <Badge className="text-xs" variant="outline">
-                                                        Approved
-                                                    </Badge>
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                                                    2023-06-23
-                                                </TableCell>
-                                                <TableCell className="text-right">$250.00</TableCell>
+                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column text-white">2023-06-23</TableCell>
+                                                <TableCell className="text-right text-white">$250.00</TableCell>
                                             </TableRow>
                                             <TableRow>
                                                 <TableCell>
-                                                    <div className="font-medium">Olivia Smith</div>
-                                                    <div className="hidden text-sm text-muted-foreground md:inline">
-                                                        olivia@example.com
-                                                    </div>
+                                                    <div className="font-medium text-white">Olivia Smith</div>
+                                                    <div className="hidden text-sm text-gray-500 md:inline">olivia@example.com</div>
                                                 </TableCell>
+                                                <TableCell className="hidden xl:table-column text-white">Refund</TableCell>
                                                 <TableCell className="hidden xl:table-column">
-                                                    Refund
+                                                    <Badge className="text-xs text-white" variant="outline">Declined</Badge>
                                                 </TableCell>
-                                                <TableCell className="hidden xl:table-column">
-                                                    <Badge className="text-xs" variant="outline">
-                                                        Declined
-                                                    </Badge>
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                                                    2023-06-24
-                                                </TableCell>
-                                                <TableCell className="text-right">$150.00</TableCell>
+                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column text-white">2023-06-24</TableCell>
+                                                <TableCell className="text-right text-white">$150.00</TableCell>
                                             </TableRow>
                                             <TableRow>
                                                 <TableCell>
-                                                    <div className="font-medium">Noah Williams</div>
-                                                    <div className="hidden text-sm text-muted-foreground md:inline">
-                                                        noah@example.com
-                                                    </div>
+                                                    <div className="font-medium text-white">Noah Williams</div>
+                                                    <div className="hidden text-sm text-gray-500 md:inline">noah@example.com</div>
                                                 </TableCell>
+                                                <TableCell className="hidden xl:table-column text-white">Subscription</TableCell>
                                                 <TableCell className="hidden xl:table-column">
-                                                    Subscription
+                                                    <Badge className="text-xs text-white" variant="outline">Approved</Badge>
                                                 </TableCell>
-                                                <TableCell className="hidden xl:table-column">
-                                                    <Badge className="text-xs" variant="outline">
-                                                        Approved
-                                                    </Badge>
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                                                    2023-06-25
-                                                </TableCell>
-                                                <TableCell className="text-right">$350.00</TableCell>
+                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column text-white">2023-06-25</TableCell>
+                                                <TableCell className="text-right text-white">$350.00</TableCell>
                                             </TableRow>
                                             <TableRow>
                                                 <TableCell>
-                                                    <div className="font-medium">Emma Brown</div>
-                                                    <div className="hidden text-sm text-muted-foreground md:inline">
-                                                        emma@example.com
-                                                    </div>
+                                                    <div className="font-medium text-white">Emma Brown</div>
+                                                    <div className="hidden text-sm text-gray-500 md:inline">emma@example.com</div>
                                                 </TableCell>
+                                                <TableCell className="hidden xl:table-column text-white">Sale</TableCell>
                                                 <TableCell className="hidden xl:table-column">
-                                                    Sale
+                                                    <Badge className="text-xs text-white" variant="outline">Approved</Badge>
                                                 </TableCell>
-                                                <TableCell className="hidden xl:table-column">
-                                                    <Badge className="text-xs" variant="outline">
-                                                        Approved
-                                                    </Badge>
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                                                    2023-06-26
-                                                </TableCell>
-                                                <TableCell className="text-right">$450.00</TableCell>
+                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column text-white">2023-06-26</TableCell>
+                                                <TableCell className="text-right text-white">$450.00</TableCell>
                                             </TableRow>
                                             <TableRow>
                                                 <TableCell>
-                                                    <div className="font-medium">Liam Johnson</div>
-                                                    <div className="hidden text-sm text-muted-foreground md:inline">
-                                                        liam@example.com
-                                                    </div>
+                                                    <div className="font-medium text-white">Liam Johnson</div>
+                                                    <div className="hidden text-sm text-gray-500 md:inline">liam@example.com</div>
                                                 </TableCell>
+                                                <TableCell className="hidden xl:table-column text-white">Sale</TableCell>
                                                 <TableCell className="hidden xl:table-column">
-                                                    Sale
+                                                    <Badge className="text-xs text-white" variant="outline">Approved</Badge>
                                                 </TableCell>
-                                                <TableCell className="hidden xl:table-column">
-                                                    <Badge className="text-xs" variant="outline">
-                                                        Approved
-                                                    </Badge>
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                                                    2023-06-27
-                                                </TableCell>
-                                                <TableCell className="text-right">$550.00</TableCell>
+                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column text-white">2023-06-27</TableCell>
+                                                <TableCell className="text-right text-white">$550.00</TableCell>
                                             </TableRow>
                                         </TableBody>
                                     </Table>
                                 </CardContent>
                             </Card>
-                            <Card x-chunk="dashboard-01-chunk-5">
+
+                            <Card className="bg-[#1A3A2C] border-none shadow-none" x-chunk="dashboard-01-chunk-5">
                                 <CardHeader>
-                                    <CardTitle>Recent Sales</CardTitle>
+                                    <CardTitle className="text-gray-300">Recent Sales</CardTitle>
                                 </CardHeader>
                                 <CardContent className="grid gap-8">
                                     <div className="flex items-center gap-4">
@@ -348,14 +307,10 @@ export function Dashboard() {
                                             <AvatarFallback>OM</AvatarFallback>
                                         </Avatar>
                                         <div className="grid gap-1">
-                                            <p className="text-sm font-medium leading-none">
-                                                Olivia Martin
-                                            </p>
-                                            <p className="text-sm text-muted-foreground">
-                                                olivia.martin@email.com
-                                            </p>
+                                            <p className="text-sm font-medium leading-none text-white">Olivia Martin</p>
+                                            <p className="text-sm text-muted-foreground text-white">olivia.martin@email.com</p>
                                         </div>
-                                        <div className="ml-auto font-medium">+$1,999.00</div>
+                                        <div className="ml-auto font-medium text-white">+$1,999.00</div>
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <Avatar className="hidden h-9 w-9 sm:flex">
@@ -363,14 +318,10 @@ export function Dashboard() {
                                             <AvatarFallback>JL</AvatarFallback>
                                         </Avatar>
                                         <div className="grid gap-1">
-                                            <p className="text-sm font-medium leading-none">
-                                                Jackson Lee
-                                            </p>
-                                            <p className="text-sm text-muted-foreground">
-                                                jackson.lee@email.com
-                                            </p>
+                                            <p className="text-sm font-medium leading-none text-white">Jackson Lee</p>
+                                            <p className="text-sm text-muted-foreground text-white">jackson.lee@email.com</p>
                                         </div>
-                                        <div className="ml-auto font-medium">+$39.00</div>
+                                        <div className="ml-auto font-medium text-white">+$39.00</div>
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <Avatar className="hidden h-9 w-9 sm:flex">
@@ -378,14 +329,10 @@ export function Dashboard() {
                                             <AvatarFallback>IN</AvatarFallback>
                                         </Avatar>
                                         <div className="grid gap-1">
-                                            <p className="text-sm font-medium leading-none">
-                                                Isabella Nguyen
-                                            </p>
-                                            <p className="text-sm text-muted-foreground">
-                                                isabella.nguyen@email.com
-                                            </p>
+                                            <p className="text-sm font-medium leading-none text-white">Isabella Nguyen</p>
+                                            <p className="text-sm text-muted-foreground text-white">isabella.nguyen@email.com</p>
                                         </div>
-                                        <div className="ml-auto font-medium">+$299.00</div>
+                                        <div className="ml-auto font-medium text-white">+$299.00</div>
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <Avatar className="hidden h-9 w-9 sm:flex">
@@ -393,14 +340,10 @@ export function Dashboard() {
                                             <AvatarFallback>WK</AvatarFallback>
                                         </Avatar>
                                         <div className="grid gap-1">
-                                            <p className="text-sm font-medium leading-none">
-                                                William Kim
-                                            </p>
-                                            <p className="text-sm text-muted-foreground">
-                                                will@email.com
-                                            </p>
+                                            <p className="text-sm font-medium leading-none text-white">William Kim</p>
+                                            <p className="text-sm text-muted-foreground text-white">will@email.com</p>
                                         </div>
-                                        <div className="ml-auto font-medium">+$99.00</div>
+                                        <div className="ml-auto font-medium text-white">+$99.00</div>
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <Avatar className="hidden h-9 w-9 sm:flex">
@@ -408,19 +351,17 @@ export function Dashboard() {
                                             <AvatarFallback>SD</AvatarFallback>
                                         </Avatar>
                                         <div className="grid gap-1">
-                                            <p className="text-sm font-medium leading-none">
-                                                Sofia Davis
-                                            </p>
-                                            <p className="text-sm text-muted-foreground">
-                                                sofia.davis@email.com
-                                            </p>
+                                            <p className="text-sm font-medium leading-none text-white">Sofia Davis</p>
+                                            <p className="text-sm text-muted-foreground text-white">sofia.davis@email.com</p>
                                         </div>
-                                        <div className="ml-auto font-medium">+$39.00</div>
+                                        <div className="ml-auto font-medium text-white">+$39.00</div>
                                     </div>
                                 </CardContent>
                             </Card>
+
                         </div>
-                        <div className="chart-wrapper mx-auto flex max-w-6xl flex-col flex-wrap items-start justify-center gap-6 p-6 sm:flex-row sm:p-8">
+
+                        {/* <div className="chart-wrapper mx-auto flex max-w-6xl flex-col flex-wrap items-start justify-center gap-6 p-6 sm:flex-row sm:p-8">
                             <div className="grid w-full gap-6 sm:grid-cols-2 lg:max-w-[22rem] lg:grid-cols-1 xl:max-w-[25rem]">
                                 <Card
                                     className="lg:max-w-md" x-chunk="charts-01-chunk-0"
@@ -1260,7 +1201,7 @@ export function Dashboard() {
                                     </CardContent>
                                 </Card>
                             </div>
-                        </div>
+                        </div> */}
                     </main>
                 </FadeIn>
             </div>

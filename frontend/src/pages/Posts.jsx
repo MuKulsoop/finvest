@@ -117,101 +117,104 @@ const PostsPage = () => {
     const post = postsData[0];
 
     return (
-        <div className="flex min-h-screen w-full ">
-    <div className="flex-1 sm:py-3 sm:pl-14 bg-white overflow-hidden">
-        <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200">
-            <Sidebar />
-            <FadeIn direction="down" delay={0.2} fullWidth>
-                <h1 className="md:text-4xl text-2xl font-semibold text-left text-[#05140D] w-full px-4 md:px-3 z-[5] line-clamp-1">
-                    Posts
-                </h1>
-            </FadeIn>
-            <div className="flex items-center gap-4">
-                <FadeIn direction="down" delay={0.2}>
-                    <div className="relative ml-auto flex-1 md:grow-0">
-                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                        <Input
-                            type="search"
-                            placeholder="Search..."
-                            className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
-                        />
+        <div className="flex min-h-screen w-full bg-[#05140D] ">
+            <div className="flex-1 sm:py-3 sm:pl-14 bg-[#05140D] overflow-hidden">
+                <header className="sticky top-0 z-30 flex items-center justify-between gap-4 h-16 px-4 bg-[#05140D] border-b border-gray-700">
+                    <Sidebar />
+                    <FadeIn direction="down" delay={0.2} fullWidth>
+                        <h1 className="md:text-4xl text-2xl font-semibold text-left text-white w-full px-4 md:px-3 z-[5] line-clamp-1">
+                            Posts
+                        </h1>
+                    </FadeIn>
+                    <FadeIn direction="down" delay={0.2}>
+                        <div className="relative ml-auto flex-1 md:grow-0">
+                            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-300" />
+                            <Input
+                                type="search"
+                                placeholder="Search..."
+                                className="w-full rounded-lg bg-[#05140D] text-white placeholder-gray-300 pl-8 md:w-[200px] lg:w-[336px] border border-gray-600"
+                            />
+                        </div>
+                    </FadeIn>
+
+                    <FadeIn direction="left" delay={0.2}>
+                        <UserProfileIcon />
+                    </FadeIn>
+                </header>
+                <FadeIn direction="up" delay={0.2} fullWidth>
+                    <div className="p-4 md:p-10 grid grid-cols-1 gap-6 w-full">
+                        {postsData.map((post) => (
+                            <Card key={post.id} className="bg-[#13261F] text-white rounded-lg shadow-md overflow-hidden flex flex-col md:flex-row w-full border-0">
+                                <div className="flex-1 p-4">
+                                    <img src={post.image} alt={post.description} className="w-full h-96 object-cover rounded-lg" />
+                                    <CardHeader className="flex flex-row items-center gap-4 p-4">
+                                        <Avatar>
+                                            <AvatarImage src={post.avatar} alt={post.name} />
+                                            <AvatarFallback>{post.name.charAt(0)}</AvatarFallback>
+                                        </Avatar>
+                                        <div>
+                                            <p className="text-lg font-semibold">{post.name}</p>
+                                            <p className="text-sm text-gray-400">{post.date}</p>
+                                        </div>
+                                    </CardHeader>
+                                    <CardContent className="p-4 flex-grow">
+                                        <p>{post.description}</p>
+                                    </CardContent>
+                                    <CardFooter className="flex md:flex-row flex-col gap-4 md:gap-0 justify-between items-center">
+                                        <div className="flex items-center gap-2">
+                                            <Button variant="ghost" className="flex items-center gap-1 text-gray-400 mb-0">
+                                                <HeartIcon className="w-5 h-5" />
+                                                {post.likes}
+                                            </Button>
+                                            <Button variant="ghost" className="flex items-center gap-1 text-gray-400 mb-0">
+                                                <ShareIcon className="w-5 h-5" />
+                                                {post.shares}
+                                            </Button>
+                                            <Button variant="ghost" className="flex items-center gap-1 text-gray-400 mb-0">
+                                                <MessageCircle className="w-5 h-5" />
+                                                {post.comments.length}
+                                            </Button>
+                                        </div>
+                                        <Button className="bg-[#2FB574] text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors">
+                                            Invest
+                                        </Button>
+                                    </CardFooter>
+                                </div>
+                                <div className="flex-2 p-4 pt-2 bg-[#13261F] md:border-l border-t md:border-t-0 border-gray-600">
+                                    <div className="flex flex-col w-full h-full justify-between">
+                                        <div className="">
+                                            {post.comments.map((comment) => (
+                                                <div key={comment.id} className="flex items-start gap-2 mt-2 p-2">
+                                                    <Avatar>
+                                                        <AvatarImage src={comment.avatar} alt={comment.name} />
+                                                        <AvatarFallback>{comment.name.charAt(0)}</AvatarFallback>
+                                                    </Avatar>
+                                                    <div>
+                                                        <p className="text-[0.8em] font-semibold text-white">{comment.name}</p>
+                                                        <p className="text-sm text-gray-400">{comment.text}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className="relative mt-4 flex flex-row bottom-0 items-center justify-evenly gap-2">
+                                            <Input
+                                                placeholder="Write a comment..."
+                                                className="rounded-lg bg-[#05140D] text-white placeholder-gray-400 pl-4 pr-12 py-2 border-0"
+                                            />
+                                            <Button className="bg-[#2FB574] text-white py-1 px-4 rounded-lg">
+                                                <Send className="h-5 w-5" />
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Card>
+                        ))}
                     </div>
                 </FadeIn>
-                <FadeIn direction="left" delay={0.2}>
-                    <UserProfileIcon />
-                </FadeIn>
             </div>
-        </header>
-        <FadeIn direction="up" delay={0.2} fullWidth>
-            <div className="p-4 md:p-10 grid grid-cols-1 gap-6 w-full">
-                {postsData.map((post) => (
-                    <Card key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col md:flex-row w-full">
-                        <div className="flex-1 p-4">
-                            <img src={post.image} alt={post.description} className="w-full h-96 object-cover rounded-lg" />
-                            <CardHeader className="flex flex-row items-center gap-4 p-4">
-                                <Avatar>
-                                    <AvatarImage src={post.avatar} alt={post.name} />
-                                    <AvatarFallback>{post.name.charAt(0)}</AvatarFallback>
-                                </Avatar>
-                                <div>
-                                    <p className="text-lg font-semibold">{post.name}</p>
-                                    <p className="text-sm text-gray-500">{post.date}</p>
-                                </div>
-                            </CardHeader>
-                            <CardContent className="p-4 flex-grow">
-                                <p>{post.description}</p>
-                            </CardContent>
-                            <CardFooter className="flex md:flex-row flex-col gap-4 md:gap-0 justify-between items-center ">
-                                <div className="flex items-center gap-2">
-                                    <Button variant="ghost" className="flex items-center gap-1 text-gray-700 mb-0">
-                                        <HeartIcon className="w-5 h-5" />
-                                        {post.likes}
-                                    </Button>
-                                    <Button variant="ghost" className="flex items-center gap-1 text-gray-700 mb-0">
-                                        <ShareIcon className="w-5 h-5" />
-                                        {post.shares}
-                                    </Button>
-                                    <Button variant="ghost" className="flex items-center gap-1 text-gray-700 mb-0">
-                                        <MessageCircle className="w-5 h-5" />
-                                        {post.comments.length}
-                                    </Button>
-                                </div>
-                                <Button className="bg-[#2FB574] text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors">Invest</Button>
-                            </CardFooter>
-                        </div>
-                        <div className="flex-2 p-4 pt-2 bg-[#fefefe] md:border-l border-t">
-                            <div className="flex flex-col w-full h-full justify-between">
-                                <div className="">
-                                    {post.comments.map((comment) => (
-                                        <div key={comment.id} className="flex items-start gap-2 mt-2 p-2">
-                                            <Avatar>
-                                                <AvatarImage src={comment.avatar} alt={comment.name} />
-                                                <AvatarFallback>{comment.name.charAt(0)}</AvatarFallback>
-                                            </Avatar>
-                                            <div>
-                                                <p className="text-[0.8em] font-semibold">{comment.name}</p>
-                                                <p className="text-sm text-gray-600">{comment.text}</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="relative mt-4 flex flex-row bottom-0 items-center justify-evenly gap-2">
-                                    <Input
-                                        placeholder="Write a comment..."
-                                        className="rounded-lg pl-4 pr-12 py-2"
-                                    />
-                                    <Button className="bg-[#2FB574] text-white py-1 px-4 rounded-lg"><Send className="h-5 w-5" /></Button>
-                                </div>
-                            </div>
-                        </div>
-                    </Card>
-                ))}
-            </div>
-        </FadeIn>
-    </div>
-</div>
-
+        </div>
     );
 };
+
 
 export default PostsPage;

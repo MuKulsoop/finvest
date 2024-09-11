@@ -1,5 +1,5 @@
 import React from "react";
-import {  User, Settings, LifeBuoy, LogOut } from "lucide-react";
+import { User, Settings, LifeBuoy, LogOut } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import {
     DropdownMenu,
@@ -45,30 +45,30 @@ const UserProfileIcon = ({ username }) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon" className="overflow-hidden rounded-full h-10 w-10">
+                <Button variant="outline" size="icon" className="overflow-hidden rounded-full h-10 w-10 bg-[#10251C] text-white hover:bg-[#2FB574] transition-colors">
                     <User className="h-7 w-7" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                <DropdownMenuLabel>
-                {/* {username} */}
-                Username
+            <DropdownMenuContent align="end" className="bg-[#10251C] border border-gray-700 text-white rounded-md shadow-lg">
+                <DropdownMenuLabel className="text-gray-400">
+                    {/* {username} */}
+                    Username
                 </DropdownMenuLabel>
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator className="border-gray-600" />
                 <DropdownMenuItem>
-                    <Link to="/settings" className="flex items-center gap-2">
+                    <Link to="/settings" className="flex items-center gap-2 text-white hover:text-[#2FB574]">
                         <Settings className="h-4 w-4" />
                         Settings
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                    <a href="#support-section" className='relative flex w-full gap-2' onClick={handleSupportClick}>
+                    <a href="#support-section" className='relative flex w-full gap-2 text-white hover:text-[#2FB574]' onClick={handleSupportClick}>
                         <LifeBuoy className="h-4 w-4" />
                         Support
                     </a>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex items-center gap-2">
+                <DropdownMenuSeparator className="border-gray-600" />
+                <DropdownMenuItem className="flex items-center gap-2 text-white hover:text-red-500">
                     <LogOut className="h-4 w-4" />
                     Logout
                 </DropdownMenuItem>
