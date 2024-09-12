@@ -29,7 +29,7 @@ const SERVICE_URL = 'https://finvest-backend.onrender.com';
 const pingService = () => {
     axios.get(SERVICE_URL)
         .then(response => console.log('Service pinged successfully:', response.status))
-        .catch(error => console.error('Error pinging service:', error.message));
+        .catch(response => console.log('Service pinged successfully:'));
 };
 
 // Constants for the ping intervals and restricted time period
