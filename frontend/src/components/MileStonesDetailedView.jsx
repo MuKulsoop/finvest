@@ -117,18 +117,18 @@ const MilestoneDetailedView = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full bg-gray-100">
-      <main className="flex-1 sm:py-3 sm:pl-14 bg-white overflow-hidden">
-        <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200">
+    <div className="flex min-h-screen w-full bg-[#05140D]">
+      <main className="flex-1 sm:py-3 sm:pl-14 bg-[#05140D] overflow-hidden">
+        <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-[#05140D] border-b border-gray-400">
           <Sidebar />
           <FadeIn direction="down" delay={0} fullWidth>
-            <h1 className="text-2xl md:text-4xl font-semibold text-left text-[#05140D] w-full px-4 md:px-3 line-clamp-1">
+            <h1 className="text-2xl md:text-4xl font-semibold text-left text-white w-full px-4 md:px-3 line-clamp-1">
               {project.title}
             </h1>
           </FadeIn>
           <FadeIn direction="down" delay={0}>
             <Link to="/projects">
-              <Button variant="outline" className="hidden sm:flex items-center gap-2 text-[#1B7A57] border-[#1B7A57] mr-4">
+              <Button variant="outline" className="flex items-center gap-2 text-[#2FB574] border-[#2FB574] bg-[#05140D] hover:bg-[#2FB574] hover:text-white hover:border-[#2FB574] mr-4">
                 View Projects
                 <ChevronRight className="h-5 w-5" />
               </Button>
@@ -138,25 +138,26 @@ const MilestoneDetailedView = () => {
             <UserProfileIcon />
           </FadeIn>
         </header>
-        <div className=" bg-white rounded-xl shadow-lg p-6">
+
+        <div className="bg-[#05140D] rounded-xl shadow-lg p-6">
           {milestonesWithProgress.map((milestone, index) => (
-            <div key={index} className="p-6 bg-white rounded-lg shadow mb-6 flex flex-col md:flex-row">
+            <div key={index} className="p-6 bg-[#2C5440] rounded-lg shadow mb-6 flex flex-col md:flex-row">
               <div className="flex-1">
-                <h2 className="text-2xl font-semibold text-gray-800">{milestone.title}</h2>
-                <p className="mt-2 text-gray-600">{milestone.description}</p>
-                <p className="mt-2 text-gray-600">Completion Date: {milestone.completionDate}</p>
-                <p className="mt-2 text-gray-600">Amount Required: {milestone.amountRequired}</p>
+                <h2 className="text-2xl font-semibold text-white">{milestone.title}</h2>
+                <p className="mt-2 text-gray-300">{milestone.description}</p>
+                <p className="mt-2 text-gray-300">Completion Date: {milestone.completionDate}</p>
+                <p className="mt-2 text-gray-300">Amount Required: {milestone.amountRequired}</p>
               </div>
               <div className="flex-1 flex flex-col items-center mt-4 sm:mt-0 sm:ml-4">
-                <div className="w-full flex items-center justify-center">
-                  <h2 className='text-xl font-semibold pb-4 pr-4'>Voting</h2>
+                <div className="w-full flex items-center justify-center text-white">
+                  <h2 className="text-xl font-semibold text-white pb-4 pr-4">Voting</h2>
                   <PieChart width={150} height={150}>
                     <Pie
                       data={chartData(milestone)}
                       dataKey="value"
                       outerRadius={60}
                       innerRadius={40}
-                      fill="#8884d8"
+                      fill="#FFFFF"
                       stroke={false}
                       activeIndex={0}
                       activeShape={({ outerRadius = 0, ...props }) => (
@@ -176,7 +177,7 @@ const MilestoneDetailedView = () => {
                       <Label
                         value={`${(displayType === 'downvote' ? chartData(milestone)[0].value : chartData(milestone)[1].value).toFixed(1)}%`}
                         position="center"
-                        className="text-lg font-bold"
+                        className="text-lg font-bold text-white"
                       />
                     </Pie>
                   </PieChart>
@@ -184,9 +185,8 @@ const MilestoneDetailedView = () => {
                 <div className="mt-4 flex items-center justify-center gap-4">
                   <Button
                     onClick={() => handleVote(index, 'upvote')}
-                    className={`px-4 py-2 bg-[#2FB574] hover:bg-[#0c2f1f] text-white rounded-md transition-colors duration-300 ${
-                      votedMilestones[index] === 'upvote' ? 'bg-[#0c2f1f]' : ''
-                    }`}
+                    className={`px-4 py-2 bg-[#2FB574] hover:bg-[#0c2f1f] text-white rounded-md transition-colors duration-300 ${votedMilestones[index] === 'upvote' ? 'bg-[#0c2f1f]' : ''
+                      }`}
                     disabled={votedMilestones[index] === 'upvote'}
                   >
                     <ArrowBigUpDash className="h-5 w-5 mr-2" />
@@ -194,9 +194,8 @@ const MilestoneDetailedView = () => {
                   </Button>
                   <Button
                     onClick={() => handleVote(index, 'downvote')}
-                    className={`px-4 py-2 bg-[#0c2f1f] hover:bg-[#0c2f1f] text-white rounded-md transition-colors duration-300 ${
-                      votedMilestones[index] === 'downvote' ? 'bg-[#0c2f1f]' : ''
-                    }`}
+                    className={`px-4 py-2 bg-[#0c2f1f] hover:bg-[#0c2f1f] text-white rounded-md transition-colors duration-300 ${votedMilestones[index] === 'downvote' ? 'bg-[#0c2f1f]' : ''
+                      }`}
                     disabled={votedMilestones[index] === 'downvote'}
                   >
                     <ArrowBigDownDash className="h-5 w-5 mr-2" />
@@ -207,22 +206,23 @@ const MilestoneDetailedView = () => {
             </div>
           ))}
         </div>
-        <div className="mt-8 bg-white rounded-xl shadow-lg p-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Community Feedback</h2>
+
+        <div className="mt-8 bg-[#1A3A2C] rounded-xl shadow-lg p-6 m-6">
+          <h2 className="text-2xl font-semibold text-white mb-4">Community Feedback</h2>
           <div className="space-y-4">
             {feedback.map((fb, index) => (
-              <div key={index} className="p-4 bg-gray-100 rounded-lg shadow-sm">
-                <p className="text-gray-800 font-semibold">{fb.user}</p>
-                <p className="text-gray-600 mt-1">{fb.feedback}</p>
+              <div key={index} className="p-4 bg-[#2C5440] rounded-lg shadow-sm">
+                <p className="text-white font-semibold">{fb.user}</p>
+                <p className="text-gray-300 mt-1">{fb.feedback}</p>
               </div>
             ))}
-            <div className="p-4 bg-gray-100 rounded-lg shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Leave your feedback</h3>
+            <div className="p-4 bg-[#2C5440] rounded-lg shadow-sm">
+              <h3 className="text-xl font-semibold text-white mb-2">Leave your feedback</h3>
               <textarea
                 value={newFeedback}
                 onChange={e => setNewFeedback(e.target.value)}
                 rows="4"
-                className="w-full p-2 border border-gray-300 rounded-md"
+                className="w-full p-2 border border-[#2FB574] rounded-md bg-[#1A3A2C] text-white placeholder-gray-500"
                 placeholder="Write your feedback here..."
               ></textarea>
               <button
@@ -236,6 +236,7 @@ const MilestoneDetailedView = () => {
         </div>
       </main>
     </div>
+
   );
 };
 
