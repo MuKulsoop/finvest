@@ -9,8 +9,7 @@ import { Button } from "@/components/ui/button";
 import UserProfileIcon from './ui/UserProfileIcon';
 import { Link } from 'react-router-dom';
 import { PieChart, Pie, Cell, Label, Sector } from 'recharts';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 const MilestoneDetailedView = () => {
   const { projectId } = useParams();
   const [project, setProject] = useState(null);

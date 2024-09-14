@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Sidebar from '@/components/Sidebar';
 import FadeIn from '@/components/FadeIn';
@@ -11,7 +11,6 @@ import UserProfileIcon from '@/components/ui/UserProfileIcon';
 function NewPost() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        title: '',
         content: '',
         image: null,
     });
@@ -32,16 +31,13 @@ function NewPost() {
         e.preventDefault();
 
         const data = new FormData();
-        data.append('title', formData.title);
-        data.append('content', formData.content);
+        data.append('description', formData.content); // Map content to 'description' for backend
         data.append('image', formData.image);
 
         try {
-            const response = await fetch('https://finvest-backend.onrender.com/post/new-post', {
+            const response = await fetch('http://localhost:8000/post/new-post', {
                 method: 'POST',
                 body: data,
-                headers: {
-                }
             });
 
             const result = await response.json();
@@ -97,7 +93,7 @@ function NewPost() {
                                     </div>
 
                                     <div className="space-y-4">
-                                        <Input
+                                        {/* <Input
                                             type="text"
                                             name="title"
                                             value={formData.title}
@@ -105,7 +101,7 @@ function NewPost() {
                                             placeholder="Post Title"
                                             required
                                             className="w-full border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 focus:outline-none text-xl text-white placeholder:text-gray-100"
-                                        />
+                                        /> */}
                                         <Textarea
                                             name="content"
                                             value={formData.content}
@@ -125,7 +121,6 @@ function NewPost() {
                         </form>
                     </div>
                 </FadeIn>
-
             </div>
         </div>
     );
