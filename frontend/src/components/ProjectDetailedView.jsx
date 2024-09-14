@@ -204,7 +204,7 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                                     <TableCell className="flex items-center gap-3">
                                         <Avatar className="h-10 w-10">
                                             <AvatarImage src={contribution.avatar} alt={contribution.donor} />
-                                            <AvatarFallback>{contribution.donor.charAt(0)}</AvatarFallback>
+                                            <AvatarFallback>{contribution?.donor ? contribution.donor.charAt(0) : 'N/A'}</AvatarFallback>
                                         </Avatar>
                                         <span className="text-gray-100">{contribution.donor}</span>
                                     </TableCell>
