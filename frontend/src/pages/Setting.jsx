@@ -35,7 +35,8 @@ import FadeIn from '@/components/FadeIn';
 
 export const Setting = () => {
     const navigate = useNavigate();
-    const { wallet, connectWallet } = useContext(WalletContext);
+    const { connectWallet } = useContext(WalletContext);
+    
     const [userType, setUserType] = useState('investor'); // 'investor' or 'lookingForFunding'
     const [formData, setFormData] = useState({
         username: '',

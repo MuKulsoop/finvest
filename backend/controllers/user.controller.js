@@ -1,61 +1,118 @@
-import Token from "../models/Token.model.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-import Investor from "../models/Investor.model.js";
-import Funding from "../models/Funding.model.js";
+import jwt from 'jsonwebtoken';
+import User from '../models/User.model.js';
 
-dotenv.config();
+// Secret keys for JWT
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
+const TOKEN_EXPIRATION_TIME = '15m'; // Access token expiry time
+const REFRESH_TOKEN_EXPIRATION_TIME = '7d'; // Refresh token expiry time
 
-const createUser = async (userBody, userType) => {
-    const hashedPassword = await bcrypt.hash(userBody.password, 10);
-    const newUser = userType === "Investor" ? new Investor({ ...userBody, password: hashedPassword }) : new Funding({ ...userBody, password: hashedPassword });
-    await newUser.save();
-    return newUser;
-};
-
-const findUserByEmail = async (email, userType) => {
-    return userType === "Investor" ? await Investor.findOne({ email }) : await Funding.findOne({ email });
-};
-
-const generateTokens = (userId) => {
-    const accessToken = jwt.sign({ id: userId }, process.env.ACCESS_SECRET_KEY, { expiresIn: '15m' });
-    const refreshToken = jwt.sign({ id: userId }, process.env.REFRESH_SECRET_KEY);
+// Generate access and refresh tokens
+const generateTokens = (user) => {
+    const accessToken = jwt.sign({ userId: user._id, role: user.role }, ACCESS_TOKEN_SECRET, { expiresIn: TOKEN_EXPIRATION_TIME });
+    const refreshToken = jwt.sign({ userId: user._id, role: user.role }, REFRESH_TOKEN_SECRET, { expiresIn: REFRESH_TOKEN_EXPIRATION_TIME });
     return { accessToken, refreshToken };
 };
 
+// User signup
 export const signup = async (req, res) => {
+    const { name, email, password, country, role, profileImage } = req.body;
     try {
-        const { firstName, lastName, email, password, accountType } = req.body;
-        const userBody = { firstName, lastName, email, password, accountType };
-        const newUser = await createUser(userBody, accountType);
-        return res.status(200).json({ msg: `${accountType} user saved successfully`, user: newUser });
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) return res.status(400).json({ message: 'User already exists' });
+
+        // Create new user
+        const newUser = new User({ name, email, password, country, role, profileImage });
+        await newUser.save();
+
+        // Generate tokens
+        const { accessToken, refreshToken } = generateTokens(newUser);
+        newUser.accessToken = accessToken;
+        newUser.refreshToken = refreshToken;
+        await newUser.save();
+
+        res.status(201).json({ user: newUser, accessToken, refreshToken });
     } catch (error) {
-        console.error("Error during signup:", error);
-        return res.status(500).json({ msg: "Error occurred while saving user", error: error.message });
+        res.status(500).json({ message: 'Error signing up user', error });
     }
 };
 
+// User login
 export const login = async (req, res) => {
+    const { email, password } = req.body;
     try {
-        const { email, password, accountType } = req.body;
-        const user = await findUserByEmail(email, accountType);
+        // Check if user exists and select password field
+        const user = await User.findOne({ email }).select('+password');
+        if (!user) return res.status(404).json({ message: 'User not found' });
 
-        if (!user) {
-            return res.status(400).json({ msg: "Email does not match" });
-        }
+        // Compare passwords
+        const isPasswordValid = await user.comparePassword(password);
+        if (!isPasswordValid) return res.status(400).json({ message: 'Invalid credentials' });
 
-        const match = await bcrypt.compare(password, user.password);
-        if (match) {
-            const { accessToken, refreshToken } = generateTokens(user._id);
-            const newToken = new Token({ token: refreshToken });
-            await newToken.save();
-            return res.status(200).json({ accessToken, refreshToken, name: user.firstName, email: user.email, accountType });
-        } else {
-            return res.status(400).json({ msg: "Password does not match" });
-        }
+        // Generate tokens
+        const { accessToken, refreshToken } = generateTokens(user);
+        user.accessToken = accessToken;
+        user.refreshToken = refreshToken;
+        await user.save();
+
+        res.status(200).json({ user, accessToken, refreshToken });
     } catch (error) {
-        console.error("Error during login:", error);
-        return res.status(500).json({ msg: "Error while logging in user", error: error.message });
+        res.status(500).json({ message: 'Error logging in user', error });
+    }
+};
+
+// Get current user profile
+export const getProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.userId).select('-password');
+        if (!user) return res.status(404).json({ message: 'User not found' });
+        res.status(200).json({ user });
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching user profile', error });
+    }
+};
+
+// Refresh token
+export const refreshToken = async (req, res) => {
+    const { refreshToken } = req.body;
+    try {
+        if (!refreshToken) return res.status(401).json({ message: 'Refresh token required' });
+
+        // Verify the refresh token
+        jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, async (err, decoded) => {
+            if (err) return res.status(403).json({ message: 'Invalid refresh token' });
+
+            const user = await User.findById(decoded.userId);
+            if (!user) return res.status(404).json({ message: 'User not found' });
+
+            // Generate new tokens
+            const { accessToken, refreshToken: newRefreshToken } = generateTokens(user);
+            user.accessToken = accessToken;
+            user.refreshToken = newRefreshToken;
+            await user.save();
+
+            res.status(200).json({ accessToken, refreshToken: newRefreshToken });
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Error refreshing token', error });
+    }
+};
+
+// User logout
+export const logout = async (req, res) => {
+    const { refreshToken } = req.body;
+    try {
+        const user = await User.findOne({ refreshToken });
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        // Clear tokens
+        user.accessToken = null;
+        user.refreshToken = null;
+        await user.save();
+
+        res.status(200).json({ message: 'Logged out successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error logging out user', error });
     }
 };

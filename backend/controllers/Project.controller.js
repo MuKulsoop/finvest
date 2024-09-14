@@ -1,5 +1,7 @@
+// controllers/Project.controller.js
 import Project from '../models/Project.model.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
+// import { contract } from '../utils/ether.js';
 
 // Create a new project
 export const createProject = async (req, res) => {
@@ -19,18 +21,16 @@ export const createProject = async (req, res) => {
             category
         } = req.body;
 
-        // Ensure an image file was uploaded
         if (!req.file) {
             return res.status(400).json({ msg: 'Image file is required' });
         }
 
+        // Upload image to Cloudinary
         const imageFilePath = req.file.path;
-
-        // Upload the image to Cloudinary
         const cloudinaryResponse = await uploadOnCloudinary(imageFilePath);
         const imageUrl = cloudinaryResponse ? cloudinaryResponse.secure_url : '';
 
-        // Helper function to safely parse JSON
+        // Helper function to safely parse JSON data
         const safeJsonParse = (data) => {
             try {
                 return data ? JSON.parse(data) : [];
@@ -40,11 +40,11 @@ export const createProject = async (req, res) => {
             }
         };
 
-        // Get the highest existing ID and increment it
+        // Find the last project in the database and set a new ID
         const lastProject = await Project.findOne().sort({ id: -1 });
         const newId = lastProject ? lastProject.id + 1 : 1;
 
-        // Create and save the new project
+        // Save project details in MongoDB
         const newProject = new Project({
             id: newId,
             title,
@@ -62,7 +62,9 @@ export const createProject = async (req, res) => {
             category
         });
 
+        // Save the new project in the database
         await newProject.save();
+
         return res.status(201).json({ msg: 'Project created successfully', project: newProject });
     } catch (error) {
         console.error('Error creating project:', error);

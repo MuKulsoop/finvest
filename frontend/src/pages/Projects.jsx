@@ -38,7 +38,7 @@ function Projects() {
         const urls = [
             'https://finvest-backend.onrender.com/project/getAllProjects',
             'http://localhost:8000/project/getAllProjects',
-            '/projects.json'
+            // '/projects.json'
         ];
 
         const fetchData = async () => {
