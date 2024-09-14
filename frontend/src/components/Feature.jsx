@@ -21,7 +21,7 @@ function Feature() {
 
                         <FadeIn direction="up" delay={0.4} fullWidth>
                             <h3 className="md:text-xl text-sm text-white py-4 md:w-full">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro quidem at labore ipsum iusto earum optio modi enim.
+                            The dashboard offers an accessible snapshot of your blockchain transactions, delivering actionable insights and detailed analytics for effective management of donations and investments.
                             </h3>
                         </FadeIn>
 

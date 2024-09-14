@@ -14,7 +14,7 @@ function Services() {
 
             <FadeIn direction="up" delay={0.4} fullWidth>
                 <h3 className="md:text-xl text-sm text-white text-center py-4 z-10 md:w-[50%]">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro quidem at labore ipsum iusto earum optio modi enim
+                Our goal is to provide a secure, transparent, and efficient way for individuals and organizations to contribute to causes they care about. By recording every transaction on the blockchain, we ensure complete transparency, allowing donors and investors to track the use of their funds in real-time.
                 </h3>
             </FadeIn>
 

@@ -104,17 +104,17 @@ function PostProject() {
 
     return (
         <div className="flex min-h-screen w-full">
-            <div className="flex-1 sm:py-3 sm:pl-14 bg-white overflow-hidden">
-                <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200">
+            <div className="flex-1 sm:py-3 sm:pl-14 bg-[#05140D] overflow-hidden">
+                <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-[#05140D] border-b border-gray-400">
                     <Sidebar />
                     <FadeIn direction="down" delay={0.2} fullWidth>
-                        <h1 className="md:text-4xl text-2xl font-semibold text-left text-[#05140D] w-full px-4 md:px-3 z-[5] line-clamp-1">
+                        <h1 className="md:text-4xl text-2xl font-semibold text-left text-white w-full px-4 md:px-3 z-[5] line-clamp-1">
                             New Project
                         </h1>
                     </FadeIn>
                     <FadeIn direction="down" delay={0.2}>
                         <Link to="/projects">
-                            <Button variant="outline" className="hidden sm:flex items-center gap-2 text-[#1B7A57] border-[#1B7A57] mr-4">
+                            <Button variant="outline" className="flex items-center gap-2 text-[#2FB574] border-[#2FB574] bg-[#05140D] hover:bg-[#2FB574] hover:text-white hover:border-[#2FB574] mr-4">
                                 View Projects
                                 <ChevronRight className="h-5 w-5" />
                             </Button>
@@ -136,11 +136,11 @@ function PostProject() {
                                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                             onChange={handleImageChange}
                                         />
-                                        <div className="h-80 w-full bg-gray-200 rounded-[30px] flex items-center justify-center overflow-hidden">
+                                        <div className="h-80 w-full bg-[#1A3A2C] rounded-[30px] flex items-center justify-center overflow-hidden">
                                             {formData.image ? (
                                                 <img src={URL.createObjectURL(formData.image)} alt="Project" className="object-cover h-full w-full" />
                                             ) : (
-                                                <p className="text-gray-400 text-2xl font-semibold">Upload Image</p>
+                                                <p className="text-gray-100 text-2xl font-semibold">Upload Image</p>
                                             )}
                                         </div>
                                     </div>
@@ -153,7 +153,7 @@ function PostProject() {
                                             onChange={handleChange}
                                             placeholder="Project Name"
                                             required
-                                            className="w-full border-0 border-b border-gray-300 focus:ring-0 focus:outline-none text-xl"
+                                            className="w-full border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 focus:outline-none text-xl text-white placeholder:text-gray-100 "
                                         />
                                         <Textarea
                                             name="description"
@@ -161,7 +161,7 @@ function PostProject() {
                                             onChange={handleChange}
                                             placeholder="Project Description"
                                             required
-                                            className="w-full border-0 border-b border-gray-300 focus:ring-0"
+                                            className="w-full border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 text-white placeholder:text-gray-100"
                                         />
                                         <Input
                                             type="number"
@@ -170,7 +170,7 @@ function PostProject() {
                                             onChange={handleChange}
                                             placeholder="Amount Needed (In $)"
                                             required
-                                            className="w-full border-0 border-b border-gray-300 focus:ring-0"
+                                            className="w-full border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 text-white placeholder:text-gray-100"
                                         />
                                         <Input
                                             type="number"
@@ -179,22 +179,22 @@ function PostProject() {
                                             onChange={handleChange}
                                             placeholder="Minimum Amount (In $)"
                                             required
-                                            className="w-full px-4 py-2 border-0 border-b border-gray-300 rounded-md focus:ring-0"
+                                            className="w-full px-4 py-2 border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 text-white placeholder:text-gray-100"
                                         />
 
                                         <Select
                                             value={formData.category}
                                             onValueChange={handleCategoryChange}
                                             placeholder="Select Category"
-                                            className="w-full focus:ring-0 text-gray-500 px-2 py-2"
+                                            className="w-full focus:ring-0 text-white px-2 py-2 bg-[#1A3A2C] placeholder:text-gray-100"
                                             style={{ border: 'none', outline: 'none', boxShadow: 'none' }}
                                             onFocus={(e) => e.target.style.boxShadow = 'none'}
                                             onBlur={(e) => e.target.style.boxShadow = 'none'}
                                         >
-                                            <SelectTrigger className="w-full border-0 border-b border-gray-300 focus:ring-0 text-gray-500 px-2 py-2">
+                                            <SelectTrigger className="w-full border-0 border-b border-gray-500 focus:ring-0 text-white px-2 py-2">
                                                 <SelectValue placeholder="Select Category" />
                                             </SelectTrigger>
-                                            <SelectContent>
+                                            <SelectContent className="bg-[#2C5440]">
                                                 {categories.map((category) => (
                                                     <SelectItem key={category} value={category}>
                                                         {category}
@@ -202,23 +202,22 @@ function PostProject() {
                                                 ))}
                                             </SelectContent>
                                         </Select>
-
                                     </div>
                                 </div>
 
                                 <div className="flex-2 min-w-[35%]">
-                                    <div className="bg-gray-100 rounded-[30px] p-6 space-y-4 relative">
-                                        <label className="block text-gray-700">Number of Milestones</label>
+                                    <div className="bg-[#1A3A2C] rounded-[30px] p-6 space-y-4 relative">
+                                        <label className="block text-gray-400">Number of Milestones</label>
                                         <Input
                                             type="number"
                                             name="milestoneCount"
                                             value={milestoneCount}
                                             onChange={handleMilestoneCountChange}
-                                            className="w-full border-0 border-b border-gray-300 focus:ring-0"
+                                            className="w-full border-0 border-b border-gray-500 bg-[#1A3A2C] focus:ring-0 text-white placeholder:text-gray-100"
                                             min="2"
                                         />
                                         <div className="relative mt-6">
-                                            <div className="absolute left-2 top-0 bottom-0 w-2 bg-gray-200 rounded-full"></div>
+                                            <div className="absolute left-2 top-0 bottom-0 w-2 bg-[#2C5440] rounded-full"></div>
                                             <div
                                                 className="absolute left-2 top-0 bottom-0 w-2 bg-[#2FB574] rounded-full"
                                                 style={{ height: `${progressPercentage}%` }}
@@ -227,23 +226,22 @@ function PostProject() {
                                                 <div key={index} className="flex flex-col space-y-2">
                                                     <div className="flex flex-row items-center gap-4 space-x-1">
                                                         <div className={`ml-[1px] h-5 w-6 z-[5] rounded-full ${formData.milestones[index]?.title ? 'bg-[#26925e]' : 'bg-gray-300'}`} />
-                                                        <div className=" flex flex-col w-full space-y-2 mb-4">
+                                                        <div className="flex flex-col w-full space-y-2 mb-4">
                                                             <Input
                                                                 type="text"
                                                                 name="title"
                                                                 value={formData.milestones[index]?.title || ''}
                                                                 onChange={(e) => handleMilestoneChange(e, index)}
                                                                 placeholder={`Milestone ${index + 1} Title`}
-                                                                className="w-full border-0 border-b border-gray-300 focus:ring-0"
+                                                                className="w-full border-0 border-b border-gray-500 bg-[#1A3A2C] focus:ring-0 text-white placeholder:text-gray-100"
                                                                 required
                                                             />
-
                                                             <Textarea
                                                                 name="description"
                                                                 value={formData.milestones[index]?.description || ''}
                                                                 onChange={(e) => handleMilestoneChange(e, index)}
                                                                 placeholder={`Milestone ${index + 1} Description`}
-                                                                className="w-full border-0 border-b border-gray-300 focus:ring-0"
+                                                                className="w-full border-0 border-b border-gray-500 bg-[#1A3A2C] focus:ring-0 text-white placeholder:text-gray-100"
                                                                 required
                                                             />
                                                             <Input
@@ -251,7 +249,7 @@ function PostProject() {
                                                                 name="completionDate"
                                                                 value={formData.milestones[index]?.completionDate || ''}
                                                                 onChange={(e) => handleMilestoneChange(e, index)}
-                                                                className="w-full border-0 border-b border-gray-300 focus:ring-0"
+                                                                className="w-full border-0 border-b border-gray-500 bg-[#1A3A2C] focus:ring-0 text-white placeholder:text-gray-100"
                                                                 required
                                                             />
                                                             <Input
@@ -260,7 +258,7 @@ function PostProject() {
                                                                 value={formData.milestones[index]?.amountRequired || ''}
                                                                 onChange={(e) => handleMilestoneChange(e, index)}
                                                                 placeholder="Amount Required (In $)"
-                                                                className="w-full border-0 border-b border-gray-300 focus:ring-0"
+                                                                className="w-full border-0 border-b border-gray-500 bg-[#1A3A2C] focus:ring-0 text-white placeholder:text-gray-100"
                                                                 required
                                                             />
                                                         </div>
@@ -270,17 +268,18 @@ function PostProject() {
                                         </div>
                                     </div>
                                     <Button type="submit" className="w-full mt-5 bg-[#2FB574] text-white py-2 rounded-[30px] hover:bg-[#26925e]">
-                                Post Project
-                                <Send className="h-5 w-5 mx-3" />
-                            </Button>
+                                        Post Project
+                                        <Send className="h-5 w-5 mx-3" />
+                                    </Button>
                                 </div>
                             </div>
-                            
                         </form>
                     </div>
                 </FadeIn>
+
             </div>
         </div>
+
     );
 }
 

@@ -11,7 +11,7 @@ function Why() {
 
             <FadeIn direction="up" delay={0.3} fullWidth>
                 <h3 className="md:text-xl text-sm text-white text-center py-4 z-5 md:w-[50%]">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.  Porro quidem at labore ipsum iusto earum optio modi enim
+                Bridging Generosity with Cutting-Edge Transparency and Driving Accountability for Lasting Impact.
                 </h3>
             </FadeIn>
             <FadeIn direction="up" delay={0.4} fullWidth>

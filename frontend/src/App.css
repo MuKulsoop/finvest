@@ -132,7 +132,6 @@ body {
   -ms-overflow-style: none; /* Hides the scrollbar in IE */
 }
 
-
 .gradient-text {
   background: linear-gradient(to bottom, #ffffff, #e2ffec, #95ffb9);
   -webkit-background-clip: text;
@@ -140,4 +139,13 @@ body {
   background-clip: text;
   text-fill-color: transparent;
   /* text-shadow: 2px 2px 2px rgba(3, 147, 66, 0.178); */
+}
+
+/* Change the date input icon color for WebKit-based browsers */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  /* filter: invert(1); */
+  background-color: #2FB574; /* Match the color with your theme */
+  color: white;
+  border-radius: 30%;
+  padding: 5px;
 }
