@@ -26,23 +26,23 @@ Connection();
 // const SERVICE_URL = 'https://finvest-backend.onrender.com';
 
 // Function to ping the service
-// const pingService = () => {
-//     axios.get(SERVICE_URL)
-//         .then(response => console.log('Service pinged successfully:', response.status))
-//         .catch(error => console.error('Error pinging service:', error.message));
-// };
+const pingService = () => {
+    axios.get(SERVICE_URL)
+        .then(response => console.log('Service pinged successfully:', response.status))
+        .catch(error => console.error('Error pinging service:', error.message));
+};
 
 // Function to set a random interval between min and max
-// const setRandomInterval = (func, min, max) => {
-//     const randomDelay = Math.floor(Math.random() * (max - min + 1) + min);
-//     setTimeout(() => {
-//         func();
-//         setRandomInterval(func, min, max); // Recursively set the next random interval
-//     }, randomDelay);
-// };
+const setRandomInterval = (func, min, max) => {
+    const randomDelay = Math.floor(Math.random() * (max - min + 1) + min);
+    setTimeout(() => {
+        func();
+        setRandomInterval(func, min, max); // Recursively set the next random interval
+    }, randomDelay);
+};
 
 // Start pinging the service at random intervals between 1 and 5 minutes
-// setRandomInterval(pingService, 1 * 60 * 1000, 5 * 60 * 1000);
+setRandomInterval(pingService, 1 * 60 * 1000, 5 * 60 * 1000);
 
 // Start the server
 app.listen(PORT, () => console.log(`Server is running at PORT ${PORT}`));

@@ -222,7 +222,7 @@ export function Dashboard() {
                                 <CardContent>
                                     <Table className="bg-[#1A3A2C] text-white">
                                         <TableHeader>
-                                            <TableRow>
+                                            <TableRow className="hover:bg-[#2C5440]">
                                                 <TableHead className="text-gray-400">Customer</TableHead>
                                                 <TableHead className="hidden xl:table-column text-gray-400">Type</TableHead>
                                                 <TableHead className="hidden xl:table-column text-gray-400">Status</TableHead>
@@ -231,7 +231,7 @@ export function Dashboard() {
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
-                                            <TableRow>
+                                            <TableRow className="hover:bg-[#2C5440]">
                                                 <TableCell>
                                                     <div className="font-medium text-white">Liam Johnson</div>
                                                     <div className="hidden text-sm text-gray-500 md:inline">liam@example.com</div>
@@ -243,7 +243,7 @@ export function Dashboard() {
                                                 <TableCell className="hidden md:table-cell lg:hidden xl:table-column text-white">2023-06-23</TableCell>
                                                 <TableCell className="text-right text-white">$250.00</TableCell>
                                             </TableRow>
-                                            <TableRow>
+                                            <TableRow className="hover:bg-[#2C5440]">
                                                 <TableCell>
                                                     <div className="font-medium text-white">Olivia Smith</div>
                                                     <div className="hidden text-sm text-gray-500 md:inline">olivia@example.com</div>
@@ -255,7 +255,7 @@ export function Dashboard() {
                                                 <TableCell className="hidden md:table-cell lg:hidden xl:table-column text-white">2023-06-24</TableCell>
                                                 <TableCell className="text-right text-white">$150.00</TableCell>
                                             </TableRow>
-                                            <TableRow>
+                                            <TableRow className="hover:bg-[#2C5440]">
                                                 <TableCell>
                                                     <div className="font-medium text-white">Noah Williams</div>
                                                     <div className="hidden text-sm text-gray-500 md:inline">noah@example.com</div>
@@ -267,7 +267,7 @@ export function Dashboard() {
                                                 <TableCell className="hidden md:table-cell lg:hidden xl:table-column text-white">2023-06-25</TableCell>
                                                 <TableCell className="text-right text-white">$350.00</TableCell>
                                             </TableRow>
-                                            <TableRow>
+                                            <TableRow className="hover:bg-[#2C5440]">
                                                 <TableCell>
                                                     <div className="font-medium text-white">Emma Brown</div>
                                                     <div className="hidden text-sm text-gray-500 md:inline">emma@example.com</div>
@@ -279,20 +279,10 @@ export function Dashboard() {
                                                 <TableCell className="hidden md:table-cell lg:hidden xl:table-column text-white">2023-06-26</TableCell>
                                                 <TableCell className="text-right text-white">$450.00</TableCell>
                                             </TableRow>
-                                            <TableRow>
-                                                <TableCell>
-                                                    <div className="font-medium text-white">Liam Johnson</div>
-                                                    <div className="hidden text-sm text-gray-500 md:inline">liam@example.com</div>
-                                                </TableCell>
-                                                <TableCell className="hidden xl:table-column text-white">Sale</TableCell>
-                                                <TableCell className="hidden xl:table-column">
-                                                    <Badge className="text-xs text-white" variant="outline">Approved</Badge>
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column text-white">2023-06-27</TableCell>
-                                                <TableCell className="text-right text-white">$550.00</TableCell>
-                                            </TableRow>
                                         </TableBody>
                                     </Table>
+
+
                                 </CardContent>
                             </Card>
 
