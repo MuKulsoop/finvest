@@ -39,7 +39,8 @@ export function SignUp() {
         setError(null);
 
         try {
-            const endpoint = 'https://finvest-backend.onrender.com/signup';
+            const endpoint = 'http://localhost:8000/signup';
+            // 'https://finvest-backend.onrender.com/signup';
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
