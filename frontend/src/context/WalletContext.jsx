@@ -27,6 +27,8 @@ export const WalletProvider = ({ children }) => {
             setProvider(ethersProvider);
             setSigner(userSigner);
             console.log(address);
+            console.log(ethersProvider);
+            console.log(userSigner);
 
         } catch (error) {
             console.error('Error connecting wallet:', error);

@@ -1,9 +1,4 @@
-const { ethers } = require("hardhat");
-
-async function main() {
-  const [deployer] = await ethers.getSigners();
-  const contractAddress = "0x0Cd118073a8ff6026Ae465621664b277E32E2843"; // Replace with your contract address
-  const abi = [
+[
     {
       "inputs": [
         {
@@ -916,52 +911,4 @@ async function main() {
       "stateMutability": "nonpayable",
       "type": "function"
     }
-  ];
-
-  const contract = new ethers.Contract(contractAddress, abi, deployer);
-
-  try {
-     // Create a new project with milestones
-     console.log("Creating a new project...");
-     const totalAmount = ethers.parseEther("1.0"); // Example: 1 Ether for total project amount
-     const milestones = [
-       {
-         title: "Final Testing",
-         amountRequired: ethers.parseEther("0.5"), 
-         recipient: "0xa892cedB6DCCA67C33e01bA079Ca05645D3F6B0b", 
-         isCompleted: false
-       }
-     ];
-     const txCreate = await contract.createProject(totalAmount, milestones);
-     const receiptCreate = await txCreate.wait();
-     console.log("Project created, transaction hash:", receiptCreate.hash);
-    
-    // // Check project count
-    // const projectCount = await contract.projectCount();
-    // console.log("Project Count:", projectCount.toString());
-
-    // // Get project details
-    // const projectId = 4; // Use BigNumber for arithmetic
-    // const projectDetails = await contract.getProject(projectId);
-    // console.log("Project Details:", projectDetails);
-
-    // // Contribute to the project
-    // console.log("Contributing to project...");
-    // const txContribute = await contract.contribute(projectId, { value: ethers.parseEther("0.1") });
-    // await txContribute.wait();
-    // console.log("Contribution successful");
-
-    // // Check if the deployer holds an NFT
-    // const hasNFT = await contract.hasNFT(deployer.address);
-    // console.log("Deployer holds NFT:", hasNFT);
-
-
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
-
-main().catch((error) => {
-  console.error("Script error:", error);
-  process.exitCode = 1;
-});
+  ]
