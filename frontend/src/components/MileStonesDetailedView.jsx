@@ -119,7 +119,7 @@ const MilestoneDetailedView = () => {
   return (
     <div className="flex min-h-screen w-full bg-[#05140D]">
       <main className="flex-1 sm:py-3 sm:pl-14 bg-[#05140D] overflow-hidden">
-        <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-[#05140D] border-b border-gray-400">
+        <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-[#05140D] border-b border-gray-700">
           <Sidebar />
           <FadeIn direction="down" delay={0} fullWidth>
             <h1 className="text-2xl md:text-4xl font-semibold text-left text-white w-full px-4 md:px-3 line-clamp-1">

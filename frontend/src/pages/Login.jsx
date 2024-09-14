@@ -27,6 +27,8 @@ export function Login() {
         setError(null);
 
         try {
+            // 'https://finvest-backend.onrender.com/login'
+            // http://localhost:8000/login
             const response = await fetch('https://finvest-backend.onrender.com/login', {
                 method: 'POST',
                 headers: {
@@ -34,11 +36,6 @@ export function Login() {
                 },
                 body: JSON.stringify(formData)
             });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.msg || 'Network response was not ok');
-            }
 
             const data = await response.json();
             console.log('Login successful', data);

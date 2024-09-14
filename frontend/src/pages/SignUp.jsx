@@ -39,8 +39,10 @@ export function SignUp() {
         setError(null);
 
         try {
-            const endpoint = 'http://localhost:8000/signup';
-            //  'https://finvest-backend.onrender.com/signup'
+            const endpoint =  'https://finvest-backend.onrender.com/signup';
+            // http://localhost:8000/signup
+            // 'https://finvest-backend.onrender.com/signup' ;
+
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
@@ -48,11 +50,6 @@ export function SignUp() {
                 },
                 body: JSON.stringify(formData)
             });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
             const data = await response.json();
             console.log('Signup successful', data);
 
