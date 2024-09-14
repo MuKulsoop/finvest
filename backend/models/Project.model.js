@@ -10,13 +10,13 @@ const milestoneSchema = new mongoose.Schema({
 });
 
 const communityFeedbackSchema = new mongoose.Schema({
-    user: String,
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },  // Reference to User model
     feedback: String
 });
 
 const contributionSchema = new mongoose.Schema({
     donatedAt: Date,
-    donor: String,
+    donor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },  // Reference to User model
     network: String,
     amount: Number,
     usdValue: Number

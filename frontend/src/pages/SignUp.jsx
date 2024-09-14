@@ -6,13 +6,14 @@ import { Label } from "@/components/ui/label";
 import FadeIn from "@/components/FadeIn";
 import '../App.css';
 
+
+// const { name, email, password, country, role, profileImage } = req.body;
 export function SignUp() {
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+        name: '',
         email: '',
         password: '',
-        accountType: '' 
+        role: '' 
     });
 
     const [selection, setSelection] = useState(null);
@@ -21,7 +22,7 @@ export function SignUp() {
     const navigate = useNavigate();
 
     const handleSelection = (option) => {
-        setFormData({ ...formData, accountType: option });
+        setFormData({ ...formData, role: option });
         setSelection(option);
     };
 
@@ -77,7 +78,7 @@ export function SignUp() {
                     </Link>
                     <div className="h-auto relative text-center z-[5] max-w-md mx-auto">
                         <h1 className="text-4xl md:text-6xl font-bold text-[#1B7A57]">Join Us!</h1>
-                        <p className="mt-4 text-md md:text-lg text-[#05140D]">Are you an investor or someone looking for funding?</p>
+                        <p className="mt-4 text-md md:text-lg text-[#05140D]">SELECT YOUR ROLE</p>
                         <div className="mt-8 flex flex-col gap-4">
                             <Button
                                 variant="outline"
@@ -89,13 +90,14 @@ export function SignUp() {
                                     <span className="ml-2 text-green-500">&#10003;</span>
                                 )}
                             </Button>
+                            
                             <Button
                                 variant="outline"
-                                className={`w-full border-[#1B7A57] text-[#1B7A57] py-2 rounded-md transition-transform transform ${selection === "Looking for Funding" ? "scale-105 border-[#0e3a26]" : "hover:scale-105"}`}
-                                onClick={() => handleSelection("Looking for Funding")}
+                                className={`w-full border-[#1B7A57] text-[#1B7A57] py-2 rounded-md transition-transform transform ${selection === "Organisation" ? "scale-105 border-[#0e3a26]" : "hover:scale-105"}`}
+                                onClick={() => handleSelection("Organisation")}
                             >
-                                Looking for Funding
-                                {selection === "Looking for Funding" && (
+                                Organisation
+                                {selection === "Organisation" && (
                                     <span className="ml-2 text-green-500">&#10003;</span>
                                 )}
                             </Button>
@@ -153,27 +155,17 @@ export function SignUp() {
                             </div>
                             <form onSubmit={handleSubmit} className="grid gap-4">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="firstName" className="text-white">First Name</Label>
+                                    <Label htmlFor="firstName" className="text-white">Username</Label>
                                     <Input
-                                        id="firstName"
+                                        id="name"
                                         type="text"
                                         placeholder="John"
-                                        value={formData.firstName}
+                                        value={formData.name}
                                         onChange={handleChange}
                                         required
                                     />
                                 </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="lastName" className="text-white">Last Name</Label>
-                                    <Input
-                                        id="lastName"
-                                        type="text"
-                                        placeholder="Doe"
-                                        value={formData.lastName}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
+                                
                                 <div className="grid gap-2">
                                     <Label htmlFor="email" className="text-white">Email</Label>
                                     <Input

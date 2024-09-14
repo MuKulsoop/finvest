@@ -35,7 +35,8 @@ import FadeIn from '@/components/FadeIn';
 
 export const Setting = () => {
     const navigate = useNavigate();
-    const { wallet, connectWallet } = useContext(WalletContext);
+    const { connectWallet } = useContext(WalletContext);
+    
     const [userType, setUserType] = useState('investor'); // 'investor' or 'lookingForFunding'
     const [formData, setFormData] = useState({
         username: '',
@@ -492,7 +493,7 @@ export const Setting = () => {
                                                     <div className="text-xl md:text-2xl font-semibold">Connect Wallet</div>
                                                     <div className="flex flex-wrap justify-center gap-4">
                                                         <Button
-                                                            onClick={ () => connectWallet()}
+                                                            onClick={ () => connectWallet() }
                                                             className="flex items-center justify-center bg-black hover:bg-stone-700 rounded-md p-4 transition ease-in-out w-32 text-center"
                                                         >
                                                             <img
