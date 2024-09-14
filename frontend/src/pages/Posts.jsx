@@ -1,13 +1,13 @@
-import React from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { HeartIcon, ShareIcon, Search, MessageCircle, Send } from 'lucide-react';
+import { HeartIcon, ShareIcon, Search, MessageCircle, Send,PlusCircle } from 'lucide-react';
 import Sidebar from '@/components/Sidebar';
 import FadeIn from '@/components/FadeIn';
 import UserProfileIcon from '@/components/ui/UserProfileIcon';
+import { Link } from 'react-router-dom';
 
 const postsData = [
     {
@@ -136,7 +136,14 @@ const PostsPage = () => {
                             />
                         </div>
                     </FadeIn>
-
+                    <FadeIn direction="down" delay={0.1}>
+                        <Link to="/posts/new-post">
+                            <Button variant="outline" className="flex items-center gap-2 text-[#2FB574] border-[#2FB574] bg-[#05140D] hover:bg-[#2FB574] hover:text-white hover:border-[#2FB574] mr-4">
+                                <PlusCircle className="h-5 w-5" />
+                                New Post
+                            </Button>
+                        </Link>
+                    </FadeIn>
                     <FadeIn direction="left" delay={0.2}>
                         <UserProfileIcon />
                     </FadeIn>

@@ -13,6 +13,7 @@ import ProjectDetailedView from "./components/ProjectDetailedView";
 import { Setting } from "./pages/Setting";
 import MilestoneDetailedView from "./components/MileStonesDetailedView";
 import Service from "./pages/Posts";
+import NewPost from "./pages/NewPost";
 
 function App() {
   const [projectsData, setProjectsData] = useState([]);
@@ -23,12 +24,12 @@ function App() {
       .then(response => response.json())
       .then(data => setProjectsData(data))
       .catch(error => console.error('Error fetching data:', error))
-      // .finally(() => setLoading(false));
-      const timer = setTimeout(() => {
-        setLoading(false);
-      }, 3000); // Duration of the loader animation
-  
-      return () => clearTimeout(timer);
+    // .finally(() => setLoading(false));
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000); // Duration of the loader animation
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -47,10 +48,9 @@ function App() {
             <Route path="/projects/:projectId" element={<ProjectDetailedView projects={projectsData} />} />
             <Route path="/projects/:projectId/milestones" element={<MilestoneDetailedView />} />
             <Route path="/projects/post-project" element={<PostProject />} />
-            <Route path="/posts" element={<Service />} />
-
             <Route path="settings" element={<Setting />} />
-
+            <Route path="/posts" element={<Service />} />
+            <Route path="/posts/new-post" element={<NewPost />} />
           </Routes>
         )}
       </Router>

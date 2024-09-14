@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { PlusCircle, Share2, ArrowBigUpDash } from "lucide-react";
 import Sidebar from '@/components/Sidebar';
 import FadeIn from '@/components/FadeIn';
 import Filter from '@/components/Filter';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+// import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import UserProfileIcon from '@/components/ui/UserProfileIcon';
 import { SkeletonCard } from "@/components/ui/SkeletonCard";
 import '../App.css';

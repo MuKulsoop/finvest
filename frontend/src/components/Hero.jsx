@@ -2,6 +2,7 @@ import { Play } from "lucide-react";
 import { Button } from "./ui/button";
 import FadeIn from "./FadeIn";
 import '../App.css';
+import { Link } from "react-router-dom";
 
 function Hero() {
     return (
@@ -13,20 +14,22 @@ function Hero() {
             />
             <FadeIn direction="down" delay={0.3} fullWidth>
                 <h1 className="text-5xl lg:w-[60%] md:text-7xl font-semibold text-center py-3 z-[5] gradient-text">
-                Investment and Raising Funds Made Easy
+                    Investment and Raising Funds Made Easy
                 </h1>
 
             </FadeIn>
             <FadeIn direction="down" delay={0.3} fullWidth>
                 <h3 className="md:text-xl  text-center py-3 z-[5] md:w-[75%] font-semibold bg-gradient-to-b from-white via-green-100 to-green-200 bg-clip-text text-transparent">
-                Investment seeks future returns through asset accumulation, while donations aim to create social good, both shaping a better future.
+                    Investment seeks future returns through asset accumulation, while donations aim to create social good, both shaping a better future.
                 </h3>
             </FadeIn>
 
             {/* <FadeIn direction="up" delay={0.3} fullWidth></FadeIn> */}
             <div className="flex flex-col items-center justify-center py-5 z-[5] md:flex-row ">
                 <FadeIn direction="right" delay={0.3} fullWidth>
-                    <Button variant="custom" size="nm">Get Started</Button>
+                    <Link to="/signup">
+                        <Button variant="custom" size="nm">Get Started</Button>
+                    </Link>
                 </FadeIn>
                 <FadeIn direction="left" delay={0.3} fullWidth>
                     <Button variant="ghost" size="nm">
