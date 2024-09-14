@@ -159,7 +159,7 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                                     <div className="space-y-4 pl-[2px]">
                                         {project?.milestones?.length ? (
                                             project.milestones.map((milestone, index) => (
-                                                <Link key={index} to={`/projects/${project.id}/milestones`} className="flex items-center gap-3 cursor-pointer">
+                                                <Link key={index} to={`/projects/milestones/${project.id}`} className="flex items-center gap-3 cursor-pointer">
                                                     <div className={`h-5 w-5 z-[5] rounded-full ${index < project.milestones.length ? 'bg-green-300' : 'bg-green-300'}`} />
                                                     <p className="text-gray-100">{milestone.title}</p>
                                                 </Link>

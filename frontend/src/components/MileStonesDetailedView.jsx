@@ -11,6 +11,22 @@ import { Link } from 'react-router-dom';
 import { PieChart, Pie, Cell, Label, Sector } from 'recharts';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
+const fetchProjectData = async (urls) => {
+  for (const url of urls) {
+      try {
+          const response = await fetch(url);
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          const data = await response.json();
+          return data;
+      } catch (error) {
+          console.error(`Error fetching project data from ${url}:`, error);
+      }
+  }
+  throw new Error('All fetch attempts failed');
+};
+
 const MilestoneDetailedView = () => {
   const { projectId } = useParams();
   const [project, setProject] = useState(null);
@@ -20,20 +36,28 @@ const MilestoneDetailedView = () => {
   const [votedMilestones, setVotedMilestones] = useState({}); // Track user votes
 
   useEffect(() => {
-    // Fetch project data
-    fetch('/projects.json')
-      .then(response => response.json())
-      .then(data => {
-        const project = data.find(p => p.id === parseInt(projectId));
-        setProject(project);
-      })
-      .catch(error => console.error('Error fetching project data:', error));
 
-    // Fetch community feedback
-    fetch('/feedback.json')
-      .then(response => response.json())
-      .then(data => setFeedback(data))
-      .catch(error => console.error('Error fetching feedback:', error));
+    const urls = [
+      // `https://finvest-backend.onrender.com/project/${projectId}`,
+      `http://localhost:8000/project/${projectId}`,
+      '/projects.json'
+  ];
+
+    // Fetch project data
+    const fetchData = async () => {
+      try {
+          const data = await fetchProjectData(urls);
+          setProject(data);
+      } catch (error) {
+          console.error('Failed to fetch project data from all sources:', error);
+      }
+  };
+  fetchData();
+    // // Fetch community feedback
+    // fetch('/feedback.json')
+    //   .then(response => response.json())
+    //   .then(data => setFeedback(data))
+    //   .catch(error => console.error('Error fetching feedback:', error));
 
     // Retrieve voted milestones from local storage
     const storedVotes = JSON.parse(localStorage.getItem('votedMilestones')) || {};
