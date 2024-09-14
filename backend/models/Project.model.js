@@ -16,7 +16,8 @@ const communityFeedbackSchema = new mongoose.Schema({
 
 const contributionSchema = new mongoose.Schema({
     donatedAt: Date,
-    donor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },  // Reference to User model
+    donor: String,
+    // { type: mongoose.Schema.Types.ObjectId, ref: 'User' },  
     network: String,
     amount: Number,
     usdValue: Number
