@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-// import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Sidebar from '@/components/Sidebar';
 import FadeIn from '@/components/FadeIn';
@@ -14,6 +13,7 @@ function NewPost() {
         content: '',
         image: null,
     });
+    const [generating, setGenerating] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -27,11 +27,40 @@ function NewPost() {
         }
     };
 
+    const generateContent = async () => {
+    setGenerating(true);
+    try {
+        const response = await fetch('http://localhost:8000/generate-content', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                prompt: formData.content,
+                language: 'en', // Adjust based on your needs
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        setFormData({ ...formData, content: result.generatedText });
+    } catch (error) {
+        console.error('Error generating content:', error);
+        alert('Failed to generate content. Please try again later.');
+    } finally {
+        setGenerating(false);
+    }
+};
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const data = new FormData();
-        data.append('description', formData.content); // Map content to 'description' for backend
+        data.append('description', formData.content);
         data.append('image', formData.image);
 
         try {
@@ -39,6 +68,10 @@ function NewPost() {
                 method: 'POST',
                 body: data,
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
             const result = await response.json();
             console.log('Post created successfully:', result);
@@ -66,13 +99,12 @@ function NewPost() {
                             </Button>
                         </Link>
                     </FadeIn>
-                    
                     <FadeIn direction="left" delay={0.2}>
                         <UserProfileIcon />
                     </FadeIn>
                 </header>
                 <FadeIn direction="up" delay={0.2} fullWidth>
-                    <div className="p-10 flex flex-col w-full gap-10 items-center">
+                    <div className="p-10 flex flex-col w-full gap-10 items-center relative">
                         <form className="w-full space-y-6" onSubmit={handleSubmit}>
                             <div className="flex flex-col w-full md:flex-row gap-6">
                                 <div className="flex-1">
@@ -92,24 +124,30 @@ function NewPost() {
                                         </div>
                                     </div>
 
-                                    <div className="space-y-4">
-                                        {/* <Input
-                                            type="text"
-                                            name="title"
-                                            value={formData.title}
-                                            onChange={handleChange}
-                                            placeholder="Post Title"
-                                            required
-                                            className="w-full border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 focus:outline-none text-xl text-white placeholder:text-gray-100"
-                                        /> */}
+                                    <div className="relative w-full">
                                         <Textarea
                                             name="content"
                                             value={formData.content}
                                             onChange={handleChange}
                                             placeholder="Post Content"
                                             required
-                                            className="w-full border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 text-white placeholder:text-gray-100"
+                                            className="w-full min-h-[200px] border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 text-white placeholder:text-gray-100 relative"
                                         />
+                                        {/* Gemini Logo Box */}
+                                        <div className="absolute top-4 right-4 group">
+                                            <div className="p-2 rounded-full flex items-center justify-center transition-all duration-300 transform group-hover:w-auto group-hover:px-6 cursor-pointer relative">
+                                                <img
+                                                    src="https://res.cloudinary.com/djoebsejh/image/upload/v1726344043/kwl6ckz2ucvyc9f68blg.png"
+                                                    alt="Gemini Logo"
+                                                    className="h-8 w-8"
+                                                    onClick={generateContent}
+                                                />
+                                                {/* Text that appears on hover */}
+                                                <span className="ml-2 text-white hidden group-hover:flex opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                                                    Generate with AI
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
