@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import axios from 'axios';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import fs from 'fs';
+import cookieParser from "cookie-parser";
 
 // Initialize Express app
 const app = express();
@@ -17,7 +18,10 @@ dotenv.config();
 const PORT = 8000;
 
 // Middleware setup
-app.use(cors());
+// app.options('*', cors()); // Enable pre-flight for all routes
+app.use(cors({ origin : 'http://localhost:5173', credentials: true })); //In production localhost has to be changed to the frontend url
+
+app.use(cookieParser())
 app.use(bodyParser.json({ extended: true }));
 app.use('/', router);
 

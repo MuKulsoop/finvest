@@ -10,6 +10,7 @@ import Filter from '@/components/Filter';
 import UserProfileIcon from '@/components/ui/UserProfileIcon';
 import { SkeletonCard } from "@/components/ui/SkeletonCard";
 import '../App.css';
+import useAuth from '@/utils/auth';
 
 const fetchProjectData = async (urls) => {
     for (const url of urls) {
@@ -33,13 +34,31 @@ function Projects() {
     const [userUpvotes, setUserUpvotes] = useState({});
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
-
+    const [userRole, setUserRole] = useState(null);
+    const { isLoggedIn, user } = useAuth();
     useEffect(() => {
         const urls = [
             'https://finvest-backend.onrender.com/project/getAllProjects',
             'http://localhost:8000/project/getAllProjects',
             // '/projects.json'
         ];
+        // Retrieve user data from local storage
+        const userData = localStorage.getItem('user');
+        console.log('Raw userData:', userData); // Debugging line
+
+        // Check if userData is not null or undefined
+        if (userData) {
+            try {
+                const data = JSON.parse(userData);
+                console.log('Parsed data:', data); // Debugging line
+                // Access the nested user object and set the role
+                setUserRole(data.user?.role); // Use optional chaining
+            } catch (error) {
+                console.error('Error parsing user data:', error);
+            }
+        } else {
+            console.log('No user data found in local storage');
+        }
 
         const fetchData = async () => {
             try {
@@ -83,16 +102,23 @@ function Projects() {
                         <h1 className="md:text-4xl text-2xl font-semibold text-left text-white w-full px-2 pl-4 md:px-3 z-[5]">Projects</h1>
                     </FadeIn>
                     <FadeIn direction="down" delay={0.1}>
-                        <Link to="/projects/post-project">
+                        {
+                            userRole === 'Organisation' && (
+                                <Link to="/projects/post-project">
                             <Button variant="outline" className="flex items-center gap-2 text-[#2FB574] border-[#2FB574] bg-[#05140D] hover:bg-[#2FB574] hover:text-white hover:border-[#2FB574] mr-4">
                                 <PlusCircle className="h-5 w-5" />
                                 Post a Project
                             </Button>
                         </Link>
+                            )
+                        }
                     </FadeIn>
-                    <FadeIn direction="left" delay={0.2}>
+                    {
+                        isLoggedIn && 
+                        <FadeIn direction="left" delay={0.2}>
                         <UserProfileIcon />
                     </FadeIn>
+                    }
                 </header>
 
 
