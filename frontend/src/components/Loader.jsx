@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import "./Loader.css"; 
 import "../App.css"
 

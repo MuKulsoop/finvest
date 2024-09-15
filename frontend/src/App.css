@@ -169,3 +169,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   animation: heart-pop 0.3s ease-in-out;
   color: #ff4d4f; /* Active red color */
 }
+
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

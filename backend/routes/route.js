@@ -3,7 +3,8 @@ import { signup, login, getProfile, refreshToken, logout } from '../controllers/
 import { authenticateJWT } from "../middleware/authenticate.js";
 import { upload } from "../middleware/multer.js";
 import { createProject, getProjectById, getAllProjects } from "../controllers/Project.controller.js";
-import { createPost, getPosts, likePost, sharePost, addComment, deletePost } from "../controllers/Post.controller.js"; // Import the post controller functions
+import { createPost, getPosts, likePost, sharePost, addComment, deletePost } from "../controllers/Post.controller.js";
+import { generateAiContent } from "../controllers/GenAI.controller.js";
 
 const router = express.Router();
 
@@ -26,5 +27,8 @@ router.post('/posts/:postId/like', likePost); // Like a post
 router.post('/posts/:postId/share', sharePost); // Share a post
 router.post('/posts/:postId/comments', addComment); // Add a comment to a post
 router.delete('/posts/:postId', deletePost); // Delete a post
+
+//  POST route for generating content
+router.post('/generate-content', generateAiContent);
 
 export default router;

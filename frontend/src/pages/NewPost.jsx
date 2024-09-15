@@ -6,6 +6,7 @@ import FadeIn from '@/components/FadeIn';
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronRight, Send } from 'lucide-react';
 import UserProfileIcon from '@/components/ui/UserProfileIcon';
+import { GenAILoader } from '@/components/GenAILoader';  // Import the GenAILoader component
 
 function NewPost() {
     const navigate = useNavigate();
@@ -28,33 +29,31 @@ function NewPost() {
     };
 
     const generateContent = async () => {
-    setGenerating(true);
-    try {
-        const response = await fetch('http://localhost:8000/generate-content', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                prompt: formData.content,
-                language: 'en', // Adjust based on your needs
-            }),
-        });
+        setGenerating(true);
+        try {
+            const response = await fetch('http://localhost:8000/generate-content', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    prompt: formData.content, 
+                }),
+            });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            setFormData({ ...formData, content: result.content }); 
+        } catch (error) {
+            console.error('Error generating content:', error);
+            alert('Failed to generate content. Please try again later.');
+        } finally {
+            setGenerating(false);
         }
-
-        const result = await response.json();
-        setFormData({ ...formData, content: result.generatedText });
-    } catch (error) {
-        console.error('Error generating content:', error);
-        alert('Failed to generate content. Please try again later.');
-    } finally {
-        setGenerating(false);
-    }
-};
-
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -134,7 +133,7 @@ function NewPost() {
                                             className="w-full min-h-[200px] border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 text-white placeholder:text-gray-100 relative"
                                         />
                                         {/* Gemini Logo Box */}
-                                        <div className="absolute top-4 right-4 group">
+                                        <div className="absolute top-0 right-0 group bg-[#05140D] rounded-full">
                                             <div className="p-2 rounded-full flex items-center justify-center transition-all duration-300 transform group-hover:w-auto group-hover:px-6 cursor-pointer relative">
                                                 <img
                                                     src="https://res.cloudinary.com/djoebsejh/image/upload/v1726344043/kwl6ckz2ucvyc9f68blg.png"
@@ -151,6 +150,13 @@ function NewPost() {
                                     </div>
                                 </div>
                             </div>
+
+                            {/* Loading Indicator */}
+                            {generating && (
+                                <div className="relative w-full h-full flex items-center justify-center">
+                                    <GenAILoader />
+                                </div>
+                            )}
 
                             <Button type="submit" className="w-full mt-5 bg-[#2FB574] text-white py-2 rounded-[30px] hover:bg-[#26925e]">
                                 Publish Post
