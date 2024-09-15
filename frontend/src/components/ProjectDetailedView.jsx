@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/pagination";
 import UserProfileIcon from './ui/UserProfileIcon';
 import ProjectDetailedViewSkeleton from './ui/ProjectDetailedViewSkeleton';
-
+import useAuth from '@/utils/auth';
 
 const networkLogos = {
     Ethereum: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkj3dStbrL3JvOAo7Sn5VEoxIRFsLx-ft4WXZUOpl9d9HmvpTaNxpOXgLe9fECnYLp83Q&usqp=CAU',
@@ -61,7 +61,7 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
     const [project, setProject] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
-
+    const { isLoggedIn, user } = useAuth();
     useEffect(() => {
         const urls = [
             `https://finvest-backend.onrender.com/project/${projectId}`,
@@ -108,9 +108,12 @@ const ProjectDetailedView = ({ handleUpvote = () => { }, userUpvotes = {} }) => 
                             </Button>
                         </Link>
                     </FadeIn>
-                    <FadeIn direction="left" delay={0.2}>
+                    {
+                        isLoggedIn &&
+                        <FadeIn direction="left" delay={0.2}>
                         <UserProfileIcon />
                     </FadeIn>
+                    }
                 </header>
                 <FadeIn direction="up" delay={0} fullWidth>
                     <div className="w-full mx-auto p-5 gap-6 flex flex-col md:flex-row">

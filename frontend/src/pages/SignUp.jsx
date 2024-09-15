@@ -39,7 +39,7 @@ export function SignUp() {
         setError(null);
 
         try {
-            const endpoint =  'https://finvest-backend.onrender.com/signup';
+            const endpoint =  'http://localhost:8000/signup';
             // http://localhost:8000/signup
             // 'https://finvest-backend.onrender.com/signup' ;
 
@@ -48,8 +48,12 @@ export function SignUp() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData),
+                credentials: 'include'
             });
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
             const data = await response.json();
             console.log('Signup successful', data);
 

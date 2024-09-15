@@ -14,6 +14,31 @@ import { Button } from "@/components/ui/button";
 const UserProfileIcon = ({ username }) => {
     const navigate = useNavigate();
 
+
+    const handleLogout = async () => {
+        try {
+            // Call the logout API endpoint
+            const response = await fetch('http://localhost:8000/logout', {
+                method: 'POST',
+                credentials: 'include', // Ensure cookies are sent
+            });
+    
+            // Check response status
+            if (!response.ok) {
+                throw new Error('Logout failed');
+            }
+    
+            // Clear local storage
+            localStorage.removeItem('user');
+    
+            // Optionally, redirect the user or update the UI
+            window.location.href = '/'; // Redirect to login page or home page
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
+    };
+
+
     const scrollToSection = (section) => {
         const isSectionFilled = validateSection(section);
         if (isSectionFilled) {
@@ -68,7 +93,7 @@ const UserProfileIcon = ({ username }) => {
                     </a>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="border-gray-600" />
-                <DropdownMenuItem className="flex items-center gap-2 text-white hover:text-red-500">
+                <DropdownMenuItem className="flex items-center gap-2 text-white hover:text-red-500" onClick={handleLogout}>
                     <LogOut className="h-4 w-4" />
                     Logout
                 </DropdownMenuItem>

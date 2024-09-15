@@ -3,9 +3,13 @@ import { Button } from "./ui/button";
 import { Menu, X } from "lucide-react";
 import FadeIn from './FadeIn';
 import { Link } from 'react-router-dom';
-
+import UserProfileIcon from './ui/UserProfileIcon';
+import useAuth from '@/utils/auth';
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { isLoggedIn, user } = useAuth();
+
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -67,11 +71,21 @@ function Navbar() {
         </ul>
 
         {/* Login / Sign Up Button */}
-        <Link to="/signup">
+        {
+          isLoggedIn ? (
+            <FadeIn direction="left" delay={0.2}>
+                        <UserProfileIcon />
+                    </FadeIn>
+          ) : (
+            <Link to="/signup">
           <Button variant="custom" size="lg" className="md:block m-0">
             Sign Up
           </Button>
         </Link>
+          )
+        }
+        
+        
 
       </div>
     </FadeIn>
