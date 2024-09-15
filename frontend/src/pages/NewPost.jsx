@@ -6,7 +6,7 @@ import FadeIn from '@/components/FadeIn';
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronRight, Send } from 'lucide-react';
 import UserProfileIcon from '@/components/ui/UserProfileIcon';
-import { GenAILoader } from '@/components/GenAILoader';  // Import the GenAILoader component
+import { GenAILoader } from '@/components/GenAILoader';
 
 function NewPost() {
     const navigate = useNavigate();
@@ -30,53 +30,86 @@ function NewPost() {
 
     const generateContent = async () => {
         setGenerating(true);
-        try {
-            const response = await fetch('http://localhost:8000/generate-content', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    prompt: formData.content, 
-                }),
-            });
+        const urls = [
+            'https://finvest-backend.onrender.com/generate-content',
+            'http://localhost:8000/generate-content',
+        ];
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+        const generateFromURL = async (url) => {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        prompt: formData.content,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error(`Error generating content from ${url}:`, error);
+                throw error;
             }
+        };
 
-            const result = await response.json();
-            setFormData({ ...formData, content: result.content }); 
-        } catch (error) {
-            console.error('Error generating content:', error);
-            alert('Failed to generate content. Please try again later.');
-        } finally {
-            setGenerating(false);
+        for (let url of urls) {
+            try {
+                const result = await generateFromURL(url);
+                setFormData({ ...formData, content: result.content });
+                break;
+            } catch (error) {
+                console.error(`Attempt to generate content from ${url} failed.`);
+            }
         }
+
+        setGenerating(false);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const urls = [
+            'https://finvest-backend.onrender.com/post/new-post',
+            'http://localhost:8000/post/new-post',
+        ];
+
         const data = new FormData();
         data.append('description', formData.content);
         data.append('image', formData.image);
 
-        try {
-            const response = await fetch('http://localhost:8000/post/new-post', {
-                method: 'POST',
-                body: data,
-            });
+        const postToURL = async (url) => {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: data,
+                });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error(`Error creating post at ${url}:`, error);
+                throw error;
             }
+        };
 
-            const result = await response.json();
-            console.log('Post created successfully:', result);
-            navigate('/posts');
-        } catch (error) {
-            console.error('Error creating post:', error);
+        for (let url of urls) {
+            try {
+                const result = await postToURL(url);
+                console.log('Post created successfully:', result);
+                navigate('/posts');
+                break;
+            } catch (error) {
+                console.error(`Attempt to create post at ${url} failed.`);
+            }
         }
     };
 
@@ -132,32 +165,30 @@ function NewPost() {
                                             required
                                             className="w-full min-h-[200px] border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 text-white placeholder:text-gray-100 relative"
                                         />
-                                        {/* Gemini Logo Box */}
-                                        <div className="absolute top-0 right-0 group bg-[#05140D] rounded-full">
-                                            <div className="p-2 rounded-full flex items-center justify-center transition-all duration-300 transform group-hover:w-auto group-hover:px-6 cursor-pointer relative">
+                                        <div
+                                            className="absolute top-0 right-0 group bg-[#05140D] rounded-full cursor-pointer"
+                                            onClick={generateContent}
+                                        >
+                                            <div className="p-2 rounded-full flex items-center justify-center transition-all duration-300 transform group-hover:w-auto group-hover:px-6 relative">
                                                 <img
                                                     src="https://res.cloudinary.com/djoebsejh/image/upload/v1726344043/kwl6ckz2ucvyc9f68blg.png"
                                                     alt="Gemini Logo"
                                                     className="h-8 w-8"
-                                                    onClick={generateContent}
                                                 />
-                                                {/* Text that appears on hover */}
                                                 <span className="ml-2 text-white hidden group-hover:flex opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                                                     Generate with AI
                                                 </span>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
-
-                            {/* Loading Indicator */}
                             {generating && (
                                 <div className="relative w-full h-full flex items-center justify-center">
                                     <GenAILoader />
                                 </div>
                             )}
-
                             <Button type="submit" className="w-full mt-5 bg-[#2FB574] text-white py-2 rounded-[30px] hover:bg-[#26925e]">
                                 Publish Post
                                 <Send className="h-5 w-5 mx-3" />

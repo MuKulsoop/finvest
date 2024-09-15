@@ -32,7 +32,7 @@ const UserProfileIcon = ({ username }) => {
             localStorage.removeItem('user');
     
             // Optionally, redirect the user or update the UI
-            window.location.href = '/'; // Redirect to login page or home page
+            window.location.href = '/login'; // Redirect to login page or home page
         } catch (error) {
             console.error('Error during logout:', error);
         }

@@ -17,7 +17,30 @@ const PORT = 8000;
 
 // Middleware setup
 // app.options('*', cors()); // Enable pre-flight for all routes
-app.use(cors({ origin : 'https://finvest-2.vercel.app', credentials: true })); //In production localhost has to be changed to the frontend url
+// app.use(cors({ origin : 'https://finvest-2.vercel.app', credentials: true })); 
+// app.use(cors({ origin : 'http://localhost:5173', credentials: true })); 
+
+
+const allowedOrigins = [
+  'https://finvest-2.vercel.app', // Hosted site
+  'http://localhost:5173',        // Local development
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true); // Origin is allowed
+    } else {
+      callback(new Error('Not allowed by CORS')); // Origin is not allowed
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use(cookieParser())
 app.use(bodyParser.json({ extended: true }));
