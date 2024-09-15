@@ -171,6 +171,10 @@ const MilestoneDetailedView = () => {
                 <p className="mt-2 text-gray-300">{milestone.description}</p>
                 <p className="mt-2 text-gray-300">Completion Date: {milestone.completionDate}</p>
                 <p className="mt-2 text-gray-300">Amount Required: {milestone.amountRequired}</p>
+                <Button variant="outline" className="flex items-center gap-2 mt-3 text-[#2FB574] border-[#2FB574] bg-[#05140D] hover:bg-[#2FB574] hover:text-white hover:border-[#2FB574] mr-4">
+                Withdraw
+                <ChevronRight className="h-5 w-5" />
+              </Button>
               </div>
               <div className="flex-1 flex flex-col items-center mt-4 sm:mt-0 sm:ml-4">
                 <div className="w-full flex items-center justify-center text-white">

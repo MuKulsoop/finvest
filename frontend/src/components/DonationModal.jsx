@@ -3,16 +3,17 @@ import { usdToEth, ethToUsd } from "../utils/conversion";
 import { WalletContext } from "@/context/WalletContext";
 import { ethers } from "ethers";
 import FinvestABI from '../utils/FinvestABI.json';
+import { GenAILoader } from '@/components/GenAILoader';
 
 const CONTRACT_ADDRESS = '0x0cd118073a8ff6026ae465621664b277e32e2843';
 
 const DonationModal = ({ isOpen, onClose, projectId }) => {
     const [amountUSD, setAmountUSD] = useState("");
     const [amountETH, setAmountETH] = useState("");
+    const [loading, setLoading] = useState(false); // Add loading state
     const { walletAddress, connectWallet, signer } = useContext(WalletContext);
 
     useEffect(() => {
-        
         const handleClickOutside = (event) => {
             if (event.target.className.includes('modal')) {
                 onClose(); // Close the modal if clicked outside of modal content
@@ -48,36 +49,33 @@ const DonationModal = ({ isOpen, onClose, projectId }) => {
 
     const handleDonate = async (amountETH, amountUSD) => {
         try {
-            console.log("Transacting ...")
+            setLoading(true); // Start loading when transaction starts
+            console.log("Transacting ...");
             if (!walletAddress || !signer) {
                 await connectWallet();
             }
-    
+
             const contract = new ethers.Contract(CONTRACT_ADDRESS, FinvestABI, signer);
             const amountInWei = ethers.utils.parseEther(amountETH);
-    
+
             // Contribute to the project
             const tx = await contract.contribute(projectId, { value: amountInWei });
             const receipt = await tx.wait();
-    
+
             if (receipt.status === 1) {
                 console.log("Transaction successful:", receipt.transactionHash);
-                
-                // Capture the tokenId from the event logs
-                // const events = receipt.logs.filter(log => log.address === CONTRACT_ADDRESS);
-                // const tokenId = parseInt(ethers.utils.defaultAbiCoder.decode(["uint"], events[0].data)[0]);
-    
                 await saveTransactionToBackend(receipt.transactionHash, amountETH, amountUSD);
             } else {
                 console.error("Transaction failed");
             }
-    
+
             onClose(); // Close the modal after successful donation
         } catch (error) {
             console.error("Error in donation:", error);
+        } finally {
+            setLoading(false); // Stop loading after transaction is complete
         }
     };
-    
 
     const saveTransactionToBackend = async (transactionHash, amountETH, amountUSD) => {
         try {
@@ -87,50 +85,57 @@ const DonationModal = ({ isOpen, onClose, projectId }) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    project: projectId, // Project ID should be passed
-                    contributor: walletAddress, // Contributor's wallet address
+                    project: projectId,
+                    contributor: walletAddress,
                     amount: amountETH,
                     transactionHash,
                     network: "Ethereum",
-                    status: "confirmed", // Update based on actual transaction status
+                    status: "confirmed",
                 }),
                 credentials: 'include'
             });
-    
+
             const data = await response.json();
             console.log("Transaction recorded in backend:", data);
         } catch (error) {
             console.error("Error saving transaction to backend:", error);
         }
     };
-    
-    
-    
 
     return (
         <div className={`modal ${isOpen ? 'open' : ''}`} style={modalStyles}>
             <div className="modal-content" style={modalContentStyles}>
-                <h2>Donate to Project</h2>
-                <label>
-                    Amount in USD:
-                    <input
-                        type="number"
-                        value={amountUSD}
-                        onChange={handleUSDChange}
-                        style={inputStyles}
-                    />
-                </label>
-                <label>
-                    Amount in ETH:
-                    <input
-                        type="number"
-                        value={amountETH}
-                        onChange={handleETHChange}
-                        style={inputStyles}
-                    />
-                </label>
-                <button onClick={handleSubmit} style={buttonStyles}>Donate</button>
-                <button onClick={onClose} style={buttonStyles}>Cancel</button>
+                <h2 style={headingStyles}>Donate to Project</h2>
+                {loading ? ( // Show loader if loading is true
+                    <div className="relative w-full h-full flex items-center justify-center">
+                        <GenAILoader />
+                    </div>
+                ) : (
+                    <>
+                        <label style={labelStyles}>
+                            Amount in USD:
+                            <input
+                                type="number"
+                                value={amountUSD}
+                                onChange={handleUSDChange}
+                                style={inputStyles}
+                            />
+                        </label>
+                        <label style={labelStyles}>
+                            Amount in ETH:
+                            <input
+                                type="number"
+                                value={amountETH}
+                                onChange={handleETHChange}
+                                style={inputStyles}
+                            />
+                        </label>
+                        <div style={buttonContainerStyles}>
+                            <button onClick={handleSubmit} style={buttonStyles}>Donate</button>
+                            <button onClick={onClose} style={buttonStyles}>Cancel</button>
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );
@@ -144,7 +149,7 @@ const modalStyles = {
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -152,24 +157,50 @@ const modalStyles = {
 };
 
 const modalContentStyles = {
-    backgroundColor: '#fff',
+    backgroundColor: '#1A3A2C',
     padding: '20px',
-    borderRadius: '10px',
-    width: '300px',
+    borderRadius: '15px',
+    width: '350px',
+    color: '#ffffff',
+};
+
+const headingStyles = {
+    color: '#2FB574',
+    fontSize: '1.5rem',
+    marginBottom: '20px',
+    textAlign: 'center',
+};
+
+const labelStyles = {
+    display: 'block',
+    marginBottom: '10px',
+    fontSize: '1rem',
+    color: '#ffffff',
 };
 
 const inputStyles = {
     width: '100%',
-    padding: '8px',
-    margin: '10px 0',
+    padding: '10px',
+    margin: '5px 0',
+    borderRadius: '5px',
+    border: '1px solid #2C5440',
+    backgroundColor: '#05140D',
+    color: '#ffffff',
+    outline: 'none',
 };
 
 const buttonStyles = {
-    padding: '10px',
-    margin: '10px 5px',
-    backgroundColor: '#007BFF',
-    color: '#fff',
+    padding: '10px 15px',
+    margin: '5px',
+    backgroundColor: '#2FB574',
+    color: '#ffffff',
     border: 'none',
     borderRadius: '5px',
     cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+};
+
+const buttonContainerStyles = {
+    display: 'flex',
+    justifyContent: 'space-between',
 };

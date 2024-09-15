@@ -35,6 +35,7 @@ function PostProject() {
   });
   const [milestoneCount, setMilestoneCount] = useState(2);
   const { signer, connectWallet } = useContext(WalletContext);
+  const [loading, setLoading] = useState(false);
   const [generating, setGenerating] = useState(false);
   const categories = [
     "Art & Culture",
@@ -52,65 +53,65 @@ function PostProject() {
   ];
 
   const generateContent = async () => {
-  setGenerating(true);
-  const urls = [
-    'https://finvest-backend.onrender.com/generate-content',
-    'http://localhost:8000/generate-content',
-  ];
+    setGenerating(true);
+    const urls = [
+      'https://finvest-backend.onrender.com/generate-content',
+      'http://localhost:8000/generate-content',
+    ];
 
-  const generateFromURL = async (url) => {
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          prompt: {
-            title: formData.title,
-            description: formData.description,
-            amountNeeded: formData.amountNeeded,
-            minDonation: formData.minDonation,
-            category: formData.category,
-            milestones: formData.milestones,
+    const generateFromURL = async (url) => {
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        }),
-      });
+          body: JSON.stringify({
+            prompt: {
+              title: formData.title,
+              description: formData.description,
+              amountNeeded: formData.amountNeeded,
+              minDonation: formData.minDonation,
+              category: formData.category,
+              milestones: formData.milestones,
+            },
+          }),
+        });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        return await response.json();
+      } catch (error) {
+        console.error(`Error generating content from ${url}:`, error);
+        throw error;
       }
+    };
 
-      return await response.json();
-    } catch (error) {
-      console.error(`Error generating content from ${url}:`, error);
-      throw error;
+    for (let url of urls) {
+      try {
+        const result = await generateFromURL(url);
+
+        // Update the form data with the generated content
+        setFormData({
+          ...formData,
+          title: result.title || formData.title,
+          description: result.description || formData.description,
+          amountNeeded: result.amountNeeded || formData.amountNeeded,
+          minDonation: result.minDonation || formData.minDonation,
+          category: result.category || formData.category,
+          milestones: result.milestones.length > 0 ? result.milestones : formData.milestones,
+        });
+
+        break;
+      } catch (error) {
+        console.error(`Attempt to generate content from ${url} failed.`);
+      }
     }
+
+    setGenerating(false);
   };
-
-  for (let url of urls) {
-    try {
-      const result = await generateFromURL(url);
-
-      // Update the form data with the generated content
-      setFormData({
-        ...formData,
-        title: result.title || formData.title,
-        description: result.description || formData.description,
-        amountNeeded: result.amountNeeded || formData.amountNeeded,
-        minDonation: result.minDonation || formData.minDonation,
-        category: result.category || formData.category,
-        milestones: result.milestones.length > 0 ? result.milestones : formData.milestones,
-      });
-
-      break;
-    } catch (error) {
-      console.error(`Attempt to generate content from ${url} failed.`);
-    }
-  }
-
-  setGenerating(false);
-};
 
 
   const handleChange = (e) => {
@@ -172,8 +173,10 @@ function PostProject() {
 
     try {
       // Create the project on the blockchain first
+      setLoading(true);
       console.log("Creating project on blockchain...")
       const transactionHash = await createProjectOnBlockchain(signer, amountInWei, blockchainMilestones);
+      setLoading(false)
       console.log('Project created on blockchain with hash:', transactionHash);
 
       // After blockchain success, proceed to backend
@@ -388,8 +391,8 @@ function PostProject() {
                             <div className="flex flex-row items-center gap-4 space-x-1">
                               <div
                                 className={`ml-[1px] h-5 w-6 z-[5] rounded-full ${formData.milestones[index]?.title
-                                    ? "bg-[#26925e]"
-                                    : "bg-gray-300"
+                                  ? "bg-[#26925e]"
+                                  : "bg-gray-300"
                                   }`}
                               />
                               <div className="flex flex-col w-full space-y-2 mb-4">
@@ -454,6 +457,11 @@ function PostProject() {
                       )}
                     </div>
                   </div>
+                  {loading && (
+                    <div className="relative w-full h-full flex items-center justify-center">
+                      <GenAILoader /> 
+                    </div>
+                  )}
                   <Button
                     type="submit"
                     className="w-full mt-5 bg-[#2FB574] text-white py-2 rounded-[30px] hover:bg-[#26925e]"
