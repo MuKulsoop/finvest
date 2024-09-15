@@ -17,7 +17,7 @@ const PORT = 8000;
 
 // Middleware setup
 // app.options('*', cors()); // Enable pre-flight for all routes
-app.use(cors({ origin : 'https://finvest-2.vercel.app/', credentials: true })); //In production localhost has to be changed to the frontend url
+app.use(cors({ origin : 'https://finvest-2.vercel.app', credentials: true })); //In production localhost has to be changed to the frontend url
 
 app.use(cookieParser())
 app.use(bodyParser.json({ extended: true }));
