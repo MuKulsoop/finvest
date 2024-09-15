@@ -5,6 +5,7 @@ import { upload } from "../middleware/multer.js";
 import { createProject, getProjectById, getAllProjects } from "../controllers/Project.controller.js";
 import { createPost, getPosts, likePost, sharePost, addComment, deletePost } from "../controllers/Post.controller.js";
 import { generateAiContent } from "../controllers/GenAI.controller.js";
+import { createTransaction } from "../controllers/transaction.controller.js";
 
 const router = express.Router();
 
@@ -30,5 +31,12 @@ router.delete('/posts/:postId', deletePost); // Delete a post
 
 //  POST route for generating content
 router.post('/generate-content', generateAiContent);
+
+//Transaction routes
+router.post('/transactions', createTransaction);
+
+// router.put('/transactions/status', updateTransactionStatus);
+
+// router.get('/transactions/project/:projectId', getTransactionsByProject);
 
 export default router;

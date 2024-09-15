@@ -108,9 +108,9 @@ function PostProject() {
 
     try {
       // Create the project on the blockchain first
-    //   console.log("Creating project on blockchain...")
-    //   const transactionHash = await createProjectOnBlockchain(signer, amountInWei, blockchainMilestones);
-    //   console.log('Project created on blockchain with hash:', transactionHash);
+      console.log("Creating project on blockchain...")
+      const transactionHash = await createProjectOnBlockchain(signer, amountInWei, blockchainMilestones);
+      console.log('Project created on blockchain with hash:', transactionHash);
 
       // After blockchain success, proceed to backend
       const data = new FormData();

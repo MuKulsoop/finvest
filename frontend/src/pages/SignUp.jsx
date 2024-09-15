@@ -49,13 +49,15 @@ export function SignUp() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData),
-                credentials: 'include'
             });
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
             }
             const data = await response.json();
             console.log('Signup successful', data);
+            // Store tokens in local storage
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
 
             navigate('/settings');
         } catch (error) {
