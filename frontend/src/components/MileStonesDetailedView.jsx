@@ -38,7 +38,7 @@ const MilestoneDetailedView = () => {
   useEffect(() => {
 
     const urls = [
-      // `https://finvest-backend.onrender.com/project/${projectId}`,
+      `https://finvest-backend.onrender.com/project/${projectId}`,
       `http://localhost:8000/project/${projectId}`,
       '/projects.json'
   ];

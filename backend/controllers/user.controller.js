@@ -33,20 +33,20 @@ export const signup = async (req, res) => {
         await newUser.save();
 
         // Set cookies for tokens
-        res.cookie('accessToken', accessToken, {
-            httpOnly: true,
-            // secure: true,
-            maxAge: 15 * 60 * 1000, // 15 minutes
-        });
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            // secure: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-        });
+        // res.cookie('accessToken', accessToken, {
+        //     httpOnly: true,
+        //     // secure: true,
+        //     maxAge: 15 * 60 * 1000, // 15 minutes
+        // });
+        // res.cookie('refreshToken', refreshToken, {
+        //     httpOnly: true,
+        //     // secure: true,
+        //     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        // });
 
         
 
-        res.status(201).json({ user: newUser });
+        res.status(201).json({ user: newUser, accessToken, refreshToken });
     } catch (error) {
         res.status(500).json({ message: 'Error signing up user', error });
     }
@@ -70,18 +70,18 @@ export const login = async (req, res) => {
         user.refreshToken = refreshToken;
         await user.save();
 
-        res.cookie('accessToken', accessToken, {
-            httpOnly: true,
-            // secure: true,
-            maxAge: 15 * 60 * 1000,
-        });
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            // secure: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-        });
+        // res.cookie('accessToken', accessToken, {
+        //     httpOnly: true,
+        //     // secure: true,
+        //     maxAge: 15 * 60 * 1000,
+        // });
+        // res.cookie('refreshToken', refreshToken, {
+        //     httpOnly: true,
+        //     // secure: true,
+        //     maxAge: 7 * 24 * 60 * 60 * 1000,
+        // });
 
-        res.status(200).json({ user });
+        res.status(200).json({ user, accessToken, refreshToken });
     } catch (error) {
         res.status(500).json({ message: 'Error logging in user', error });
     }
@@ -115,16 +115,16 @@ export const refreshToken = async (req, res) => {
             user.refreshToken = newRefreshToken;
             await user.save();
 
-            res.cookie('accessToken', accessToken, {
-                httpOnly: true,
-                // secure: true,
-                maxAge: 15 * 60 * 1000,
-            });
-            res.cookie('refreshToken', newRefreshToken, {
-                httpOnly: true,
-                // secure: true,
-                maxAge: 7 * 24 * 60 * 60 * 1000,
-            });
+            // res.cookie('accessToken', accessToken, {
+            //     httpOnly: true,
+            //     // secure: true,
+            //     maxAge: 15 * 60 * 1000,
+            // });
+            // res.cookie('refreshToken', newRefreshToken, {
+            //     httpOnly: true,
+            //     // secure: true,
+            //     maxAge: 7 * 24 * 60 * 60 * 1000,
+            // });
 
             res.status(200).json({ accessToken, refreshToken: newRefreshToken });
         });
@@ -137,16 +137,16 @@ export const refreshToken = async (req, res) => {
 // User logout
 export const logout = async (req, res) => {
     try {
-        // Retrieve the refresh token from cookies
-        const { refreshToken } = req.cookies;
-        
+        // Extract the refresh token from request body
+        const { refreshToken } = req.body;  // Ensure this matches the request format
+
         if (!refreshToken) {
             return res.status(400).json({ message: 'Refresh token not provided' });
         }
 
         // Find the user associated with the refresh token
         const user = await User.findOne({ refreshToken });
-        
+
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -155,10 +155,6 @@ export const logout = async (req, res) => {
         user.accessToken = null;
         user.refreshToken = null;
         await user.save();
-
-        // Clear tokens from cookies
-        res.cookie('accessToken', '', { httpOnly: true, expires: new Date(0) });
-        res.cookie('refreshToken', '', { httpOnly: true, expires: new Date(0) });
 
         res.status(200).json({ message: 'Logged out successfully' });
     } catch (error) {
