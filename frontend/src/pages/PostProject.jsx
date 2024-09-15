@@ -200,9 +200,9 @@ function PostProject() {
       //   data.append("milestones", JSON.stringify(formData.milestones));
 
       // data.append('blockchainHash', transactionHash); // Pass the blockchain transaction hash
-      // http://localhost:8000/login
+      // http://localhost:8000/project/create
       // https://finvest-backend.onrender.com/project/create
-      const response = await fetch("http://localhost:8000/project/create", {
+      const response = await fetch("https://finvest-backend.onrender.com/project/create", {
         method: "POST",
         body: data,
         headers: {},
