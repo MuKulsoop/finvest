@@ -9,12 +9,24 @@ export const generateAiContent = async (req, res) => {
     const { prompt } = req.body; // Extract the prompt from the request body
 
     try {
-        if (!prompt || prompt.trim() === "") {
+        // Check if prompt is an object and not a string
+        let promptString;
+        if (typeof prompt === 'string') {
+            promptString = prompt;
+        } else if (typeof prompt === 'object') {
+            // Convert the object fields to a meaningful string prompt
+            promptString = `Title: ${prompt.title || ''}, Description: ${prompt.description || ''}, Milestones: ${prompt.milestones ? prompt.milestones.map(m => `Title: ${m.title}, Description: ${m.description}, Completion Date: ${m.completionDate}, Amount: ${m.amountRequired}`).join('; ') : ''}`;
+        } else {
+            return res.status(400).json({ message: "Invalid prompt format." });
+        }
+
+        // Check if promptString is empty after trimming
+        if (!promptString.trim()) {
             return res.status(400).json({ message: "Prompt is required." });
         }
 
-        // Call the function to generate content
-        const aiResponse = await generateContent(prompt);
+        // Call the function to generate content using the formatted promptString
+        const aiResponse = await generateContent(promptString);
 
         // Send the AI-generated content back to the client
         res.status(200).json({ content: aiResponse });

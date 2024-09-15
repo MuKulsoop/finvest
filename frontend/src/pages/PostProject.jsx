@@ -17,6 +17,7 @@ import UserProfileIcon from "@/components/ui/UserProfileIcon";
 import { WalletContext } from "@/context/WalletContext";
 import { createProjectOnBlockchain } from "@/utils/blockchainUtils";
 import { ethers } from "ethers";
+import { GenAILoader } from '@/components/GenAILoader';
 
 function PostProject() {
   const navigate = useNavigate();
@@ -34,6 +35,8 @@ function PostProject() {
   });
   const [milestoneCount, setMilestoneCount] = useState(2);
   const { signer, connectWallet } = useContext(WalletContext);
+  const [loading, setLoading] = useState(false);
+  const [generating, setGenerating] = useState(false);
   const categories = [
     "Art & Culture",
     "Community",
@@ -48,6 +51,68 @@ function PostProject() {
     "Charity",
     "Technology",
   ];
+
+  const generateContent = async () => {
+    setGenerating(true);
+    const urls = [
+      'https://finvest-backend.onrender.com/generate-content',
+      'http://localhost:8000/generate-content',
+    ];
+
+    const generateFromURL = async (url) => {
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            prompt: {
+              title: formData.title,
+              description: formData.description,
+              amountNeeded: formData.amountNeeded,
+              minDonation: formData.minDonation,
+              category: formData.category,
+              milestones: formData.milestones,
+            },
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        return await response.json();
+      } catch (error) {
+        console.error(`Error generating content from ${url}:`, error);
+        throw error;
+      }
+    };
+
+    for (let url of urls) {
+      try {
+        const result = await generateFromURL(url);
+
+        // Update the form data with the generated content
+        setFormData({
+          ...formData,
+          title: result.title || formData.title,
+          description: result.description || formData.description,
+          amountNeeded: result.amountNeeded || formData.amountNeeded,
+          minDonation: result.minDonation || formData.minDonation,
+          category: result.category || formData.category,
+          milestones: result.milestones.length > 0 ? result.milestones : formData.milestones,
+        });
+
+        break;
+      } catch (error) {
+        console.error(`Attempt to generate content from ${url} failed.`);
+      }
+    }
+
+    setGenerating(false);
+  };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -91,7 +156,7 @@ function PostProject() {
     const ethToUsdRate = 2410.28; // 1 ETH = 2410.28 USD
     console.log(signer);
     if (!signer) {
-        await connectWallet();
+      await connectWallet();
     }
 
     const amountInEth = formData.amountNeeded / ethToUsdRate; // Convert USD to ETH
@@ -100,16 +165,18 @@ function PostProject() {
 
     // Prepare milestones for blockchain interaction
     const blockchainMilestones = formData.milestones.map((milestone) => ({
-        title: milestone.title,
-        amountRequired: ethers.utils.parseEther((milestone.amountRequired / ethToUsdRate).toString()), // Convert USD to Wei
-        recipient: '0xA5150981807ac926636be5713EF62A21DDC86f8C', // Placeholder, replace with actual recipient
-        isCompleted: false,
+      title: milestone.title,
+      amountRequired: ethers.utils.parseEther((milestone.amountRequired / ethToUsdRate).toString()), // Convert USD to Wei
+      recipient: '0xA5150981807ac926636be5713EF62A21DDC86f8C', // Placeholder, replace with actual recipient
+      isCompleted: false,
     }));
 
     try {
       // Create the project on the blockchain first
+      setLoading(true);
       console.log("Creating project on blockchain...")
       const transactionHash = await createProjectOnBlockchain(signer, amountInWei, blockchainMilestones);
+      setLoading(false)
       console.log('Project created on blockchain with hash:', transactionHash);
 
       // After blockchain success, proceed to backend
@@ -130,15 +197,15 @@ function PostProject() {
         amountRequired: milestone.amountRequired, // Keep as USD value for the backend
         upvotes: 0, // Placeholder, replace with dynamic data if needed
         downvotes: 0, // Placeholder, replace with dynamic data if needed
-    }));
+      }));
 
-    data.append('milestones', JSON.stringify(backendMilestones));
-    //   data.append("milestones", JSON.stringify(formData.milestones));
-      
+      data.append('milestones', JSON.stringify(backendMilestones));
+      //   data.append("milestones", JSON.stringify(formData.milestones));
+
       // data.append('blockchainHash', transactionHash); // Pass the blockchain transaction hash
-      // http://localhost:8000/login
+      // http://localhost:8000/project/create
       // https://finvest-backend.onrender.com/project/create
-      const response = await fetch("http://localhost:8000/project/create", {
+      const response = await fetch("https://finvest-backend.onrender.com/project/create", {
         method: "POST",
         body: data,
         headers: {},
@@ -167,7 +234,7 @@ function PostProject() {
   return (
     <div className="flex min-h-screen w-full">
       <div className="flex-1 sm:py-3 sm:pl-14 bg-[#05140D] overflow-hidden">
-        <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-[#05140D] border-b border-gray-400">
+        <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-[#05140D] border-b border-gray-700">
           <Sidebar />
           <FadeIn direction="down" delay={0.2} fullWidth>
             <h1 className="md:text-4xl text-2xl font-semibold text-left text-white w-full px-4 md:px-3 z-[5] line-clamp-1">
@@ -226,14 +293,33 @@ function PostProject() {
                       required
                       className="w-full border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 focus:outline-none text-xl text-white placeholder:text-gray-100 "
                     />
-                    <Textarea
-                      name="description"
-                      value={formData.description}
-                      onChange={handleChange}
-                      placeholder="Project Description"
-                      required
-                      className="w-full border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 text-white placeholder:text-gray-100"
-                    />
+
+                    <div className="relative w-full">
+                      <Textarea
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        placeholder="Project Description"
+                        required
+                        className="w-full border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 text-white placeholder:text-gray-100"
+                      />
+                      <div
+                        className="absolute top-0 right-0 group bg-[#05140D] rounded-full cursor-pointer"
+                        onClick={generateContent}
+                      >
+                        <div className="p-2 rounded-full flex items-center justify-center transition-all duration-300 transform group-hover:w-auto group-hover:px-6 relative">
+                          <img
+                            src="https://res.cloudinary.com/djoebsejh/image/upload/v1726344043/kwl6ckz2ucvyc9f68blg.png"
+                            alt="Gemini Logo"
+                            className="h-8 w-8"
+                          />
+                          <span className="ml-2 text-white hidden group-hover:flex opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                            Generate with AI
+                          </span>
+                        </div>
+                      </div>
+
+                    </div>
                     <Input
                       type="number"
                       name="amountNeeded"
@@ -304,11 +390,10 @@ function PostProject() {
                           <div key={index} className="flex flex-col space-y-2">
                             <div className="flex flex-row items-center gap-4 space-x-1">
                               <div
-                                className={`ml-[1px] h-5 w-6 z-[5] rounded-full ${
-                                  formData.milestones[index]?.title
-                                    ? "bg-[#26925e]"
-                                    : "bg-gray-300"
-                                }`}
+                                className={`ml-[1px] h-5 w-6 z-[5] rounded-full ${formData.milestones[index]?.title
+                                  ? "bg-[#26925e]"
+                                  : "bg-gray-300"
+                                  }`}
                               />
                               <div className="flex flex-col w-full space-y-2 mb-4">
                                 <Input
@@ -333,9 +418,8 @@ function PostProject() {
                                   onChange={(e) =>
                                     handleMilestoneChange(e, index)
                                   }
-                                  placeholder={`Milestone ${
-                                    index + 1
-                                  } Description`}
+                                  placeholder={`Milestone ${index + 1
+                                    } Description`}
                                   className="w-full border-0 border-b border-gray-500 bg-[#1A3A2C] focus:ring-0 text-white placeholder:text-gray-100"
                                   required
                                 />
@@ -373,6 +457,11 @@ function PostProject() {
                       )}
                     </div>
                   </div>
+                  {loading && (
+                    <div className="relative w-full h-full flex items-center justify-center">
+                      <GenAILoader /> 
+                    </div>
+                  )}
                   <Button
                     type="submit"
                     className="w-full mt-5 bg-[#2FB574] text-white py-2 rounded-[30px] hover:bg-[#26925e]"
