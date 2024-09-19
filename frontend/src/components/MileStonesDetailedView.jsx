@@ -9,20 +9,21 @@ import { Button } from "@/components/ui/button";
 import UserProfileIcon from './ui/UserProfileIcon';
 import { Link } from 'react-router-dom';
 import { PieChart, Pie, Cell, Label, Sector } from 'recharts';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { GenAILoader } from '@/components/GenAILoader';
 
 const fetchProjectData = async (urls) => {
   for (const url of urls) {
-      try {
-          const response = await fetch(url);
-          if (!response.ok) {
-              throw new Error('Network response was not ok');
-          }
-          const data = await response.json();
-          return data;
-      } catch (error) {
-          console.error(`Error fetching project data from ${url}:`, error);
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(`Error fetching project data from ${url}:`, error);
+    }
   }
   throw new Error('All fetch attempts failed');
 };
@@ -41,18 +42,18 @@ const MilestoneDetailedView = () => {
       `https://finvest-backend.onrender.com/project/${projectId}`,
       `http://localhost:8000/project/${projectId}`,
       '/projects.json'
-  ];
+    ];
 
     // Fetch project data
     const fetchData = async () => {
       try {
-          const data = await fetchProjectData(urls);
-          setProject(data);
+        const data = await fetchProjectData(urls);
+        setProject(data);
       } catch (error) {
-          console.error('Failed to fetch project data from all sources:', error);
+        console.error('Failed to fetch project data from all sources:', error);
       }
-  };
-  fetchData();
+    };
+    fetchData();
     // // Fetch community feedback
     // fetch('/feedback.json')
     //   .then(response => response.json())
@@ -104,17 +105,15 @@ const MilestoneDetailedView = () => {
   };
 
   const handleFeedbackSubmit = () => {
-    // Update feedback data with new feedback
     const updatedFeedback = [...feedback, { user: "Anonymous", feedback: newFeedback }];
     setFeedback(updatedFeedback);
     setNewFeedback('');
-    // You may want to send this feedback to a server or local storage here
   };
 
   if (!project) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="text-gray-600">Loading...</div>
+      <div className="relative w-full h-full flex items-center justify-center bg-[#05140D]">
+        <GenAILoader />
       </div>
     );
   }
@@ -126,16 +125,15 @@ const MilestoneDetailedView = () => {
     const positivePercentage = totalVotes === 0 ? 50 : ((milestone.upvotes || 0) / totalVotes) * 100;
     const negativePercentage = totalVotes === 0 ? 50 : ((milestone.downvotes || 0) / totalVotes) * 100;
 
-    // Adjust the chart data based on the displayType
     if (displayType === 'downvote') {
       return [
-        { name: 'Positive', value: positivePercentage, fill: '#0c2f1f' }, // Dark green
-        { name: 'Negative', value: negativePercentage, fill: '#2FB574' }, // Green
+        { name: 'Positive', value: positivePercentage, fill: '#0c2f1f' }, 
+        { name: 'Negative', value: negativePercentage, fill: '#2FB574' },
       ];
     } else {
       return [
-        { name: 'Positive', value: negativePercentage, fill: '#0c2f1f' }, // Dark green
-        { name: 'Negative', value: positivePercentage, fill: '#2FB574' }, // Green
+        { name: 'Positive', value: negativePercentage, fill: '#0c2f1f' }, 
+        { name: 'Negative', value: positivePercentage, fill: '#2FB574' },
       ];
     }
   };
@@ -146,7 +144,7 @@ const MilestoneDetailedView = () => {
         <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 bg-[#05140D] border-b border-gray-700">
           <Sidebar />
           <FadeIn direction="down" delay={0} fullWidth>
-            <h1 className="text-2xl md:text-4xl font-semibold text-left text-white w-full px-4 md:px-3 line-clamp-1">
+            <h1 className="text-2xl md:text-4xl font-semibold text-left text-white w-full px-2 md:px-3 line-clamp-1">
               {project.title}
             </h1>
           </FadeIn>
@@ -171,10 +169,10 @@ const MilestoneDetailedView = () => {
                 <p className="mt-2 text-gray-300">{milestone.description}</p>
                 <p className="mt-2 text-gray-300">Completion Date: {milestone.completionDate}</p>
                 <p className="mt-2 text-gray-300">Amount Required: {milestone.amountRequired}</p>
-                <Button variant="outline" className="flex items-center gap-2 mt-3 text-[#2FB574] border-[#2FB574] bg-[#05140D] hover:bg-[#2FB574] hover:text-white hover:border-[#2FB574] mr-4">
-                Withdraw
-                <ChevronRight className="h-5 w-5" />
-              </Button>
+                <Button variant="outline" className="px-4 py-2 bg-[#0c2f1f] hover:bg-[#0c2f1f] border-0 mt-4 text-white rounded-md transition-colors duration-300 mr-4">
+                  Withdraw
+                  <ChevronRight className="h-5 w-5" />
+                </Button>
               </div>
               <div className="flex-1 flex flex-col items-center mt-4 sm:mt-0 sm:ml-4">
                 <div className="w-full flex items-center justify-center text-white">

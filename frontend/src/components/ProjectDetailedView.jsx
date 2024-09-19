@@ -195,9 +195,8 @@ const ProjectDetailedView = ({ handleUpvote = () => {}, userUpvotes = {} }) => {
                   onClick={() => handleUpvote(project?.id)}
                 >
                   <ArrowBigUpDash
-                    className={`h-6 w-6 ${
-                      userUpvotes[project.id] ? "text-[#2FB574]" : "text-white"
-                    } transition-colors`}
+                    className={`h-6 w-6 ${userUpvotes[project.id] ? "text-[#2FB574]" : "text-white"
+                      } transition-colors`}
                   />
                   {project.upvotes > 0 && (
                     <span className="ml-1 text-xs font-semibold text-white">
@@ -224,11 +223,10 @@ const ProjectDetailedView = ({ handleUpvote = () => {}, userUpvotes = {} }) => {
                           className="flex items-center gap-3 cursor-pointer"
                         >
                           <div
-                            className={`h-5 w-5 z-[5] rounded-full ${
-                              index < project.milestones.length
+                            className={`h-5 w-5 z-[5] rounded-full ${index < project.milestones.length
                                 ? "bg-green-300"
                                 : "bg-green-300"
-                            }`}
+                              }`}
                           />
                           <p className="text-gray-100">{milestone.title}</p>
                         </Link>
@@ -288,49 +286,58 @@ const ProjectDetailedView = ({ handleUpvote = () => {}, userUpvotes = {} }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {currentContributions.map((contribution) => (
-                <TableRow className="hover:bg-[#2C5440] transition-colors">
-                  <TableCell className="flex items-center gap-3">
-                    <Avatar className="h-10 w-10">
-                      <AvatarImage
-                        src={contribution.avatar}
-                        alt={contribution.donor}
-                      />
-                      <AvatarFallback>
-                        {contribution?.donor
-                          ? contribution.donor.charAt(0)
-                          : "N/A"}
-                      </AvatarFallback>
-                    </Avatar>
-                    <span className="text-gray-100">{contribution.donor}</span>
-                  </TableCell>
-                  <TableCell className="text-gray-100">
-                    {new Date(contribution.donatedAt).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell className="flex items-center gap-2 text-gray-100">
-                    <Avatar className="h-10 w-10">
-                      <AvatarImage
-                        src={
-                          networkLogos[contribution.network] ||
-                          "default-network-logo-url.jpg"
-                        }
-                        alt={contribution.network}
-                      />
-                      <AvatarFallback>
-                        {contribution.network.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <span>{contribution.network}</span>
-                  </TableCell>
-                  <TableCell className="text-gray-100">
-                    {contribution.amount}
-                  </TableCell>
-                  <TableCell className="text-right text-gray-100">
-                    ${contribution.usdValue}
+              {currentContributions.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={5} className="text-center text-gray-100 py-4">
+                    No contributions yet
                   </TableCell>
                 </TableRow>
-              ))}
+              ) : (
+                currentContributions.map((contribution) => (
+                  <TableRow key={contribution.id} className="hover:bg-[#2C5440] transition-colors">
+                    <TableCell className="flex items-center gap-3">
+                      <Avatar className="h-10 w-10">
+                        <AvatarImage
+                          src={contribution.avatar}
+                          alt={contribution.donor}
+                        />
+                        <AvatarFallback>
+                          {contribution?.donor
+                            ? contribution.donor.charAt(0)
+                            : "N/A"}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="text-gray-100">{contribution.donor}</span>
+                    </TableCell>
+                    <TableCell className="text-gray-100">
+                      {new Date(contribution.donatedAt).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell className="flex items-center gap-2 text-gray-100">
+                      <Avatar className="h-10 w-10">
+                        <AvatarImage
+                          src={
+                            networkLogos[contribution.network] ||
+                            "default-network-logo-url.jpg"
+                          }
+                          alt={contribution.network}
+                        />
+                        <AvatarFallback>
+                          {contribution.network.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span>{contribution.network}</span>
+                    </TableCell>
+                    <TableCell className="text-gray-100">
+                      {contribution.amount}
+                    </TableCell>
+                    <TableCell className="text-right text-gray-100">
+                      ${contribution.usdValue}
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
+
           </Table>
 
           <div className="flex justify-center mt-4">

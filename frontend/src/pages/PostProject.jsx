@@ -309,8 +309,8 @@ function PostProject() {
                       >
                         <div className="p-2 rounded-full flex items-center justify-center transition-all duration-300 transform group-hover:w-auto group-hover:px-6 relative">
                           <img
-                            src="https://res.cloudinary.com/djoebsejh/image/upload/v1726344043/kwl6ckz2ucvyc9f68blg.png"
-                            alt="Gemini Logo"
+                            src="https://res.cloudinary.com/djoebsejh/image/upload/v1726770404/hv6zuuvecriwco3tkdjf.png"
+                            alt="Genrate"
                             className="h-8 w-8"
                           />
                           <span className="ml-2 text-white hidden group-hover:flex opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
