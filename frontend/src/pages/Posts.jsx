@@ -4,7 +4,7 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { HeartIcon, ShareIcon, Search, MessageCircle, Send, PlusCircle } from 'lucide-react';
+import { HeartIcon, Share2, Search, MessageCircle, Send, PlusCircle } from 'lucide-react';
 import Sidebar from '@/components/Sidebar';
 import FadeIn from '@/components/FadeIn';
 import UserProfileIcon from '@/components/ui/UserProfileIcon';
@@ -140,7 +140,7 @@ function PostsPage() {
                                                 </Button>
 
                                                 <Button variant="ghost" className="flex items-center gap-1 text-gray-400 mb-0">
-                                                    <ShareIcon className="w-5 h-5" />
+                                                    <Share2 className="w-5 h-5" />
                                                     {post.shares}
                                                 </Button>
                                                 <Button variant="ghost" className="flex items-center gap-1 text-gray-400 mb-0">

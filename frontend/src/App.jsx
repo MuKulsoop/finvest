@@ -46,7 +46,6 @@ function App() {
             <Route path='/dashboard' exact element={<Dashboard />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:projectId" element={<ProjectDetailedView projects={projectsData} />} />
-            {/* <Route path="/projects/:projectId/milestones" element={<MilestoneDetailedView />} /> */}
             <Route path="/projects/milestones/:projectId" element={<MilestoneDetailedView />} />
             <Route path="/projects/post-project" element={<PostProject />} />
             <Route path="settings" element={<Setting />} />
