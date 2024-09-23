@@ -16,8 +16,9 @@ const UserProfileIcon = () => {
 
   // Fetch user data from localStorage
   const data = JSON.parse(localStorage.getItem('user')) || {};
-  // console.log(data)
-  const username = data.user.name || "Guest";
+  
+  // Ensure data.user exists before accessing name
+  const username = data?.user?.name || "Guest";
   const baseURL = localStorage.getItem('baseURL') || "http://localhost:8000"; // Use hosted URL if available
 
   const handleLogout = async () => {
