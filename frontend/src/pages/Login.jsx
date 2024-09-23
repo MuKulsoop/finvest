@@ -47,7 +47,7 @@ export function Login() {
             // Store tokens in local storage
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
-            localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('user', JSON.stringify(data));
 
 
             setFormData({

@@ -2,13 +2,7 @@ import { useState, useContext } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, } from "@/components/ui/select";
 import Sidebar from "@/components/Sidebar";
 import FadeIn from "@/components/FadeIn";
 import { Link, useNavigate } from "react-router-dom";
@@ -55,8 +49,8 @@ function PostProject() {
   const generateContent = async () => {
     setGenerating(true);
     const urls = [
-      'https://finvest-backend.onrender.com/generate-content',
-      'http://localhost:8000/generate-content',
+      'https://finvest-backend.onrender.com/generate-project-content',
+      'http://localhost:8000/generate-project-content',
     ];
 
     const generateFromURL = async (url) => {
@@ -67,7 +61,7 @@ function PostProject() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            prompt: {
+            promptData: {
               title: formData.title,
               description: formData.description,
               amountNeeded: formData.amountNeeded,
@@ -92,21 +86,31 @@ function PostProject() {
     for (let url of urls) {
       try {
         const result = await generateFromURL(url);
+        if (typeof result.content === 'string') {
+          let contentString = result.content;
+          contentString = contentString.replace(/```json|```/g, '').trim();
+          const parsedContent = JSON.parse(contentString.replace(/\\\"/g, '"'));
+          console.log('Parsed content:', parsedContent);
+          const generatedMilestones = Array.isArray(parsedContent.milestones) ? parsedContent.milestones : [];
+          const newMilestoneCount = Math.max(generatedMilestones.length, 2);
+          setFormData({
+            ...formData,
+            title: parsedContent.title,
+            description: parsedContent.description,
+            amountNeeded: parsedContent.amountNeeded,
+            minDonation: parsedContent.minDonation,
+            // category: parsedContent.category,
+            milestones: Array.isArray(parsedContent.milestones) && parsedContent.milestones.length > 0 ? parsedContent.milestones : formData.milestones,
+          });
+          setMilestoneCount(newMilestoneCount);
 
-        // Update the form data with the generated content
-        setFormData({
-          ...formData,
-          title: result.title || formData.title,
-          description: result.description || formData.description,
-          amountNeeded: result.amountNeeded || formData.amountNeeded,
-          minDonation: result.minDonation || formData.minDonation,
-          category: result.category || formData.category,
-          milestones: result.milestones.length > 0 ? result.milestones : formData.milestones,
-        });
-
-        break;
+        } else {
+          console.error('Content is not a string:', result.content);
+        }
       } catch (error) {
-        console.error(`Attempt to generate content from ${url} failed.`);
+        console.error(`Attempt to generate content from ${url} failed.`, error);
+      } finally {
+        // setGenerating(false);
       }
     }
 
@@ -128,17 +132,31 @@ function PostProject() {
 
   const handleMilestoneCountChange = (e) => {
     const count = parseInt(e.target.value, 10);
+
+    // Preserve existing milestones
+    const currentMilestones = formData.milestones;
+
+    if (count > currentMilestones.length) {
+      // Add empty milestones if the count is increased
+      const newMilestones = [
+        ...currentMilestones,
+        ...Array(count - currentMilestones.length).fill({
+          title: "",
+          description: "",
+          completionDate: "",
+          amountRequired: "",
+        }),
+      ];
+      setFormData({ ...formData, milestones: newMilestones });
+    } else {
+      // Truncate the array if the count is decreased
+      const truncatedMilestones = currentMilestones.slice(0, count);
+      setFormData({ ...formData, milestones: truncatedMilestones });
+    }
+
     setMilestoneCount(count);
-    const updatedMilestones = Array(count)
-      .fill(null)
-      .map(() => ({
-        title: "",
-        description: "",
-        completionDate: "",
-        amountRequired: "",
-      }));
-    setFormData({ ...formData, milestones: updatedMilestones });
   };
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -153,17 +171,15 @@ function PostProject() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const ethToUsdRate = 2410.28; // 1 ETH = 2410.28 USD
+    const ethToUsdRate = 2410.28;
     console.log(signer);
     if (!signer) {
       await connectWallet();
     }
 
-    const amountInEth = formData.amountNeeded / ethToUsdRate; // Convert USD to ETH
-    const amountInWei = ethers.utils.parseEther(amountInEth.toString()); // Convert ETH to Wei
+    const amountInEth = formData.amountNeeded / ethToUsdRate;
+    const amountInWei = ethers.utils.parseEther(amountInEth.toString());
 
-
-    // Prepare milestones for blockchain interaction
     const blockchainMilestones = formData.milestones.map((milestone) => ({
       title: milestone.title,
       amountRequired: ethers.utils.parseEther((milestone.amountRequired / ethToUsdRate).toString()), // Convert USD to Wei
@@ -172,14 +188,12 @@ function PostProject() {
     }));
 
     try {
-      // Create the project on the blockchain first
       setLoading(true);
       console.log("Creating project on blockchain...")
       const transactionHash = await createProjectOnBlockchain(signer, amountInWei, blockchainMilestones);
       setLoading(false)
       console.log('Project created on blockchain with hash:', transactionHash);
 
-      // After blockchain success, proceed to backend
       const data = new FormData();
       data.append("title", formData.title);
       data.append("description", formData.description);
@@ -201,7 +215,6 @@ function PostProject() {
 
       data.append('milestones', JSON.stringify(backendMilestones));
       //   data.append("milestones", JSON.stringify(formData.milestones));
-
       // data.append('blockchainHash', transactionHash); // Pass the blockchain transaction hash
       // http://localhost:8000/project/create
       // https://finvest-backend.onrender.com/project/create
@@ -230,6 +243,8 @@ function PostProject() {
   const totalMilestones = milestoneCount;
   const progressPercentage =
     totalMilestones > 0 ? (milestoneProgress / totalMilestones) * 100 : 0;
+
+
 
   return (
     <div className="flex min-h-screen w-full">
@@ -291,10 +306,12 @@ function PostProject() {
                       onChange={handleChange}
                       placeholder="Project Name"
                       required
-                      className="w-full border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 focus:outline-none text-xl text-white placeholder:text-gray-100 "
+                      className="w-full border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 focus:outline-none text-xl text-white placeholder:text-gray-100"
                     />
 
                     <div className="relative w-full">
+
+
                       <Textarea
                         name="description"
                         value={formData.description}
@@ -303,6 +320,7 @@ function PostProject() {
                         required
                         className="w-full border-0 border-b border-gray-500 bg-[#05140D] focus:ring-0 text-white placeholder:text-gray-100"
                       />
+
                       <div
                         className="absolute top-0 right-0 group bg-[#05140D] rounded-full cursor-pointer"
                         onClick={generateContent}
@@ -310,7 +328,7 @@ function PostProject() {
                         <div className="p-2 rounded-full flex items-center justify-center transition-all duration-300 transform group-hover:w-auto group-hover:px-6 relative">
                           <img
                             src="https://res.cloudinary.com/djoebsejh/image/upload/v1726770404/hv6zuuvecriwco3tkdjf.png"
-                            alt="Genrate"
+                            alt="Generate"
                             className="h-8 w-8"
                           />
                           <span className="ml-2 text-white hidden group-hover:flex opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
@@ -318,8 +336,8 @@ function PostProject() {
                           </span>
                         </div>
                       </div>
-
                     </div>
+
                     <Input
                       type="number"
                       name="amountNeeded"
@@ -364,6 +382,7 @@ function PostProject() {
                       </SelectContent>
                     </Select>
                   </div>
+
                 </div>
 
                 <div className="flex-2 min-w-[35%]">
@@ -399,27 +418,18 @@ function PostProject() {
                                 <Input
                                   type="text"
                                   name="title"
-                                  value={
-                                    formData.milestones[index]?.title || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleMilestoneChange(e, index)
-                                  }
+                                  value={formData.milestones[index]?.title || ""}
+                                  onChange={(e) => handleMilestoneChange(e, index)}
                                   placeholder={`Milestone ${index + 1} Title`}
                                   className="w-full border-0 border-b border-gray-500 bg-[#1A3A2C] focus:ring-0 text-white placeholder:text-gray-100"
                                   required
                                 />
+
                                 <Textarea
                                   name="description"
-                                  value={
-                                    formData.milestones[index]?.description ||
-                                    ""
-                                  }
-                                  onChange={(e) =>
-                                    handleMilestoneChange(e, index)
-                                  }
-                                  placeholder={`Milestone ${index + 1
-                                    } Description`}
+                                  value={formData.milestones[index]?.description || ""}
+                                  onChange={(e) => handleMilestoneChange(e, index)}
+                                  placeholder={`Milestone ${index + 1} Description`}
                                   className="w-full border-0 border-b border-gray-500 bg-[#1A3A2C] focus:ring-0 text-white placeholder:text-gray-100"
                                   required
                                 />
@@ -436,21 +446,18 @@ function PostProject() {
                                   className="w-full border-0 border-b border-gray-500 bg-[#1A3A2C] focus:ring-0 text-white placeholder:text-gray-100"
                                   required
                                 />
+
                                 <Input
                                   type="number"
                                   name="amountRequired"
-                                  value={
-                                    formData.milestones[index]
-                                      ?.amountRequired || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleMilestoneChange(e, index)
-                                  }
+                                  value={formData.milestones[index]?.amountRequired || ""}
+                                  onChange={(e) => handleMilestoneChange(e, index)}
                                   placeholder="Amount Required (In $)"
                                   className="w-full border-0 border-b border-gray-500 bg-[#1A3A2C] focus:ring-0 text-white placeholder:text-gray-100"
                                   required
                                 />
                               </div>
+
                             </div>
                           </div>
                         )
@@ -459,7 +466,12 @@ function PostProject() {
                   </div>
                   {loading && (
                     <div className="relative w-full h-full flex items-center justify-center">
-                      <GenAILoader /> 
+                      <GenAILoader />
+                    </div>
+                  )}
+                  {generating && (
+                    <div className="relative w-full h-full flex items-center justify-center">
+                      <GenAILoader />
                     </div>
                   )}
                   <Button
@@ -478,5 +490,4 @@ function PostProject() {
     </div>
   );
 }
-
 export default PostProject;
