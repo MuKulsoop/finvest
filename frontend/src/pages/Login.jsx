@@ -27,7 +27,7 @@ export function Login() {
         setError(null);
 
         try {
-            // 'https://finvest-backend.onrender.com/login'
+            // 'https://finvest-bub4.onrender.com/login'
             // http://localhost:8000/login
             const response = await fetch('http://localhost:8000/login', {
                 method: 'POST',
