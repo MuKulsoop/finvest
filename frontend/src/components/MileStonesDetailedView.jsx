@@ -1,7 +1,9 @@
 "use client";
-
+import { ethers } from 'ethers';
+import { getContract } from '@/utils/blockchainUtils';
+import { WalletContext } from '@/context/WalletContext';
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Sidebar from './Sidebar';
 import FadeIn from './FadeIn';
 import { ChevronRight, ArrowBigUpDash, ArrowBigDownDash } from "lucide-react";
@@ -35,7 +37,7 @@ const MilestoneDetailedView = () => {
   const [newFeedback, setNewFeedback] = useState('');
   const [displayType, setDisplayType] = useState('upvote'); // 'upvote' or 'downvote'
   const [votedMilestones, setVotedMilestones] = useState({}); // Track user votes
-
+  const { walletAddress, connectWallet, signer } = useContext(WalletContext);
   useEffect(() => {
 
     const urls = [
@@ -65,6 +67,25 @@ const MilestoneDetailedView = () => {
     setVotedMilestones(storedVotes);
   }, [projectId]);
 
+  
+  const handleWithdraw = async () => {
+        // setLoading(true);
+        // setError(null);
+        if (!walletAddress || !signer) {
+          await connectWallet();
+      }
+        console.log("Withdrawing Funds...")
+
+        try {
+            const contract = await getContract(signer);
+            const transaction = await contract.withdraw(projectId);
+            const receipt = await transaction.wait();
+            alert('Withdrawal successful!');
+        } catch (err) {
+            console.error("Withdrawal error:", err);
+            setError('Failed to withdraw funds. Please try again.');
+        } 
+      }
   const handleVote = (index, type) => {
     setProject(prevProject => {
       const updatedMilestones = [...prevProject.milestones];
@@ -169,7 +190,7 @@ const MilestoneDetailedView = () => {
                 <p className="mt-2 text-gray-300">{milestone.description}</p>
                 <p className="mt-2 text-gray-300">Completion Date: {milestone.completionDate}</p>
                 <p className="mt-2 text-gray-300">Amount Required: {milestone.amountRequired}</p>
-                <Button variant="outline" className="px-4 py-2 bg-[#0c2f1f] hover:bg-[#0c2f1f] border-0 mt-4 text-white rounded-md transition-colors duration-300 mr-4">
+                <Button variant="outline" className="px-4 py-2 bg-[#0c2f1f] hover:bg-[#0c2f1f] border-0 mt-4 text-white rounded-md transition-colors duration-300 mr-4" onClick={handleWithdraw}>
                   Withdraw
                   <ChevronRight className="h-5 w-5" />
                 </Button>

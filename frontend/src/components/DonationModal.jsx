@@ -91,8 +91,7 @@ const DonationModal = ({ isOpen, onClose, projectId }) => {
                     transactionHash,
                     network: "Ethereum",
                     status: "confirmed",
-                }),
-                credentials: 'include'
+                })
             });
 
             const data = await response.json();

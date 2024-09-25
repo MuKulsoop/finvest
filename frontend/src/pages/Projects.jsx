@@ -44,7 +44,6 @@ function Projects() {
         ];
         // Retrieve user data from local storage
         const userData = localStorage.getItem('user');
-        console.log('Raw userData:', userData); // Debugging line
 
         // Check if userData is not null or undefined
         if (userData) {

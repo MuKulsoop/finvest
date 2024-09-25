@@ -174,9 +174,7 @@ function PostProject() {
     e.preventDefault();
     const ethToUsdRate = 2410.28;
     console.log(signer);
-    if (!signer) {
-      await connectWallet();
-    }
+    
 
     const amountInEth = formData.amountNeeded / ethToUsdRate;
     const amountInWei = ethers.utils.parseEther(amountInEth.toString());
@@ -191,6 +189,9 @@ function PostProject() {
     try {
       setLoading(true);
       console.log("Creating project on blockchain...")
+      if (!signer) {
+        await connectWallet();
+      }
       const transactionHash = await createProjectOnBlockchain(signer, amountInWei, blockchainMilestones);
       setLoading(false)
       console.log('Project created on blockchain with hash:', transactionHash);
@@ -219,7 +220,8 @@ function PostProject() {
       // data.append('blockchainHash', transactionHash); // Pass the blockchain transaction hash
       // http://localhost:8000/project/create
       // https://finvest-backend.onrender.com/project/create
-      const response = await fetch("https://finvest-backend.onrender.com/project/create", {
+
+      const response = await fetch("http://localhost:8000/project/create", {
         method: "POST",
         body: data,
         headers: {},
