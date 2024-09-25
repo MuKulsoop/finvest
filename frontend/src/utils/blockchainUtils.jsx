@@ -14,6 +14,7 @@ export const getContract = async (signer) => {
 export const createProjectOnBlockchain = async (signer, totalAmount, milestones) => {
     try {
         const contract = await getContract(signer);
+        console.log(signer)
         const transaction = await contract.createProject(totalAmount, milestones);
         const txReceipt = await transaction.wait(); // Wait for transaction confirmation
         return txReceipt.transactionHash; // Return the transaction hash
@@ -27,6 +28,7 @@ export const createProjectOnBlockchain = async (signer, totalAmount, milestones)
 export const contributeToProject = async (signer, projectId, amount) => {
     try {
         const contract = await getContract(signer);
+
         const transaction = await contract.contribute(projectId, { value: ethers.utils.parseEther(amount) });
         const txReceipt = await transaction.wait(); // Wait for transaction confirmation
         return txReceipt.transactionHash; // Return the transaction hash
