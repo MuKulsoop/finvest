@@ -111,10 +111,21 @@ export function Dashboard() {
                 <FadeIn direction="up" delay={0.2} fullWidth>
                     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
                         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+                            <Card x-chunk="dashboard-01-chunk-3" className="bg-[#1A3A2C] text-white border-none shadow-none">
+                                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                    <CardTitle className="text-sm font-medium text-gray-300">Active Projects</CardTitle>
+                                    <Activity className="h-4 w-4 text-[#2FB574]" />
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="text-2xl font-bold">2</div>
+                                    <p className="text-xs text-gray-400">
+                                        +2 from last month                                    </p>
+                                </CardContent>
+                            </Card>
                             <Card x-chunk="dashboard-01-chunk-0" className="bg-[#1A3A2C] text-white border-none shadow-none">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                     <CardTitle className="text-sm font-medium text-gray-300">
-                                        Total Revenue
+                                        Funds Raised
                                     </CardTitle>
                                     <DollarSign className="h-4 w-4 text-[#2FB574]" />
                                 </CardHeader>
@@ -128,20 +139,20 @@ export function Dashboard() {
                             <Card x-chunk="dashboard-01-chunk-1" className="bg-[#1A3A2C] text-white border-none shadow-none">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                     <CardTitle className="text-sm font-medium text-gray-300">
-                                        Subscriptions
+                                        Investors
                                     </CardTitle>
                                     <Users className="h-4 w-4 text-[#2FB574]" />
                                 </CardHeader>
                                 <CardContent>
-                                    <div className="text-2xl font-bold">+2350</div>
+                                    <div className="text-2xl font-bold">+230</div>
                                     <p className="text-xs text-gray-400">
-                                        +180.1% from last month
+                                        +10.1% from last month
                                     </p>
                                 </CardContent>
                             </Card>
                             <Card x-chunk="dashboard-01-chunk-2" className="bg-[#1A3A2C] text-white border-none shadow-none">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium text-gray-300">Sales</CardTitle>
+                                    <CardTitle className="text-sm font-medium text-gray-300">Posts Engagement</CardTitle>
                                     <CreditCard className="h-4 w-4 text-[#2FB574]" />
                                 </CardHeader>
                                 <CardContent>
@@ -151,20 +162,73 @@ export function Dashboard() {
                                     </p>
                                 </CardContent>
                             </Card>
-                            <Card x-chunk="dashboard-01-chunk-3" className="bg-[#1A3A2C] text-white border-none shadow-none">
-                                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium text-gray-300">Active Projects</CardTitle>
-                                    <Activity className="h-4 w-4 text-[#2FB574]" />
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="text-2xl font-bold">2</div>
-                                    <p className="text-xs text-gray-400">
-                                        Currently active projects
-                                    </p>
-                                </CardContent>
-                            </Card>
+
                         </div>
                         <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
+                        <Card className="bg-[#1A3A2C] border-none shadow-none" x-chunk="dashboard-01-chunk-5">
+    <CardHeader>
+        <CardTitle className="text-gray-300">Recent Projects</CardTitle>
+    </CardHeader>
+    <CardContent className="grid gap-8">
+        {/* Dummy data for recent projects */}
+        <div className="flex items-center gap-4">
+            <Avatar className="hidden h-9 w-9 sm:flex">
+                <AvatarImage src="/avatars/project1.png" alt="Project Avatar" />
+                <AvatarFallback>PP</AvatarFallback>
+            </Avatar>
+            <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none text-white">Project Phoenix</p>
+                <p className="text-sm text-muted-foreground text-white">by Olivia Martin</p>
+            </div>
+            <div className="ml-auto font-medium text-white">+$50,000.00</div>
+        </div>
+        <div className="flex items-center gap-4">
+            <Avatar className="hidden h-9 w-9 sm:flex">
+                <AvatarImage src="/avatars/project2.png" alt="Project Avatar" />
+                <AvatarFallback>GS</AvatarFallback>
+            </Avatar>
+            <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none text-white">Green Start</p>
+                <p className="text-sm text-muted-foreground text-white">by Jackson Lee</p>
+            </div>
+            <div className="ml-auto font-medium text-white">+$10,000.00</div>
+        </div>
+        <div className="flex items-center gap-4">
+            <Avatar className="hidden h-9 w-9 sm:flex">
+                <AvatarImage src="/avatars/project3.png" alt="Project Avatar" />
+                <AvatarFallback>RS</AvatarFallback>
+            </Avatar>
+            <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none text-white">Renewable Solutions</p>
+                <p className="text-sm text-muted-foreground text-white">by Isabella Nguyen</p>
+            </div>
+            <div className="ml-auto font-medium text-white">+$25,000.00</div>
+        </div>
+        <div className="flex items-center gap-4">
+            <Avatar className="hidden h-9 w-9 sm:flex">
+                <AvatarImage src="/avatars/project4.png" alt="Project Avatar" />
+                <AvatarFallback>SE</AvatarFallback>
+            </Avatar>
+            <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none text-white">Solar Energy Initiative</p>
+                <p className="text-sm text-muted-foreground text-white">by William Kim</p>
+            </div>
+            <div className="ml-auto font-medium text-white">+$15,000.00</div>
+        </div>
+        <div className="flex items-center gap-4">
+            <Avatar className="hidden h-9 w-9 sm:flex">
+                <AvatarImage src="/avatars/project5.png" alt="Project Avatar" />
+                <AvatarFallback>WF</AvatarFallback>
+            </Avatar>
+            <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none text-white">Water for All</p>
+                <p className="text-sm text-muted-foreground text-white">by Sofia Davis</p>
+            </div>
+            <div className="ml-auto font-medium text-white">+$8,000.00</div>
+        </div>
+    </CardContent>
+</Card>
+
                             <Card
                                 className="xl:col-span-2 bg-[#1A3A2C] border-none shadow-none"
                                 x-chunk="dashboard-01-chunk-4"
@@ -173,7 +237,7 @@ export function Dashboard() {
                                     <div className="grid gap-2">
                                         <CardTitle className="text-gray-300">Transactions</CardTitle>
                                         <CardDescription className="text-gray-400">
-                                            Recent transactions from your store.
+                                            Recent transactions from your projects.
                                         </CardDescription>
                                     </div>
                                     <Button asChild size="sm" className="ml-auto gap-1 text-[#2FB574]">
@@ -187,128 +251,67 @@ export function Dashboard() {
                                     <Table className="bg-[#1A3A2C] text-white">
                                         <TableHeader>
                                             <TableRow className="hover:bg-[#2C5440]">
-                                                <TableHead className="text-gray-400">Customer</TableHead>
-                                                <TableHead className="hidden xl:table-column text-gray-400">Type</TableHead>
-                                                <TableHead className="hidden xl:table-column text-gray-400">Status</TableHead>
-                                                <TableHead className="hidden xl:table-column text-gray-400">Date</TableHead>
+                                                <TableHead className="text-gray-400">Project Name</TableHead>
+                                                <TableHead className="text-gray-400">Investor Name</TableHead>
+                                                <TableHead className="text-gray-400">Type</TableHead>
+                                                <TableHead className="text-gray-400">Date</TableHead>
                                                 <TableHead className="text-right text-gray-400">Amount</TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
                                             <TableRow className="hover:bg-[#2C5440]">
                                                 <TableCell>
+                                                    <div className="font-medium text-white">Green Energy Initiative</div>
+                                                </TableCell>
+                                                <TableCell>
                                                     <div className="font-medium text-white">Liam Johnson</div>
                                                     <div className="hidden text-sm text-gray-500 md:inline">liam@example.com</div>
                                                 </TableCell>
-                                                <TableCell className="hidden xl:table-column text-white">Sale</TableCell>
-                                                <TableCell className="hidden xl:table-column">
-                                                    <Badge className="text-xs text-white" variant="outline">Approved</Badge>
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column text-white">2023-06-23</TableCell>
-                                                <TableCell className="text-right text-white">$250.00</TableCell>
+                                                <TableCell className=" text-white">Investment</TableCell>
+                                                <TableCell className=" text-white">2023-09-15</TableCell>
+                                                <TableCell className="text-right text-white">$1,000.00</TableCell>
                                             </TableRow>
                                             <TableRow className="hover:bg-[#2C5440]">
+                                                <TableCell>
+                                                    <div className="font-medium text-white">Tech for Schools</div>
+                                                </TableCell>
                                                 <TableCell>
                                                     <div className="font-medium text-white">Olivia Smith</div>
                                                     <div className="hidden text-sm text-gray-500 md:inline">olivia@example.com</div>
                                                 </TableCell>
-                                                <TableCell className="hidden xl:table-column text-white">Refund</TableCell>
-                                                <TableCell className="hidden xl:table-column">
-                                                    <Badge className="text-xs text-white" variant="outline">Declined</Badge>
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column text-white">2023-06-24</TableCell>
-                                                <TableCell className="text-right text-white">$150.00</TableCell>
+                                                <TableCell className=" text-white">Donation</TableCell>
+                                                <TableCell className=" text-white">2023-09-14</TableCell>
+                                                <TableCell className="text-right text-white">$500.00</TableCell>
                                             </TableRow>
                                             <TableRow className="hover:bg-[#2C5440]">
+                                                <TableCell>
+                                                    <div className="font-medium text-white">Water Conservation Fund</div>
+                                                </TableCell>
                                                 <TableCell>
                                                     <div className="font-medium text-white">Noah Williams</div>
                                                     <div className="hidden text-sm text-gray-500 md:inline">noah@example.com</div>
                                                 </TableCell>
-                                                <TableCell className="hidden xl:table-column text-white">Subscription</TableCell>
-                                                <TableCell className="hidden xl:table-column">
-                                                    <Badge className="text-xs text-white" variant="outline">Approved</Badge>
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column text-white">2023-06-25</TableCell>
-                                                <TableCell className="text-right text-white">$350.00</TableCell>
+                                                <TableCell className=" text-white">Pledge</TableCell>
+                                                <TableCell className=" text-white">2023-09-13</TableCell>
+                                                <TableCell className="text-right text-white">$750.00</TableCell>
                                             </TableRow>
                                             <TableRow className="hover:bg-[#2C5440]">
+                                                <TableCell>
+                                                    <div className="font-medium text-white">Healthcare for All</div>
+                                                </TableCell>
                                                 <TableCell>
                                                     <div className="font-medium text-white">Emma Brown</div>
                                                     <div className="hidden text-sm text-gray-500 md:inline">emma@example.com</div>
                                                 </TableCell>
-                                                <TableCell className="hidden xl:table-column text-white">Sale</TableCell>
-                                                <TableCell className="hidden xl:table-column">
-                                                    <Badge className="text-xs text-white" variant="outline">Approved</Badge>
-                                                </TableCell>
-                                                <TableCell className="hidden md:table-cell lg:hidden xl:table-column text-white">2023-06-26</TableCell>
-                                                <TableCell className="text-right text-white">$450.00</TableCell>
+                                                <TableCell className=" text-white">Investment</TableCell>
+                                                <TableCell className=" text-white">2023-09-12</TableCell>
+                                                <TableCell className="text-right text-white">$2,000.00</TableCell>
                                             </TableRow>
                                         </TableBody>
                                     </Table>
                                 </CardContent>
                             </Card>
-                            <Card className="bg-[#1A3A2C] border-none shadow-none" x-chunk="dashboard-01-chunk-5">
-                                <CardHeader>
-                                    <CardTitle className="text-gray-300">Recent Sales</CardTitle>
-                                </CardHeader>
-                                <CardContent className="grid gap-8">
-                                    <div className="flex items-center gap-4">
-                                        <Avatar className="hidden h-9 w-9 sm:flex">
-                                            <AvatarImage src="/avatars/01.png" alt="Avatar" />
-                                            <AvatarFallback>OM</AvatarFallback>
-                                        </Avatar>
-                                        <div className="grid gap-1">
-                                            <p className="text-sm font-medium leading-none text-white">Olivia Martin</p>
-                                            <p className="text-sm text-muted-foreground text-white">olivia.martin@email.com</p>
-                                        </div>
-                                        <div className="ml-auto font-medium text-white">+$1,999.00</div>
-                                    </div>
-                                    <div className="flex items-center gap-4">
-                                        <Avatar className="hidden h-9 w-9 sm:flex">
-                                            <AvatarImage src="/avatars/02.png" alt="Avatar" />
-                                            <AvatarFallback>JL</AvatarFallback>
-                                        </Avatar>
-                                        <div className="grid gap-1">
-                                            <p className="text-sm font-medium leading-none text-white">Jackson Lee</p>
-                                            <p className="text-sm text-muted-foreground text-white">jackson.lee@email.com</p>
-                                        </div>
-                                        <div className="ml-auto font-medium text-white">+$39.00</div>
-                                    </div>
-                                    <div className="flex items-center gap-4">
-                                        <Avatar className="hidden h-9 w-9 sm:flex">
-                                            <AvatarImage src="/avatars/03.png" alt="Avatar" />
-                                            <AvatarFallback>IN</AvatarFallback>
-                                        </Avatar>
-                                        <div className="grid gap-1">
-                                            <p className="text-sm font-medium leading-none text-white">Isabella Nguyen</p>
-                                            <p className="text-sm text-muted-foreground text-white">isabella.nguyen@email.com</p>
-                                        </div>
-                                        <div className="ml-auto font-medium text-white">+$299.00</div>
-                                    </div>
-                                    <div className="flex items-center gap-4">
-                                        <Avatar className="hidden h-9 w-9 sm:flex">
-                                            <AvatarImage src="/avatars/04.png" alt="Avatar" />
-                                            <AvatarFallback>WK</AvatarFallback>
-                                        </Avatar>
-                                        <div className="grid gap-1">
-                                            <p className="text-sm font-medium leading-none text-white">William Kim</p>
-                                            <p className="text-sm text-muted-foreground text-white">will@email.com</p>
-                                        </div>
-                                        <div className="ml-auto font-medium text-white">+$99.00</div>
-                                    </div>
-                                    <div className="flex items-center gap-4">
-                                        <Avatar className="hidden h-9 w-9 sm:flex">
-                                            <AvatarImage src="/avatars/05.png" alt="Avatar" />
-                                            <AvatarFallback>SD</AvatarFallback>
-                                        </Avatar>
-                                        <div className="grid gap-1">
-                                            <p className="text-sm font-medium leading-none text-white">Sofia Davis</p>
-                                            <p className="text-sm text-muted-foreground text-white">sofia.davis@email.com</p>
-                                        </div>
-                                        <div className="ml-auto font-medium text-white">+$39.00</div>
-                                    </div>
-                                </CardContent>
-                            </Card>
+
                         </div>
                     </main>
                 </FadeIn>
