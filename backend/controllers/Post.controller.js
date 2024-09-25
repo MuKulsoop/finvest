@@ -1,20 +1,10 @@
 import Post from '../models/Post.model.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js'; // Import the Cloudinary utility
-
-// Create a new post with Cloudinary image upload
 import fetch from 'node-fetch'; // Ensure you have node-fetch installed
 
 export const createPost = async (req, res) => {
     try {
-        // Fetch random user data from the Random User API
-        const randomUserResponse = await fetch('https://randomuser.me/api/');
-        const randomUserData = await randomUserResponse.json();
-        const randomUser = randomUserData.results[0];
-
-        // Get random avatar and name from the API
-        const avatar = randomUser.picture.large; // Use the large version of the avatar
-        const name = `${randomUser.name.first} ${randomUser.name.last}`; // Combine first and last name
-
+        // Check for image in the request
         if (!req.file) {
             return res.status(400).json({ msg: 'Image file is required' });
         }
@@ -24,21 +14,25 @@ export const createPost = async (req, res) => {
         const cloudinaryResponse = await uploadOnCloudinary(imageFilePath);
         const imageUrl = cloudinaryResponse ? cloudinaryResponse.secure_url : '';
 
+        // Fetch name and avatar from the request body, falling back to user info if available
+        const name = req.body.name || req.user?.name || 'Guest';
+        const avatar = req.body.avatar || req.user?.profileImage || 'https://res.cloudinary.com/djoebsejh/image/upload/v1727181418/u6fshzccb1vhxk2bzopn.png';
+
         // Find the last post to determine the next ID
         const lastPost = await Post.findOne().sort({ id: -1 }).limit(1); // Get the last inserted post by ID
         const nextId = lastPost ? lastPost.id + 1 : 1; // If no post exists, start at 1
 
         // Create a new post with the next ID in series
         const post = new Post({
-            id: nextId, // Incremented sequential ID
-            avatar, // Randomly generated avatar URL
-            name, // Randomly generated name
-            image: imageUrl, // Store the Cloudinary image URL
-            description: req.body.description, // Use the description from the request body
-            date: new Date().toISOString(), // Add current date
-            likes: 0, // Initialize likes
-            shares: 0, // Initialize shares
-            comments: [], // Initialize comments
+            id: nextId, 
+            avatar: avatar, 
+            name: name,
+            image: imageUrl,
+            description: req.body.description,
+            date: new Date().toISOString(),
+            likes: 0, 
+            shares: 0, 
+            comments: [],
         });
 
         // Save the post to the database
@@ -50,7 +44,6 @@ export const createPost = async (req, res) => {
         return res.status(500).json({ error: 'Failed to create post' });
     }
 };
-
 
 
 // Get all posts

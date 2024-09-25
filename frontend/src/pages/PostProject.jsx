@@ -15,6 +15,7 @@ import { GenAILoader } from '@/components/GenAILoader';
 
 function PostProject() {
   const navigate = useNavigate();
+  const storedUser = JSON.parse(localStorage.getItem('user')) || {};
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -197,12 +198,12 @@ function PostProject() {
       const data = new FormData();
       data.append("title", formData.title);
       data.append("description", formData.description);
-      data.append("creator", "John Doe"); // Static value, replace with dynamic data
-      data.append("avatar", "https://randomuser.me/api/portraits/men/1.jpg"); // Static value, replace with dynamic data
+      data.append("creator", storedUser?.user?.name); 
+      data.append("avatar", storedUser?.user?.profileImage || ''); 
       data.append("image", formData.image);
-      data.append("amountRaised", "$0"); // Static value, replace with dynamic data if needed
-      data.append("contributors", 0); // Static value, replace with dynamic data if needed
-      data.append("upvotes", 0); // Static value, replace with dynamic data if needed
+      data.append("amountRaised", "$0"); 
+      data.append("contributors", 0); 
+      data.append("upvotes", 0); 
       data.append("minimumDonation", formData.minDonation);
       const backendMilestones = formData.milestones.map((milestone, index) => ({
         title: milestone.title,

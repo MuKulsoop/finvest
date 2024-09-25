@@ -6,15 +6,17 @@ import FadeIn from '@/components/FadeIn';
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronRight, Send } from 'lucide-react';
 import UserProfileIcon from '@/components/ui/UserProfileIcon';
-import { GenAILoader } from '@/components/GenAILoader';
+import { GenAILoader } from '@/components/GenAILoader'; // Assuming this is the loader component
 
 function NewPost() {
     const navigate = useNavigate();
+    const storedUser = JSON.parse(localStorage.getItem('user')) || {}; // Fetch user data
     const [formData, setFormData] = useState({
         content: '',
         image: null,
     });
     const [generating, setGenerating] = useState(false);
+    const [posting, setPosting] = useState(false); // New state for tracking post submission
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -73,6 +75,7 @@ function NewPost() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setPosting(true);
 
         const urls = [
             'https://finvest-backend.onrender.com/post/new-post',
@@ -82,6 +85,8 @@ function NewPost() {
         const data = new FormData();
         data.append('description', formData.content);
         data.append('image', formData.image);
+        data.append('name', storedUser?.user?.name || 'Guest'); 
+        data.append('avatar', storedUser?.user?.profileImage || ''); 
 
         const postToURL = async (url) => {
             try {
@@ -111,6 +116,8 @@ function NewPost() {
                 console.error(`Attempt to create post at ${url} failed.`);
             }
         }
+
+        setPosting(false);
     };
 
     return (
@@ -180,7 +187,6 @@ function NewPost() {
                                                 </span>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -189,8 +195,17 @@ function NewPost() {
                                     <GenAILoader />
                                 </div>
                             )}
-                            <Button type="submit" className="w-full mt-5 bg-[#2FB574] text-white py-2 rounded-[30px] hover:bg-[#26925e]">
-                                Publish Post
+                            {posting && (
+                                <div className="relative w-full h-full flex items-center justify-center">
+                                    <GenAILoader />
+                                </div>
+                            )}
+                            <Button 
+                                type="submit" 
+                                className="w-full mt-5 bg-[#2FB574] text-white py-2 rounded-[30px] hover:bg-[#26925e]" 
+                                disabled={posting} // Disable button while posting
+                            >
+                                {posting ? "Publishing..." : "Publish Post"}
                                 <Send className="h-5 w-5 mx-3" />
                             </Button>
                         </form>

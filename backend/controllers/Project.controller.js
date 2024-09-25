@@ -9,8 +9,6 @@ export const createProject = async (req, res) => {
         const {
             title,
             description,
-            creator,
-            avatar,
             amountRaised,
             contributors,
             upvotes,
@@ -20,6 +18,10 @@ export const createProject = async (req, res) => {
             contributions,
             category
         } = req.body;
+
+        // Fetch user details from req.user (set by authentication middleware)
+        const creator = req.body.name || req.user?.name || 'Anonymous'; 
+        const avatar = req.body.avatar || req.user?.profileImage || 'https://res.cloudinary.com/djoebsejh/image/upload/v1727181418/u6fshzccb1vhxk2bzopn.png';
 
         if (!req.file) {
             return res.status(400).json({ msg: 'Image file is required' });
@@ -49,8 +51,8 @@ export const createProject = async (req, res) => {
             id: newId,
             title,
             description,
-            creator,
-            avatar,
+            creator:creator,
+            avatar: avatar, 
             image: imageUrl,
             amountRaised,
             contributors,
@@ -71,6 +73,7 @@ export const createProject = async (req, res) => {
         return res.status(500).json({ msg: 'Server error' });
     }
 };
+
 
 // Get all projects
 export const getAllProjects = async (req, res) => {
