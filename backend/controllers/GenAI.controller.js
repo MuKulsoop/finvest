@@ -13,9 +13,6 @@ export const generateAiContent = async (req, res) => {
         let promptString;
         if (typeof prompt === 'string') {
             promptString = prompt;
-        } else if (typeof prompt === 'object') {
-            // Convert the object fields to a meaningful string prompt
-            promptString = `Title: ${prompt.title || ''}, Description: ${prompt.description || ''}, Milestones: ${prompt.milestones ? prompt.milestones.map(m => `Title: ${m.title}, Description: ${m.description}, Completion Date: ${m.completionDate}, Amount: ${m.amountRequired}`).join('; ') : ''}`;
         } else {
             return res.status(400).json({ message: "Invalid prompt format." });
         }

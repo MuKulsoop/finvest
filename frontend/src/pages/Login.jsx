@@ -29,7 +29,7 @@ export function Login() {
         try {
             // 'https://finvest-backend.onrender.com/login'
             // http://localhost:8000/login
-            const response = await fetch('https://finvest-backend.onrender.com/login', {
+            const response = await fetch('http://localhost:8000/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ export function Login() {
             // Store tokens in local storage
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
-            localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('user', JSON.stringify(data));
 
 
             setFormData({

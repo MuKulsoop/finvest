@@ -179,3 +179,37 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+/* Add custom hover effects for desktop screens */
+@media (min-width: 768px) {
+  .hover-effect {
+    transition: all 0.3s ease;
+  }
+  
+  .hover-effect:hover {
+    /* background-color: #2C5440;  */
+    color: #2FB574; 
+
+  }
+}
+
+.react-datepicker__input-container input {
+  background-color: #1A3A2C;
+  color: white;
+}
+
+.react-datepicker {
+  background-color: #1A3A2C;
+  border-color: #2C5440;
+}
+
+.react-datepicker__header {
+  background-color: #2C5440;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__current-month {
+  color: white;
+}

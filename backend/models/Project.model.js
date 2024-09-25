@@ -10,7 +10,7 @@ const milestoneSchema = new mongoose.Schema({
 });
 
 const communityFeedbackSchema = new mongoose.Schema({
-    user: String,
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },  // Reference to User model
     feedback: String
 });
 

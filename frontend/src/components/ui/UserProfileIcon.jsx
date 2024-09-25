@@ -11,68 +11,43 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-const UserProfileIcon = ({ username }) => {
+const UserProfileIcon = () => {
   const navigate = useNavigate();
+
+  // Fetch user data from localStorage
+  const data = JSON.parse(localStorage.getItem('user')) || {};
+  
+  // Ensure data.user exists before accessing name
+  const username = data?.user?.name || "Guest";
+  const baseURL = localStorage.getItem('baseURL') || "http://localhost:8000"; // Use hosted URL if available
 
   const handleLogout = async () => {
     try {
-        const refreshToken = localStorage.getItem('refreshToken'); // Or wherever you store the refresh token
+      const refreshToken = localStorage.getItem('refreshToken'); // Or wherever you store the refresh token
 
-        const response = await fetch('http://localhost:8000/logout', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ refreshToken }) // Send refresh token in request body
-        });
+      const response = await fetch(`${baseURL}/logout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ refreshToken }), // Send refresh token in request body
+      });
 
-        if (!response.ok) {
-            throw new Error('Logout failed');
-        }
+      if (!response.ok) {
+        throw new Error('Logout failed');
+      }
 
-        // Clear local storage
-        localStorage.removeItem('user');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('accessToken');
+      // Clear local storage
+      localStorage.removeItem('user');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('accessToken');
 
-        // Optionally, redirect the user or update the UI
-        window.location.href = '/login'; // Redirect to login page or home page
+      window.location.href = '/login';
     } catch (error) {
-        console.error('Error during logout:', error);
-    }
-};
-
-
-  const scrollToSection = (section) => {
-    const isSectionFilled = validateSection(section);
-    if (isSectionFilled) {
-      sectionRefs[section].current.scrollIntoView({ behavior: "smooth" });
+      console.error('Error during logout:', error);
     }
   };
-
-  const validateSection = (section) => {
-    switch (section) {
-      case "profile":
-        return (
-          formData.username &&
-          formData.bio &&
-          formData.contact &&
-          formData.category1
-        );
-      case "account":
-        return true;
-      case "support":
-        return true;
-      case "appearance":
-        return true;
-      case "notification":
-        return true;
-      default:
-        return false;
-    }
-  };
-
-  const handleSupportClick = () => {
+   const handleSupportClick = () => {
     navigate("/settings", { state: { scrollTo: "support" } });
   };
 
@@ -92,8 +67,7 @@ const UserProfileIcon = ({ username }) => {
         className="bg-[#10251C] border border-gray-700 text-white rounded-md shadow-lg"
       >
         <DropdownMenuLabel className="text-gray-400">
-          {/* {username} */}
-          Username
+          {username}
         </DropdownMenuLabel>
         <DropdownMenuSeparator className="border-gray-600" />
         <DropdownMenuItem>
